@@ -5,7 +5,7 @@ function SplashScreen() {
   return (
     <div className='container'>
       <p className='welcome-text'>Bienvenido</p>
-      <img src={logoDigui}></img>
+      <img className='logo' src={logoDigui}></img>
     </div>
   );
 }
