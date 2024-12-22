@@ -5,7 +5,7 @@ function App() {
     <>
       <SplashScreen></SplashScreen>
     </>
-  )
+  );
 }
 
 export default App
