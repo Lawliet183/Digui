@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import SplashScreen from './components/SplashScreen.jsx'
+import InfoScreen from './components/InfoScreen.jsx';
 
 let isInitialized = false;
 
@@ -17,7 +18,8 @@ function App() {
     }
   }, []);
   
-  let content = isVisible && <SplashScreen />
+  //let content = isVisible && <SplashScreen />
+  let content = isVisible ? <SplashScreen /> : <InfoScreen />
   
   return (
     <>
