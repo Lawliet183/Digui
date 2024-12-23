@@ -87,7 +87,7 @@ function InfoScreen() {
       />
       <BackgroundImage 
         src={triangle}
-        alt="Triangle Shape"
+        alt="Triangulo"
         style={{ bottom: '5%', right: '10%', width: '120px' }}
       />
       
