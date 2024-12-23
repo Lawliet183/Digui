@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import logoDigui from './../assets/images/SplashScreen/Logo DIGUI 2.1.svg';
 
+
 function SplashScreen() {
   return (
     <Container>
@@ -25,6 +26,7 @@ function SplashScreen() {
     </Container>
   );
 }
+
 
 // Definimos los componentes estilizados
 const Container = styled.div`
@@ -101,5 +103,6 @@ const Logo = styled(motion.img)`
     max-width: 25vw;
   }
 `;
+
 
 export default SplashScreen;

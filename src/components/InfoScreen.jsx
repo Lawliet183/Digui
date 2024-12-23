@@ -3,11 +3,13 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 // Images
+import circle from './../assets/images/circle.svg';
 import star from './../assets/images/star.svg';
 import triangle from './../assets/images/triangle.svg';
 import informacion from './../assets/images/InfoScreen/informacion.jpg';
 import mision from './../assets/images/InfoScreen/mision.jpg';
 import vision from './../assets/images/InfoScreen/vision.jpg';
+
 
 function InfoScreen() {
   const [index, setIndex] = useState(0); // What page number are we on? (aka index)
@@ -37,39 +39,86 @@ function InfoScreen() {
     }
   ]
   
+  // Generate the dots programatically
+  let dots = [];
+  for (let i = 0; i < info.length; i++) {
+    
+    // Activate the dot that corresponds to the current page
+    let isActive;
+    if (index === i) {
+      isActive = true;
+    } else {
+      isActive = false;
+    }
+    
+    // Whenever the dot is clicked, change the index to the corresponding page/button
+    // that was clicked
+    const handleDotClick = () => setIndex(i);
+    
+    // Add the dot
+    dots.push(
+      <Dot
+        key={i}
+        active={isActive} 
+        onClick={handleDotClick} 
+        whileHover={{ scale: 1.2 }}
+      />
+    );
+  }
+  
   // Whenever we click the next button, advance to the next page
   function handleNextButtonClick() {
-    if (index < 2) {
+    if (index < info.length - 1) {
       setIndex(index + 1);
     }
   }
   
-  function handleDotClick() {
-    
-  }
-  
   return (
     <Container>
+      <BackgroundImage 
+        src={circle}
+        alt="Circulo"
+        style={{ top: '5%', left: '80%', width: '150px' }}
+      />
+      <BackgroundImage 
+        src={star}
+        alt="Estrella"
+        style={{ top: '50%', left: '5%', width: '100px' }}
+      />
+      <BackgroundImage 
+        src={triangle}
+        alt="Triangle Shape"
+        style={{ bottom: '5%', right: '10%', width: '120px' }}
+      />
+      
       <ImageContainer>
-        <Image src={info[index].image}/>
+        <Image
+          key={info[index].image}
+          src={info[index].image}
+          initial="hidden"
+          animate="visible"
+          variants={imageVariants}
+        />
       </ImageContainer>
       
-      <TextContainer>
+      <TextContainer
+        key={info[index].title}
+        initial="hidden"
+        animate="visible"
+        variants={textVariants}
+      >
         <Title>{info[index].title}</Title>
         <Text>{info[index].text}</Text>
       </TextContainer>
       
-      <PaginationDots>
-        <Dot onClick={handleDotClick} />
-        <Dot />
-        <Dot />
-      </PaginationDots>
+      <PaginationDots>{dots}</PaginationDots>
       
       <NextButton onClick={handleNextButtonClick}>-&gt;</NextButton>
       
     </Container>
   )
 }
+
 
 // Estilos generales con fuentes aplicadas
 const Container = styled.div`
@@ -164,7 +213,7 @@ const Dot = styled(motion.div)`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: ${props => (props.active ? "#6b21a8" : "#ccc")};
+  background-color: ${props => (props.active ? "#6b21a8" : "#ccc")}; /* Cambiar el color del punto activo */
   margin: 0 8px;
   cursor: pointer;
 `;
@@ -184,7 +233,6 @@ const NextButton = styled.button`
   }
 `;
 
-
 // Animaciones para imágenes y textos
 const imageVariants = {
   hidden: { opacity: 0, scale: 0.8 },
@@ -195,5 +243,6 @@ const textVariants = {
   hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: 0.5 } },
 };
+
 
 export default InfoScreen;
