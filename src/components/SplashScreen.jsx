@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import logoDigui from './../assets/images/SplashScreen/Logo DIGUI 2.1.svg';
-//import './SplashScreen.css';
 
 function SplashScreen() {
   return (
