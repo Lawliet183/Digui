@@ -12,7 +12,7 @@ import vision from './../assets/images/InfoScreen/vision.jpg';
 
 
 function InfoScreen() {
-  const [index, setIndex] = useState(0); // What page number are we on? (aka index)
+  const [pageNumber, setPageNumber] = useState(0);
   
   // All of the pages info in one array of objects
   const info = [
@@ -45,15 +45,15 @@ function InfoScreen() {
     
     // Activate the dot that corresponds to the current page
     let isActive;
-    if (index === i) {
+    if (pageNumber === i) {
       isActive = true;
     } else {
       isActive = false;
     }
     
-    // Whenever the dot is clicked, change the index to the corresponding page/button
-    // that was clicked
-    const handleDotClick = () => setIndex(i);
+    // Whenever the dot is clicked, change the page number to the corresponding 
+    // page/button that was clicked
+    const handleDotClick = () => setPageNumber(i);
     
     // Add the dot
     dots.push(
@@ -68,8 +68,8 @@ function InfoScreen() {
   
   // Whenever we click the next button, advance to the next page
   function handleNextButtonClick() {
-    if (index < info.length - 1) {
-      setIndex(index + 1);
+    if (pageNumber < info.length - 1) {
+      setPageNumber(pageNumber + 1);
     }
   }
   
@@ -93,8 +93,8 @@ function InfoScreen() {
       
       <ImageContainer>
         <Image
-          key={info[index].image}
-          src={info[index].image}
+          key={info[pageNumber].image}
+          src={info[pageNumber].image}
           initial="hidden"
           animate="visible"
           variants={imageVariants}
@@ -102,13 +102,13 @@ function InfoScreen() {
       </ImageContainer>
       
       <TextContainer
-        key={info[index].title}
+        key={info[pageNumber].title}
         initial="hidden"
         animate="visible"
         variants={textVariants}
       >
-        <Title>{info[index].title}</Title>
-        <Text>{info[index].text}</Text>
+        <Title>{info[pageNumber].title}</Title>
+        <Text>{info[pageNumber].text}</Text>
       </TextContainer>
       
       <PaginationDots>{dots}</PaginationDots>
