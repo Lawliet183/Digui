@@ -1,6 +1,6 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { motion } from "framer-motion";
+import { useState } from 'react';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 // Images
 import circle from './../assets/images/circle.svg';
@@ -11,7 +11,8 @@ import mision from './../assets/images/InfoScreen/mision.jpg';
 import vision from './../assets/images/InfoScreen/vision.jpg';
 
 
-function InfoScreen() {
+// InfoScreen component
+function InfoScreen({ onFinish }) {
   const [pageNumber, setPageNumber] = useState(0);
   
   // All of the pages info in one array of objects
@@ -66,10 +67,13 @@ function InfoScreen() {
     );
   }
   
-  // Whenever we click the next button, advance to the next page
+  // Whenever we click the next button, advance to the next page;
+  // If this were to be the last page, indicate we are done to the parent component
   function handleNextButtonClick() {
     if (pageNumber < info.length - 1) {
       setPageNumber(pageNumber + 1);
+    } else {
+      onFinish();
     }
   }
   

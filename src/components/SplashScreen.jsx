@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+
+// Images
 import logoDigui from './../assets/images/SplashScreen/Logo DIGUI 2.1.svg';
 
 
+// SplashScreen component
 function SplashScreen() {
   return (
     <Container>
