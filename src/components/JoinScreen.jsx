@@ -1,40 +1,34 @@
-import styled from 'styled-components';
-import keyframes from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
+// Images
+import logo from './../assets/images/JoinScreen/logo digui.svg';
 
 
 // JoinScreen component
 function JoinScreen() {
   return (
-    <Container>
-      <Background>
-        <GeometricShape />
-        <GeometricShape />
-        <GeometricShape />
-      </Background>
+    <Background>
+      <GeometricShape shape="circle" color="#B3E5FC" size="150px" top="10%" left="5%" />
+      <GeometricShape shape="square" color="#FFCDD2" size="120px" bottom="10%" right="10%" />
+      <GeometricShape shape="circle" color="#C5CAE9" size="180px" bottom="20%" left="15%" />
       
-      <TextContainer>
-        <LargeText>DIGUI</LargeText>
-        <SubText>Sexo</SubText>
-      </TextContainer>
-      
-      <LoginBox>
-        <Logo />
-        <Button />
-      </LoginBox>
-    </Container>
+      <Container>
+        <TextContainer>
+          <LargeText>Bienvenido a DIGUI</LargeText>
+          <SubText>
+            La plataforma educativa diseñada para niños, donde aprender y jugar se unen.
+          </SubText>
+        </TextContainer>
+        
+        <LoginBox>
+          <Logo src={logo} alt='Logo de DIGUI' />
+          <Button>¡Únete a nosotros!</Button>
+        </LoginBox>
+      </Container>
+    </Background>
   )
 }
 
-
-// Agregar las fuentes de Google Fonts
-//const GlobalStyle = createGlobalStyle`
-//  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Poppins:wght@700&family=Quicksand:wght@400&display=swap');
-//
-//  body {
-//    font-family: 'Quicksand', sans-serif;
-//  }
-//`;
 
 // Animaciones para deslizar hacia la derecha
 const slideInRight = keyframes`
