@@ -5,7 +5,7 @@ import logo from './../assets/images/JoinScreen/logo digui.svg';
 
 
 // JoinScreen component
-function JoinScreen() {
+function JoinScreen({ onLogin }) {
   return (
     <Background>
       <GeometricShape shape="circle" color="#B3E5FC" size="150px" top="10%" left="5%" />
@@ -22,7 +22,7 @@ function JoinScreen() {
         
         <LoginBox>
           <Logo src={logo} alt='Logo de DIGUI' />
-          <Button>¡Únete a nosotros!</Button>
+          <Button onClick={onLogin}>¡Únete a nosotros!</Button>
         </LoginBox>
       </Container>
     </Background>

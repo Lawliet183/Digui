@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import SplashScreen from './components/SplashScreen.jsx'
 import InfoScreen from './components/InfoScreen.jsx';
 import JoinScreen from './components/JoinScreen.jsx';
+import LoginSuccessfulScreen from './components/LoginSuccessfulScreen.jsx';
 
 
 let isInitialized = false;
@@ -28,8 +29,9 @@ function App() {
     setCurrentScreen('join');
   }
   
-  //let content = currentScreen && <SplashScreen />
-  //let content = currentScreen ? <SplashScreen /> : <InfoScreen />
+  function handleLoginSuccess() {
+    setCurrentScreen('login-success');
+  }
   
   let content;
   switch (currentScreen) {
@@ -42,7 +44,11 @@ function App() {
       break;
     }
     case 'join': {
-      content = <JoinScreen />
+      content = <JoinScreen onLogin={handleLoginSuccess} />
+      break;
+    }
+    case 'login-success': {
+      content = <LoginSuccessfulScreen />
       break;
     }
     default: {
