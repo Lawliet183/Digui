@@ -16,23 +16,22 @@ import letterI_2 from './../assets/images/LoginSuccessfulScreen/letter-i2.svg';
 
 // LoginSuccessfulScreen component
 function LoginSuccessfulScreen() {
-  const [index, setIndex] = useState(0);
+  const [currentScreen, setCurrentScreen] = useState('text');
   
   
   let animationCount = 0;
-  const milliseconds = 2000;
   function handleAnimationEnd() {
     animationCount++;
     
     if (animationCount === 2) {
-      setIndex(1);
+      setCurrentScreen('logo');
     }
   }
   
   
   let content;
-  switch (index) {
-    case 0: {
+  switch (currentScreen) {
+    case 'text': {
       content =
         <SuccessContainer>
           <CheckIcon src={checkIcon} />
@@ -40,7 +39,7 @@ function LoginSuccessfulScreen() {
         </SuccessContainer>
       break;
     }
-    case 1: {
+    case 'logo': {
       content =
         <LogoContainer>
           <CircleLogo src={logoCircle} />
