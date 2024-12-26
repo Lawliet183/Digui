@@ -7,12 +7,14 @@ import JoinScreen from './components/JoinScreen.jsx';
 import LoginSuccessfulScreen from './components/LoginSuccessfulScreen.jsx';
 
 
+// Did the app initialize already?
 let isInitialized = false;
 
 
 // App component
 function App() {
   const [currentScreen, setCurrentScreen] = useState('splash'); // The name of the current screen
+  
   
   // If the app is just initializing, we give the splash screen 3 seconds to
   // display, then we hide it
@@ -32,6 +34,7 @@ function App() {
   function handleLoginSuccess() {
     setCurrentScreen('login-success');
   }
+  
   
   let content;
   switch (currentScreen) {
@@ -56,6 +59,7 @@ function App() {
       break;
     }
   }
+  
   
   return (
     <>

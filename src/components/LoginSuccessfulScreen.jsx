@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 // Images
@@ -5,20 +6,66 @@ import circle from './../assets/images/circle.svg';
 import star from './../assets/images/star.svg';
 import triangle from './../assets/images/triangle.svg';
 import checkIcon from './../assets/images/LoginSuccessfulScreen/check-icon.svg';
+import logoCircle from './../assets/images/LoginSuccessfulScreen/circle-logo.svg';
+import letterD from './../assets/images/LoginSuccessfulScreen/letter-d.svg';
+import letterI from './../assets/images/LoginSuccessfulScreen/letter-i.svg';
+import letterG from './../assets/images/LoginSuccessfulScreen/letter-g.svg';
+import letterU from './../assets/images/LoginSuccessfulScreen/letter-u.svg';
+import letterI_2 from './../assets/images/LoginSuccessfulScreen/letter-i2.svg';
 
 
 // LoginSuccessfulScreen component
 function LoginSuccessfulScreen() {
+  const [index, setIndex] = useState(0);
+  
+  
+  let animationCount = 0;
+  const milliseconds = 2000;
+  function handleAnimationEnd() {
+    animationCount++;
+    
+    if (animationCount === 2) {
+      setIndex(1);
+    }
+  }
+  
+  
+  let content;
+  switch (index) {
+    case 0: {
+      content =
+        <SuccessContainer>
+          <CheckIcon src={checkIcon} />
+          <SuccessText onAnimationEnd={handleAnimationEnd}>¡Inicio de sesión exitoso!</SuccessText>
+        </SuccessContainer>
+      break;
+    }
+    case 1: {
+      content =
+        <LogoContainer>
+          <CircleLogo src={logoCircle} />
+          <LettersContainer>
+            <Letter src={letterD} delay={3} />
+            <Letter src={letterI} delay={3.5} />
+            <Letter src={letterG} delay={4} />
+            <Letter src={letterU} delay={4.5} />
+            <Letter src={letterI_2} delay={5} />
+          </LettersContainer>
+        </LogoContainer>
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+  
   return (
     <Background>
       <FloatingImage src={triangle} alt="Triangle" size="120px" top="10%" left="15%" duration="6s" />
       <FloatingImage src={circle} alt="Circle" size="100px" top="70%" right="10%" duration="4.5s" />
       <FloatingImage src={star} alt="Star" size="80px" bottom="20%" left="20%" duration="5s" />
       
-      <SuccessContainer>
-        <CheckIcon src={checkIcon} />
-        <SuccessText>¡Inicio de sesión exitoso!</SuccessText>
-      </SuccessContainer>
+      {content}
     </Background>
   );
 }
