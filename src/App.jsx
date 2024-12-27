@@ -5,6 +5,7 @@ import SplashScreen from './components/SplashScreen.jsx'
 import InfoScreen from './components/InfoScreen.jsx';
 import JoinScreen from './components/JoinScreen.jsx';
 import LoginSuccessfulScreen from './components/LoginSuccessfulScreen.jsx';
+import MainMenuScreen from './components/MainMenuScreen.jsx';
 
 
 // Did the app initialize already?
@@ -35,6 +36,10 @@ function App() {
     setCurrentScreen('login-success');
   }
   
+  function handleSuccessScreenFinish() {
+    setCurrentScreen('main-menu');
+  }
+  
   
   let content;
   switch (currentScreen) {
@@ -51,7 +56,11 @@ function App() {
       break;
     }
     case 'login-success': {
-      content = <LoginSuccessfulScreen />
+      content = <LoginSuccessfulScreen onSuccessScreenFinish={handleSuccessScreenFinish} />
+      break;
+    }
+    case 'main-menu': {
+      content = <MainMenuScreen />
       break;
     }
     default: {

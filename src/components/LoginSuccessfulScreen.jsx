@@ -15,7 +15,7 @@ import letterI_2 from './../assets/images/LoginSuccessfulScreen/letter-i2.svg';
 
 
 // LoginSuccessfulScreen component
-function LoginSuccessfulScreen() {
+function LoginSuccessfulScreen({ onSuccessScreenFinish }) {
   const [currentScreen, setCurrentScreen] = useState('text');
   
   
@@ -48,7 +48,7 @@ function LoginSuccessfulScreen() {
             <Letter src={letterI} delay={3.5} />
             <Letter src={letterG} delay={4} />
             <Letter src={letterU} delay={4.5} />
-            <Letter src={letterI_2} delay={5} />
+            <Letter src={letterI_2} delay={5} onAnimationEnd={onSuccessScreenFinish} />
           </LettersContainer>
         </LogoContainer>
       break;
