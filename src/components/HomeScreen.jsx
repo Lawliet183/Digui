@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
 
+// HomeScreen component
 function HomeScreen({ onSectionChange }) {
   // An array of objects containing all of the news
   const newsList = [

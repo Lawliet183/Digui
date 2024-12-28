@@ -7,6 +7,7 @@ import LanzaIcon from './../assets/images/MainMenuScreen/LanzaIcon.png';
 import WordDecoderIcon from './../assets/images/MainMenuScreen/WordDecoderIcon.png';
 
 
+// GamesScreen component
 function GamesScreen() {
   return (
     <GameContent>
