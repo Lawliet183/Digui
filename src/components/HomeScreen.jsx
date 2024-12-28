@@ -41,29 +41,27 @@ function HomeScreen() {
   
   
   return (
-    <HomeContainer>
-      <ScrollableContent>
-        <WelcomeMessage>¡Bienvenido a Digui!</WelcomeMessage>
-        
-        <QuickAccessContainer>
-          <QuickAccessButton>Juegos</QuickAccessButton>
-          <QuickAccessButton>Educación</QuickAccessButton>
-        </QuickAccessContainer>
-        
-        <ImportantNews bgColor="#ffecb3">
-          Descubre todas las novedades en nuestra plataforma.
-        </ImportantNews>
-        
-        <ImportantNews bgColor="#b3e5fc">
-          Interactúa con juegos educativos diseñados para niños.
-        </ImportantNews>
-        
-        <NewsSection>
-          <NewsTitle>Últimas Noticias</NewsTitle>
-          {currentNews}
-        </NewsSection>
-      </ScrollableContent>
-    </HomeContainer>
+    <ScrollableContent>
+      <WelcomeMessage>¡Bienvenido a Digui!</WelcomeMessage>
+      
+      <QuickAccessContainer>
+        <QuickAccessButton>Juegos</QuickAccessButton>
+        <QuickAccessButton>Educación</QuickAccessButton>
+      </QuickAccessContainer>
+      
+      <ImportantNews bgColor="#ffecb3">
+        Descubre todas las novedades en nuestra plataforma.
+      </ImportantNews>
+      
+      <ImportantNews bgColor="#b3e5fc">
+        Interactúa con juegos educativos diseñados para niños.
+      </ImportantNews>
+      
+      <NewsSection>
+        <NewsTitle>Últimas Noticias</NewsTitle>
+        {currentNews}
+      </NewsSection>
+    </ScrollableContent>
   )
 }
 
@@ -91,12 +89,14 @@ const parallaxScroll = keyframes`
 `;
 
 // Contenedor principal para la pantalla de inicio
+/*
 const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
   background-color: #f3e5f5;
 `;
+*/
 
 // Contenedor del contenido entre TopBar y BottomNavBar, centrado y desplazable
 const ScrollableContent = styled.div`
