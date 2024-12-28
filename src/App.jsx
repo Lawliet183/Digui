@@ -14,7 +14,8 @@ let isInitialized = false;
 
 // App component
 function App() {
-  const [currentScreen, setCurrentScreen] = useState('splash'); // The name of the current screen
+  // The name of the current screen, and what screen should be displayed
+  const [currentScreen, setCurrentScreen] = useState('splash');
   
   
   // If the app is just initializing, we give the splash screen 3 seconds to

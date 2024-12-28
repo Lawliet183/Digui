@@ -16,6 +16,7 @@ import letterI_2 from './../assets/images/LoginSuccessfulScreen/letter-i2.svg';
 
 // LoginSuccessfulScreen component
 function LoginSuccessfulScreen({ onSuccessScreenFinish }) {
+  // Whether this is the text or logo part
   const [currentScreen, setCurrentScreen] = useState('text');
   
   
@@ -23,6 +24,7 @@ function LoginSuccessfulScreen({ onSuccessScreenFinish }) {
   function handleAnimationEnd() {
     animationCount++;
     
+    // If this is the text disappearing (it's the 2nd animation), then change the screen
     if (animationCount === 2) {
       setCurrentScreen('logo');
     }
@@ -35,7 +37,11 @@ function LoginSuccessfulScreen({ onSuccessScreenFinish }) {
       content =
         <SuccessContainer>
           <CheckIcon src={checkIcon} />
-          <SuccessText onAnimationEnd={handleAnimationEnd}>¡Inicio de sesión exitoso!</SuccessText>
+          <SuccessText 
+            onAnimationEnd={handleAnimationEnd}
+          >
+            ¡Inicio de sesión exitoso!
+          </SuccessText>
         </SuccessContainer>
       break;
     }
@@ -60,9 +66,32 @@ function LoginSuccessfulScreen({ onSuccessScreenFinish }) {
   
   return (
     <Background>
-      <FloatingImage src={triangle} alt="Triangle" size="120px" top="10%" left="15%" duration="6s" />
-      <FloatingImage src={circle} alt="Circle" size="100px" top="70%" right="10%" duration="4.5s" />
-      <FloatingImage src={star} alt="Star" size="80px" bottom="20%" left="20%" duration="5s" />
+      <FloatingImage
+        src={triangle}
+        alt="Triangle"
+        size="120px"
+        top="10%"
+        left="15%"
+        duration="6s"
+      />
+      
+      <FloatingImage
+        src={circle}
+        alt="Circle"
+        size="100px"
+        top="70%"
+        right="10%"
+        duration="4.5s"
+      />
+      
+      <FloatingImage
+        src={star}
+        alt="Star"
+        size="80px"
+        bottom="20%"
+        left="20%"
+        duration="5s"
+      />
       
       {content}
     </Background>

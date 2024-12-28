@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 // Components
@@ -13,45 +14,84 @@ import WordDecoderIcon from './../assets/images/MainMenuScreen/WordDecoderIcon.p
 
 // MainMenuScreen component
 function MainMenuScreen() {
+  // What section should be displayed?
+  const [currentSection, setCurrentSection] = useState('games');
   
-  let content =
-    <GameContent>
-      <GameGrid>
-        <GameCard>
-          <GameImage src={ABCPiensaIcon}></GameImage>
-          <GameTitle>ABC Piensa</GameTitle>
-        </GameCard>
+  
+  function handleSectionChange(desiredSection) {
+    setCurrentSection(desiredSection);
+  }
+  
+  
+  let content;
+  let title;
+  switch (currentSection) {
+    case 'home': {
+      title = 'Inicio';
+      content = <p>Home</p>
+      break;
+    }
+    case 'education': {
+      title = 'Educación';
+      content = <p>Education</p>
+      break;
+    }
+    case 'games': {
+      title = 'Juegos';
+      content =
+        <GameContent>
+          <GameGrid>
+            <GameCard>
+              <GameImage src={ABCPiensaIcon}></GameImage>
+              <GameTitle>ABC Piensa</GameTitle>
+            </GameCard>
 
-        <GameCard>
-          <GameImage src={DominoIcon}></GameImage>
-          <GameTitle>Domino</GameTitle>
-        </GameCard>
+            <GameCard>
+              <GameImage src={DominoIcon}></GameImage>
+              <GameTitle>Domino</GameTitle>
+            </GameCard>
 
-        <GameCard>
-          <GameImage src={LanzaIcon}></GameImage>
-          <GameTitle>¡Lanza y Diviértete!</GameTitle>
-        </GameCard>
+            <GameCard>
+              <GameImage src={LanzaIcon}></GameImage>
+              <GameTitle>¡Lanza y Diviértete!</GameTitle>
+            </GameCard>
 
-        <GameCard>
-          <GameImage src={ABCPiensaIcon}></GameImage>
-          <GameTitle>Ruleta de la Suerte</GameTitle>
-        </GameCard>
+            <GameCard>
+              <GameImage src={ABCPiensaIcon}></GameImage>
+              <GameTitle>Ruleta de la Suerte</GameTitle>
+            </GameCard>
 
-        <GameCard>
-          <GameImage src={WordDecoderIcon}></GameImage>
-          <GameTitle>Decodificador de Palabras</GameTitle>
-        </GameCard>
-      </GameGrid>
-    </GameContent>
+            <GameCard>
+              <GameImage src={WordDecoderIcon}></GameImage>
+              <GameTitle>Decodificador de Palabras</GameTitle>
+            </GameCard>
+          </GameGrid>
+        </GameContent>
+      break;
+    }
+    case 'notifications': {
+      title = 'Notificaciones';
+      content = <p>Notifications</p>
+      break;
+    }
+    case 'profile': {
+      title = 'Perfil'
+      content = <p>Profile</p>
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+  
   
   return (
     <MainContainer>
-      <FixedTopBar title='Sexo !! !! !!' />
+      <FixedTopBar title={title} />
       
       {content}
       
-      
-      <FixedBottomNavBar />
+      <FixedBottomNavBar onSectionChange={handleSectionChange} />
     </MainContainer>
   );
 }

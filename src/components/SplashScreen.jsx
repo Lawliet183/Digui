@@ -13,7 +13,6 @@ function SplashScreen() {
         initial={{ opacity: 0, scale: 0.5, rotate: -45 }}
         animate={{ opacity: 1, scale: 1, rotate: 0 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
-        //exit={{ opacity: 0, scale: 0.5, transition: { duration: 1 } }}
       >
         Bienvenido
       </WelcomeText>
@@ -24,7 +23,6 @@ function SplashScreen() {
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1, rotate: [0, 15, -15, 0] }}
         transition={{ duration: 2, ease: "easeInOut", type: "spring", stiffness: 100 }}
-        //exit={{ opacity: 0, scale: 0.5, transition: { duration: 1 } }}
       />
     </Container>
   );

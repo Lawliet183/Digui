@@ -13,6 +13,7 @@ import vision from './../assets/images/InfoScreen/vision.jpg';
 
 // InfoScreen component
 function InfoScreen({ onFinish }) {
+  // What page number are we currently at?
   const [pageNumber, setPageNumber] = useState(0);
   
   // All of the pages info in one array of objects
