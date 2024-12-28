@@ -1,5 +1,9 @@
 import styled, { keyframes } from 'styled-components';
 
+// Components
+import TopBar from './TopBar.jsx';
+import BottomNavBar from './BottomNavBar.jsx';
+
 // Images
 import ABCPiensaIcon from './../assets/images/MainMenuScreen/ABCPiensaIcon.svg';
 import DominoIcon from './../assets/images/MainMenuScreen/DominoIcon.png';
@@ -9,39 +13,44 @@ import WordDecoderIcon from './../assets/images/MainMenuScreen/WordDecoderIcon.p
 
 // MainMenuScreen component
 function MainMenuScreen() {
+  
+  let content =
+    <GameContent>
+      <GameGrid>
+        <GameCard>
+          <GameImage src={ABCPiensaIcon}></GameImage>
+          <GameTitle>ABC Piensa</GameTitle>
+        </GameCard>
+
+        <GameCard>
+          <GameImage src={DominoIcon}></GameImage>
+          <GameTitle>Domino</GameTitle>
+        </GameCard>
+
+        <GameCard>
+          <GameImage src={LanzaIcon}></GameImage>
+          <GameTitle>¡Lanza y Diviértete!</GameTitle>
+        </GameCard>
+
+        <GameCard>
+          <GameImage src={ABCPiensaIcon}></GameImage>
+          <GameTitle>Ruleta de la Suerte</GameTitle>
+        </GameCard>
+
+        <GameCard>
+          <GameImage src={WordDecoderIcon}></GameImage>
+          <GameTitle>Decodificador de Palabras</GameTitle>
+        </GameCard>
+      </GameGrid>
+    </GameContent>
+  
   return (
     <MainContainer>
-      {/* Top Bar */}
-      {/* Bottom Bar */}
+      <FixedTopBar title='Sexo !! !! !!' />
       
-      <GameContent>
-        <GameGrid>
-          <GameCard>
-            <GameImage src={ABCPiensaIcon}></GameImage>
-            <GameTitle>ABC Piensa</GameTitle>
-          </GameCard>
-          
-          <GameCard>
-            <GameImage src={DominoIcon}></GameImage>
-            <GameTitle>Domino</GameTitle>
-          </GameCard>
-          
-          <GameCard>
-            <GameImage src={LanzaIcon}></GameImage>
-            <GameTitle>¡Lanza y Diviértete!</GameTitle>
-          </GameCard>
-          
-          <GameCard>
-            <GameImage src={ABCPiensaIcon}></GameImage>
-            <GameTitle>Ruleta de la Suerte</GameTitle>
-          </GameCard>
-          
-          <GameCard>
-            <GameImage src={WordDecoderIcon}></GameImage>
-            <GameTitle>Decodificador de Palabras</GameTitle>
-          </GameCard>
-        </GameGrid>
-      </GameContent>
+      {content}
+      
+      <FixedBottomNavBar />
     </MainContainer>
   );
 }
@@ -85,7 +94,6 @@ const MainContainer = styled.div`
 `;
 
 // Aseguramos que TopBar esté siempre visible con position fixed
-/*
 const FixedTopBar = styled(TopBar)`
   position: fixed;
   top: 0;
@@ -100,14 +108,13 @@ const FixedBottomNavBar = styled(BottomNavBar)`
   width: 100%;
   z-index: 10; 
 `;
-*/
 
 // Contenido del juego con espacio para las barras superior e inferior
 const GameContent = styled.div`
   flex: 1;
   padding: 80px 20px 90px;
   overflow-x: auto; /* Habilitamos el desplazamiento horizontal */
-  display: flex;
+  display: flex; /* Perhaps this could be changed... */
   align-items: center;
   scroll-snap-type: x mandatory; /* Añadimos scroll-snap para la experiencia de deslizamiento */
   -webkit-overflow-scrolling: touch; /* Mejora la experiencia en móviles */
