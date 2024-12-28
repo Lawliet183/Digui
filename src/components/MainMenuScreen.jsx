@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 // Components
 import TopBar from './TopBar.jsx';
 import BottomNavBar from './BottomNavBar.jsx';
+import HomeScreen from './HomeScreen.jsx';
 
 // Images
 import ABCPiensaIcon from './../assets/images/MainMenuScreen/ABCPiensaIcon.svg';
@@ -28,7 +29,7 @@ function MainMenuScreen() {
   switch (currentSection) {
     case 'home': {
       title = 'Inicio';
-      content = <p>Home</p>
+      content = <HomeScreen />
       break;
     }
     case 'education': {
@@ -43,17 +44,17 @@ function MainMenuScreen() {
           <GameGrid>
             <GameCard>
               <GameImage src={ABCPiensaIcon}></GameImage>
-              <GameTitle>ABC Piensa</GameTitle>
+              <GameTitle>A B C Piensa!</GameTitle>
             </GameCard>
 
             <GameCard>
               <GameImage src={DominoIcon}></GameImage>
-              <GameTitle>Domino</GameTitle>
+              <GameTitle>Dominó</GameTitle>
             </GameCard>
 
             <GameCard>
               <GameImage src={LanzaIcon}></GameImage>
-              <GameTitle>¡Lanza y Diviértete!</GameTitle>
+              <GameTitle>Lanza y Diviértete con las letras</GameTitle>
             </GameCard>
 
             <GameCard>
@@ -63,7 +64,7 @@ function MainMenuScreen() {
 
             <GameCard>
               <GameImage src={WordDecoderIcon}></GameImage>
-              <GameTitle>Decodificador de Palabras</GameTitle>
+              <GameTitle>Decodifica la palabra</GameTitle>
             </GameCard>
           </GameGrid>
         </GameContent>
@@ -87,11 +88,11 @@ function MainMenuScreen() {
   
   return (
     <MainContainer>
-      <FixedTopBar title={title} />
+      <TopBar title={title} />
       
       {content}
       
-      <FixedBottomNavBar onSectionChange={handleSectionChange} />
+      <BottomNavBar onSectionChange={handleSectionChange} />
     </MainContainer>
   );
 }
