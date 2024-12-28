@@ -50,6 +50,7 @@ function MainMenuScreen() {
       
       {content}
       
+      
       <FixedBottomNavBar />
     </MainContainer>
   );
