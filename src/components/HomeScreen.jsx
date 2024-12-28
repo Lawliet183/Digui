@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
 
-function HomeScreen() {
+function HomeScreen({ onSectionChange }) {
   // An array of objects containing all of the news
   const newsList = [
     {
@@ -40,13 +40,33 @@ function HomeScreen() {
   });
   
   
+  let desiredSection;
+  
+  // Whenever the user clicks on a button, we inform the parent component to change
+  // to that specific section
+  function handleEducationSelected() {
+    desiredSection = 'education';
+    onSectionChange(desiredSection);
+  }
+
+  function handleGamesSelected() {
+    desiredSection = 'games';
+    onSectionChange(desiredSection);
+  }
+  
+  
   return (
     <ScrollableContent>
       <WelcomeMessage>¡Bienvenido a Digui!</WelcomeMessage>
       
       <QuickAccessContainer>
-        <QuickAccessButton>Juegos</QuickAccessButton>
-        <QuickAccessButton>Educación</QuickAccessButton>
+        <QuickAccessButton onClick={handleGamesSelected}>
+          Juegos
+        </QuickAccessButton>
+        
+        <QuickAccessButton onClick={handleEducationSelected}>
+          Educación
+        </QuickAccessButton>
       </QuickAccessContainer>
       
       <ImportantNews bgColor="#ffecb3">
@@ -129,6 +149,7 @@ const ImportantNews = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: #333;
   transition: background-color 0.5s ease;
+  animation: ${fadeIn} 0.5s ease-in-out;
 `;
 
 // Mensaje de bienvenida
@@ -137,6 +158,7 @@ const WelcomeMessage = styled.h1`
   color: #6b21a8;
   font-size: 36px;
   margin-bottom: 20px;
+  animation: ${fadeIn} 0.5s ease-in-out;
 `;
 
 // Botones de acceso rápido, centrados
@@ -148,6 +170,7 @@ const QuickAccessContainer = styled.div`
   width: 100%;
   max-width: 600px;
   margin-bottom: 30px; /* Espacio debajo de los botones */
+  animation: ${fadeIn} 0.5s ease-in-out;
 `;
 
 // Botones de acceso rápido

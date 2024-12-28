@@ -24,7 +24,7 @@ function MainMenuScreen() {
   switch (currentSection) {
     case 'home': {
       title = 'Inicio';
-      content = <HomeScreen />
+      content = <HomeScreen onSectionChange={handleSectionChange} />
       break;
     }
     case 'education': {

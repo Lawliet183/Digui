@@ -12,27 +12,27 @@ function BottomNavBar({ onSectionChange }) {
   // to that specific section
   function handleHomeSelected() {
     desiredSection = 'home';
-    onSectionChange(desiredSection)
+    onSectionChange(desiredSection);
   }
   
   function handleEducationSelected() {
     desiredSection = 'education';
-    onSectionChange(desiredSection)
+    onSectionChange(desiredSection);
   }
   
   function handleGamesSelected() {
     desiredSection = 'games';
-    onSectionChange(desiredSection)
+    onSectionChange(desiredSection);
   }
   
   function handleNotificationsSelected() {
     desiredSection = 'notifications';
-    onSectionChange(desiredSection)
+    onSectionChange(desiredSection);
   }
   
   function handleProfileSelected() {
     desiredSection = 'profile';
-    onSectionChange(desiredSection)
+    onSectionChange(desiredSection);
   }
   
   
