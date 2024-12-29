@@ -16,6 +16,7 @@ function InfoScreen({ onFinish }) {
   // What page number are we currently at?
   const [pageNumber, setPageNumber] = useState(0);
   
+  
   // All of the pages info in one array of objects
   const info = [
     {
@@ -68,6 +69,7 @@ function InfoScreen({ onFinish }) {
     );
   }
   
+  
   // Whenever we click the next button, advance to the next page;
   // If this were to be the last page, indicate we are done to the parent component
   function handleNextButtonClick() {
@@ -77,6 +79,7 @@ function InfoScreen({ onFinish }) {
       onFinish();
     }
   }
+  
   
   return (
     <Container>

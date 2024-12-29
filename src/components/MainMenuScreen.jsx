@@ -6,6 +6,7 @@ import TopBar from './TopBar.jsx';
 import BottomNavBar from './BottomNavBar.jsx';
 import HomeScreen from './HomeScreen.jsx';
 import GamesScreen from './GamesScreen.jsx';
+import ProfileScreen from './ProfileScreen.jsx';
 
 
 // MainMenuScreen component
@@ -44,7 +45,7 @@ function MainMenuScreen() {
     }
     case 'profile': {
       title = 'Perfil'
-      content = <p>Profile</p>
+      content = <ProfileScreen />
       break;
     }
     default: {

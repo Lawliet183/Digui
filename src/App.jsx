@@ -29,6 +29,7 @@ function App() {
     }
   }, []);
   
+  
   function handleInfoScreenFinish() {
     setCurrentScreen('join');
   }

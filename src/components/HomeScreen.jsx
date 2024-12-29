@@ -31,6 +31,7 @@ function HomeScreen({ onSectionChange }) {
     },
   ]
   
+  // Convert the array of objects to actual JSX
   const currentNews = newsList.map((value, index) => {
     return (
       <NewsItem key={index}>
