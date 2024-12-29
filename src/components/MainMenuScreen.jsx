@@ -48,6 +48,7 @@ function MainMenuScreen() {
       break;
     }
     default: {
+      content = null;
       break;
     }
   }
