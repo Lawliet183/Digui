@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 // Images
 import profilePicture from './../assets/images/ProfileScreen/profile-picture.png';
@@ -42,6 +42,17 @@ function ProfileScreen() {
 }
 
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 const SettingsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -76,6 +87,8 @@ const LogoutButton = styled.button`
   &:hover {
     background-color: #e04a4a;
   }
+  
+  animation: ${fadeIn} 0.5s ease-in-out;
 `;
 
 const ChangeChildButton = styled.button`
@@ -96,6 +109,8 @@ const ChangeChildButton = styled.button`
   &:hover {
     background-color: #5a189a;
   }
+  
+  animation: ${fadeIn} 0.5s ease-in-out;
 `;
 
 const AvatarContainer = styled.div`
@@ -108,6 +123,7 @@ const AvatarContainer = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: ${fadeIn} 0.5s ease-in-out;
 `;
 
 const Username = styled.h2`
@@ -116,11 +132,13 @@ const Username = styled.h2`
   font-size: 26px;
   margin-bottom: 15px;
   text-align: center;
+  animation: ${fadeIn} 0.5s ease-in-out;
 `;
 
 const SettingsList = styled.div`
   width: 100%;
   max-width: 400px;
+  animation: ${fadeIn} 0.5s ease-in-out;
 `;
 
 const SettingsItem = styled.div`
@@ -142,29 +160,6 @@ const SettingsItem = styled.div`
   &:hover {
     transform: translateY(-5px);
   }
-`;
-
-/*const SmallLabel = styled.p`
-  font-size: 14px;
-  color: #b8a9d2;
-`;*/
-
-const FixedTopBarContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 10;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-`;
-
-const BottomNavBarContainer = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 10;
 `;
 
 

@@ -5,7 +5,9 @@ import styled, { keyframes } from 'styled-components';
 import TopBar from './TopBar.jsx';
 import BottomNavBar from './BottomNavBar.jsx';
 import HomeScreen from './HomeScreen.jsx';
+import EducationScreen from './EducationScreen.jsx';
 import GamesScreen from './GamesScreen.jsx';
+import NotificationsScreen from './NotificationsScreen.jsx';
 import ProfileScreen from './ProfileScreen.jsx';
 
 
@@ -30,7 +32,7 @@ function MainMenuScreen() {
     }
     case 'education': {
       title = 'Educación';
-      content = <p>Education</p>
+      content = <EducationScreen />
       break;
     }
     case 'games': {
@@ -40,7 +42,7 @@ function MainMenuScreen() {
     }
     case 'notifications': {
       title = 'Notificaciones';
-      content = <p>Notifications</p>
+      content = <NotificationsScreen />
       break;
     }
     case 'profile': {
