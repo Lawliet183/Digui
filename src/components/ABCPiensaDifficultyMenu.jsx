@@ -3,8 +3,8 @@ import styled, { keyframes } from 'styled-components';
 // Images
 import backArrow from './../assets/images/ABCPiensaDifficultyMenu/back-arrow.svg';
 
-
-function ABCPiensaDifficultyMenu({ onGoBack }) {
+// ABCPiensaDifficultyMenu component
+function ABCPiensaDifficultyMenu({ onGoBack, onDifficultySelected }) {
   return (
     <MenuContainer>
       <FloatingShape
@@ -47,12 +47,12 @@ function ABCPiensaDifficultyMenu({ onGoBack }) {
       </TitleContainer>
       
       <ButtonContainer>
-        <DifficultyButton>Fácil</DifficultyButton>
-        <DifficultyButton>Medio</DifficultyButton>
-        <DifficultyButton>Difícil</DifficultyButton>
+        <DifficultyButton onClick={onDifficultySelected} delay={1}>Fácil</DifficultyButton>
+        <DifficultyButton delay={1.5}>Medio</DifficultyButton>
+        <DifficultyButton delay={2}>Difícil</DifficultyButton>
       </ButtonContainer>
     </MenuContainer>
-  )
+  );
 }
 
 

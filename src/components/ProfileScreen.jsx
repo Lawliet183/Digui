@@ -38,7 +38,7 @@ function ProfileScreen() {
       <ChangeChildButton>Cambiar niño</ChangeChildButton>
       <LogoutButton>Cerrar sesión</LogoutButton>
     </SettingsContainer>
-  )
+  );
 }
 
 

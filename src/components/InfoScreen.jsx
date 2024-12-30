@@ -47,12 +47,7 @@ function InfoScreen({ onFinish }) {
   for (let i = 0; i < info.length; i++) {
     
     // Activate the dot that corresponds to the current page
-    let isActive;
-    if (pageNumber === i) {
-      isActive = true;
-    } else {
-      isActive = false;
-    }
+    const isActive = (pageNumber === i) ? true : false;
     
     // Whenever the dot is clicked, change the page number to the corresponding 
     // page/button that was clicked
@@ -124,7 +119,7 @@ function InfoScreen({ onFinish }) {
       <NextButton onClick={handleNextButtonClick}>-&gt;</NextButton>
       
     </Container>
-  )
+  );
 }
 
 

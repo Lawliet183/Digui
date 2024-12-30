@@ -84,7 +84,7 @@ function HomeScreen({ onSectionChange }) {
         {currentNews}
       </NewsSection>
     </ScrollableContent>
-  )
+  );
 }
 
 

@@ -1,3 +1,4 @@
+// EducationScreen component
 function EducationScreen() {
   return (
     <p>The Education section, currently a stub...</p>

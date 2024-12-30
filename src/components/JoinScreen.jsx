@@ -26,7 +26,7 @@ function JoinScreen({ onLogin }) {
         </LoginBox>
       </Container>
     </Background>
-  )
+  );
 }
 
 

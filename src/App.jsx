@@ -7,6 +7,7 @@ import JoinScreen from './components/JoinScreen.jsx';
 import LoginSuccessfulScreen from './components/LoginSuccessfulScreen.jsx';
 import MainMenuScreen from './components/MainMenuScreen.jsx';
 import ABCPiensaDifficultyMenu from './components/ABCPiensaDifficultyMenu.jsx';
+import ABCPiensaGame from './components/ABCPiensaGame.jsx';
 
 
 // Did the app initialize already?
@@ -53,6 +54,10 @@ function App() {
     setCurrentScreen('main-menu');
   }
   
+  function handleDifficultySelected() {
+    setCurrentScreen('abc-piensa-game');
+  }
+  
   
   let content;
   switch (currentScreen) {
@@ -77,7 +82,15 @@ function App() {
       break;
     }
     case 'abc-piensa-difficulty-menu': {
-      content = <ABCPiensaDifficultyMenu onGoBack={handleGoBack} />
+      content =
+        <ABCPiensaDifficultyMenu
+          onGoBack={handleGoBack}
+          onDifficultySelected={handleDifficultySelected}
+        />
+      break;
+    }
+    case 'abc-piensa-game': {
+      content = <ABCPiensaGame onGoBack={handleGoBack} />
       break;
     }
     default: {

@@ -7,7 +7,7 @@ function TopBar({ title }) {
     <TopBarContainer>
       <Title>{title}</Title>
     </TopBarContainer>
-  )
+  );
 }
 
 

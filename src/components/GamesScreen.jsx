@@ -45,7 +45,7 @@ function GamesScreen({ onGameSelected }) {
         </GameCard>
       </GameGrid>
     </GameContent>
-  )
+  );
 }
 
 
