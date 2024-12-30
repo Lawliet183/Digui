@@ -8,32 +8,39 @@ import WordDecoderIcon from './../assets/images/MainMenuScreen/WordDecoderIcon.p
 
 
 // GamesScreen component
-function GamesScreen() {
+function GamesScreen({ onGameSelected }) {
+  let desiredGame;
+  
+  function handleABCPiensaSelected() {
+    desiredGame = 'abc-piensa-difficulty-menu';
+    onGameSelected(desiredGame)
+  }
+  
   return (
     <GameContent>
       <GameGrid>
-        <GameCard>
-          <GameImage src={ABCPiensaIcon}></GameImage>
-          <GameTitle>ABC Piensa</GameTitle>
+        <GameCard onClick={handleABCPiensaSelected}>
+          <GameImage src={ABCPiensaIcon} />
+          <GameTitle>ABC Piensa!</GameTitle>
         </GameCard>
 
         <GameCard>
-          <GameImage src={DominoIcon}></GameImage>
-          <GameTitle>Domino</GameTitle>
+          <GameImage src={DominoIcon} />
+          <GameTitle>Dominó</GameTitle>
         </GameCard>
 
         <GameCard>
-          <GameImage src={LanzaIcon}></GameImage>
+          <GameImage src={LanzaIcon} />
           <GameTitle>¡Lanza y Diviértete!</GameTitle>
         </GameCard>
 
         <GameCard>
-          <GameImage src={ABCPiensaIcon}></GameImage>
+          <GameImage src={ABCPiensaIcon} />
           <GameTitle>Ruleta de la Suerte</GameTitle>
         </GameCard>
 
         <GameCard>
-          <GameImage src={WordDecoderIcon}></GameImage>
+          <GameImage src={WordDecoderIcon} />
           <GameTitle>Decodificador de Palabras</GameTitle>
         </GameCard>
       </GameGrid>

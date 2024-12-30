@@ -6,6 +6,7 @@ import InfoScreen from './components/InfoScreen.jsx';
 import JoinScreen from './components/JoinScreen.jsx';
 import LoginSuccessfulScreen from './components/LoginSuccessfulScreen.jsx';
 import MainMenuScreen from './components/MainMenuScreen.jsx';
+import ABCPiensaDifficultyMenu from './components/ABCPiensaDifficultyMenu.jsx';
 
 
 // Did the app initialize already?
@@ -30,6 +31,8 @@ function App() {
   }, []);
   
   
+  // Perhaps we can unify all of these events?
+  // Is it even a good idea?
   function handleInfoScreenFinish() {
     setCurrentScreen('join');
   }
@@ -39,6 +42,14 @@ function App() {
   }
   
   function handleSuccessScreenFinish() {
+    setCurrentScreen('main-menu');
+  }
+  
+  function handleGameSelected(desiredGame) {
+    setCurrentScreen(desiredGame);
+  }
+  
+  function handleGoBack() {
     setCurrentScreen('main-menu');
   }
   
@@ -62,7 +73,11 @@ function App() {
       break;
     }
     case 'main-menu': {
-      content = <MainMenuScreen />
+      content = <MainMenuScreen onGameSelected={handleGameSelected} />
+      break;
+    }
+    case 'abc-piensa-difficulty-menu': {
+      content = <ABCPiensaDifficultyMenu onGoBack={handleGoBack} />
       break;
     }
     default: {

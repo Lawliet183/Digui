@@ -12,7 +12,7 @@ import ProfileScreen from './ProfileScreen.jsx';
 
 
 // MainMenuScreen component
-function MainMenuScreen() {
+function MainMenuScreen({ onGameSelected }) {
   // What section should be displayed?
   const [currentSection, setCurrentSection] = useState('games');
   
@@ -37,7 +37,7 @@ function MainMenuScreen() {
     }
     case 'games': {
       title = 'Juegos';
-      content = <GamesScreen />
+      content = <GamesScreen onGameSelected={onGameSelected} />
       break;
     }
     case 'notifications': {
