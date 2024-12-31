@@ -1,10 +1,7 @@
-import styled, { keyframes } from 'styled-components';
+import styled,  { css, keyframes } from 'styled-components';
 
 // Images
 import imageDatabase from './ABCPiensaImageDatabase.jsx';
-
-
-
 
 
 // ABCPiensaGame component
@@ -236,6 +233,7 @@ const DroppedImage = styled.img`
 `;
 
 // Definición de CardFront y CardBack con animación
+// The front and back of the cards themselves
 const CardFront = styled.div`
   width: 100%;
   height: 100%;
