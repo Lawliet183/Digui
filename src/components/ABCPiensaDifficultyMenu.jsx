@@ -8,10 +8,10 @@ import backArrow from './../assets/images/ABCPiensaDifficultyMenu/back-arrow.svg
 function ABCPiensaDifficultyMenu({ onGoBack, onDifficultySelected }) {
   let difficultySeconds;
   
-  // When the user chooses a difficulty, let the parent component know how many
-  // seconds should we allow before a game over
+  // When the user chooses a difficulty, let the parent component know the
+  // difficulty that was chosen
   function handleEasyDifficulty() {
-    difficultySeconds = 179;
+    difficultySeconds = 180;
     onDifficultySelected(difficultySeconds);
   }
   

@@ -31,18 +31,16 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
     );
   });
   
-  const cards = initialImages.map((value) => {
+  const cards = initialImages.map((value, index) => {
     return (
-      <CardContainer>
+      <CardContainer key={index}>
         <FlipCard>
-          <CardFront>
-            <CardBack src={value.src} />
-          </CardFront>
+          <CardFront />
+          <CardBack src={value.src} />
         </FlipCard>
       </CardContainer>
     );
   });
-  
   
   // Make the timer tick down to 0
   if (!isFirstRender && currentTimer > 0) {
@@ -70,14 +68,14 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
       
       
       <LettersGrid>
-        {letters}
+        {currentLetters}
       </LettersGrid>
       
       <ImagesContainer>
         {cards}
       </ImagesContainer>
       
-      {currentTimer <= 0 && <p>SEXO</p>}
+      {currentTimer <= 0 && <img src='L:/Images/Memes/Zazu cat stare.jpg'></img>}
     </GameContainer>
   );
 }
