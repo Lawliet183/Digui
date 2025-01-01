@@ -68,7 +68,7 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
       
       
       <LettersGrid>
-        {currentLetters}
+        {letters}
       </LettersGrid>
       
       <ImagesContainer>
