@@ -19,6 +19,8 @@ function App() {
   // The name of the current screen, and what screen should be displayed
   const [currentScreen, setCurrentScreen] = useState('splash');
   
+  const [gameSeconds, setGameSeconds] = useState(0);
+  
   
   // If the app is just initializing, we give the splash screen 3 seconds to
   // display, then we hide it
@@ -54,7 +56,8 @@ function App() {
     setCurrentScreen('main-menu');
   }
   
-  function handleDifficultySelected() {
+  function handleDifficultySelected(difficultySeconds) {
+    setGameSeconds(difficultySeconds);
     setCurrentScreen('abc-piensa-game');
   }
   
@@ -90,7 +93,7 @@ function App() {
       break;
     }
     case 'abc-piensa-game': {
-      content = <ABCPiensaGame onGoBack={handleGoBack} />
+      content = <ABCPiensaGame onGoBack={handleGoBack} startingTimer={gameSeconds} />
       break;
     }
     default: {

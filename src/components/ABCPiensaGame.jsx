@@ -1,11 +1,19 @@
-import styled,  { css, keyframes } from 'styled-components';
+import { useState } from 'react';
+import styled, { css, keyframes } from 'styled-components';
 
 // Images
 import imageDatabase from './ABCPiensaImageDatabase.jsx';
 
 
+let isFirstRender = true;
+
+
 // ABCPiensaGame component
-function ABCPiensaGame({ onGoBack }) {
+function ABCPiensaGame({ onGoBack, startingTimer }) {
+  // The current ticking timer
+  const [currentTimer, setCurrentTimer] = useState(startingTimer);
+  
+  
   const initialLetters = [
     'A', 'B', 'C', 'D', 'E',
     'F', 'G', 'H', 'I', 'J',
@@ -23,7 +31,7 @@ function ABCPiensaGame({ onGoBack }) {
     );
   });
   
-  const cards = initialImages.map((value, index) => {
+  const cards = initialImages.map((value) => {
     return (
       <CardContainer>
         <FlipCard>
@@ -35,11 +43,31 @@ function ABCPiensaGame({ onGoBack }) {
     );
   });
   
+  
+  // Make the timer tick down to 0
+  if (!isFirstRender && currentTimer > 0) {
+    setTimeout(() => {
+      setCurrentTimer(currentTimer - 1);
+    }, 1000);
+  } else {
+    isFirstRender = false;
+  }
+  
+  // Calculating the currently displayed timer and formatting it
+  const minutes = Math.floor(currentTimer / 60);
+  
+  const moduloTimer = currentTimer % 60;
+  const seconds = (moduloTimer > 9) ? moduloTimer : '0' + moduloTimer;
+  
+  const formattedTimer = minutes + ':' + seconds;
+  
+  
   return (
     <GameContainer>
       <BackButton onClick={onGoBack}>&lt;-</BackButton>
       
-      <Timer>4:20</Timer>
+      <Timer>{formattedTimer} --- {currentTimer}</Timer>
+      
       
       <LettersGrid>
         {letters}
@@ -48,6 +76,8 @@ function ABCPiensaGame({ onGoBack }) {
       <ImagesContainer>
         {cards}
       </ImagesContainer>
+      
+      {currentTimer <= 0 && <p>SEXO</p>}
     </GameContainer>
   );
 }

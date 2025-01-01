@@ -3,8 +3,29 @@ import styled, { keyframes } from 'styled-components';
 // Images
 import backArrow from './../assets/images/ABCPiensaDifficultyMenu/back-arrow.svg';
 
+
 // ABCPiensaDifficultyMenu component
 function ABCPiensaDifficultyMenu({ onGoBack, onDifficultySelected }) {
+  let difficultySeconds;
+  
+  // When the user chooses a difficulty, let the parent component know how many
+  // seconds should we allow before a game over
+  function handleEasyDifficulty() {
+    difficultySeconds = 179;
+    onDifficultySelected(difficultySeconds);
+  }
+  
+  function handleMediumDifficulty() {
+    difficultySeconds = 120;
+    onDifficultySelected(difficultySeconds);
+  }
+  
+  function handleHardDifficulty() {
+    difficultySeconds = 1; // Temporary, just so we have a quick way to lose
+    onDifficultySelected(difficultySeconds);
+  }
+  
+  
   return (
     <MenuContainer>
       <FloatingShape
@@ -47,9 +68,9 @@ function ABCPiensaDifficultyMenu({ onGoBack, onDifficultySelected }) {
       </TitleContainer>
       
       <ButtonContainer>
-        <DifficultyButton onClick={onDifficultySelected} delay={1}>Fácil</DifficultyButton>
-        <DifficultyButton delay={1.5}>Medio</DifficultyButton>
-        <DifficultyButton delay={2}>Difícil</DifficultyButton>
+        <DifficultyButton onClick={handleEasyDifficulty} delay={1}>Fácil</DifficultyButton>
+        <DifficultyButton onClick={handleMediumDifficulty} delay={1.5}>Medio</DifficultyButton>
+        <DifficultyButton onClick={handleHardDifficulty} delay={2}>Difícil</DifficultyButton>
       </ButtonContainer>
     </MenuContainer>
   );
