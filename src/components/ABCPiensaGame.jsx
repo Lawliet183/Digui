@@ -5,6 +5,16 @@ import styled, { css, keyframes } from 'styled-components';
 import imageDatabase from './ABCPiensaImageDatabase.jsx';
 
 
+const initialImages = imageDatabase.map((value) => {
+  return (
+    {
+      ...value,
+      isFlipped: false,
+      isDropped: false
+    }
+  );
+});
+
 let isFirstRender = true;
 
 
@@ -12,6 +22,8 @@ let isFirstRender = true;
 function ABCPiensaGame({ onGoBack, startingTimer }) {
   // The current ticking timer
   const [currentTimer, setCurrentTimer] = useState(startingTimer);
+  
+  const [currentImages, setCurrentImages] = useState(initialImages);
   
   
   const initialLetters = [
@@ -23,19 +35,40 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
     'Y', 'Z'
   ];
   
-  const initialImages = imageDatabase;
   
-  const letters = initialLetters.map((value, index) => {
+  function handleCardClick(cardIndex) {
+    const newImages = currentImages.map((value, imageIndex) => {
+      if (cardIndex === imageIndex) {
+        return (
+          {
+            ...value,
+            isFlipped: true
+          }
+        )
+      } else {
+        return (
+          {
+            ...value
+          }
+        )
+      }
+    });
+    
+    setCurrentImages(newImages);
+  }
+  
+  
+  const letters = initialLetters.map((value) => {
     return (
-      <LetterBox key={index}>{value}</LetterBox>
+      <LetterBox key={value}>{value}</LetterBox>
     );
   });
   
-  const cards = initialImages.map((value, index) => {
+  const cards = currentImages.map((value, cardIndex) => {
     return (
-      <CardContainer key={index}>
-        <FlipCard>
-          <CardFront />
+      <CardContainer key={value.letter}>
+        <FlipCard isFlipped={value.isFlipped}>
+          <CardFront onClick={() => handleCardClick(cardIndex)} />
           <CardBack src={value.src} />
         </FlipCard>
       </CardContainer>
