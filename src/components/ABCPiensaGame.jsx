@@ -15,7 +15,33 @@ const initialImages = imageDatabase.map((value) => {
   );
 });
 
-let isFirstRender = true;
+const initialLetters = randomizeLetters();
+
+
+// Randomize the letters around
+function randomizeLetters() {
+  const originalLetters = [
+    'A', 'B', 'C', 'D', 'E',
+    'F', 'G', 'H', 'I', 'J',
+    'K', 'L', 'M', 'N', 'Ñ',
+    'O', 'P', 'Q', 'R', 'S',
+    'T', 'U', 'V', 'W', 'X',
+    'Y', 'Z'
+  ];
+  
+  const arrayLength = originalLetters.length;
+  const copyLetters = originalLetters.slice();
+  
+  let randomizedLetters = [];
+  for (let i = 0; i < arrayLength; i++) {
+    const index = Math.floor((Math.random() * 100) % (arrayLength - i));
+    randomizedLetters.push(copyLetters[index]);
+    copyLetters.splice(index, 1);
+  }
+
+  console.log(randomizedLetters);
+  return randomizedLetters;
+}
 
 
 // ABCPiensaGame component
@@ -26,21 +52,24 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
   // The current images and their updated properties
   const [currentImages, setCurrentImages] = useState(initialImages);
   
-  const [currentLetters, setCurrentLetters] = useState(null);
+  // The current letters (randomized whenever starting the game or clicking anywhere)
+  const [currentLetters, setCurrentLetters] = useState(initialLetters);
   
   
-  const initialLetters = [
-    'A', 'B', 'C', 'D', 'E',
-    'F', 'G', 'H', 'I', 'J',
-    'K', 'L', 'M', 'N', 'Ñ',
-    'O', 'P', 'Q', 'R', 'S',
-    'T', 'U', 'V', 'W', 'X',
-    'Y', 'Z'
-  ];
+  // Make the timer tick down to 0
+  useEffect(() => {
+    if (currentTimer > 0) {
+      setTimeout(() => {
+        setCurrentTimer(currentTimer - 1);
+      }, 1000);
+    }
+  }, [currentTimer]);
   
   
+  // Whenever we click, randomize the letters
   function handleContainerClick() {
-    
+    const newLetters = randomizeLetters();
+    setCurrentLetters(newLetters);
   }
   
   // Whenever we select a card, change its isFlipped property to true
@@ -53,7 +82,6 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
     if (isImageFlipped) {
       return;
     }
-    
     
     const newImages = currentImages.map((value, imageIndex) => {
       if (cardIndex === imageIndex) {
@@ -107,7 +135,7 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
   }
   
   
-  const letters = initialLetters.map((letter) => {
+  const letters = currentLetters.map((letter) => {
     const imageDropped = currentImages.find(
       (image) => image.isDropped && (image.letter === letter)
     );
@@ -127,18 +155,6 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
     }
   });
   
-  
-  function randomizeLetters() {
-    let randomizedLetters = [];
-    for (let i = 0; i < initialLetters.length; i++) {
-      const index = Math.floor((Math.random() * 100) % (initialLetters.length - i));
-      randomizedLetters.push(letters[index]);
-      letters.splice(index, 1);
-    }
-    
-    setCurrentLetters(randomizedLetters);
-  }
-  
   const cards = currentImages.map((image, cardIndex) => {
     // If the image has not been dropped, we display it;
     // Otherwise, we render nothing
@@ -153,26 +169,6 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
       );
     }
   });
-  
-  // if (!isFirstRender && currentTimer > 0) {
-  //   setTimeout(() => {
-  //     setCurrentTimer(currentTimer - 1);
-  //   }, 1000);
-  // } else {
-  //   isFirstRender = false;
-  // }
-
-  // Make the timer tick down to 0
-  useEffect(() => {
-    if (!isFirstRender && currentTimer > 0) {
-      setTimeout(() => {
-        setCurrentTimer(currentTimer - 1);
-      }, 1000);
-    } else {
-      isFirstRender = false;
-      randomizeLetters();
-    }
-  }, [isFirstRender, currentTimer]);
   
   // Calculating the currently displayed timer and formatting it
   const minutes = Math.floor(currentTimer / 60);
@@ -191,7 +187,7 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
       
       
       <LettersGrid>
-        {currentLetters}
+        {letters}
       </LettersGrid>
       
       <ImagesContainer>
