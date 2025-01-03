@@ -36,8 +36,14 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
   ];
   
   
+  // Whenever we select a card, change its isFlipped property to true
   let isCardSelected;
   function handleCardClick(cardIndex) {
+    // If a card has already been selected, we do nothing
+    if (isCardSelected) {
+      return;
+    }
+    
     isCardSelected = true;
     
     const newImages = currentImages.map((value, imageIndex) => {
@@ -60,6 +66,9 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
     setCurrentImages(newImages);
   }
   
+  // Whenever we click on a letter, check if the selected image matches the letter.
+  // If it does, we change flip the isFlipped and isDropped properties (the card has
+  // now been dropped, and therefore should not be flipped)
   function handleLetterClick(letter) {
     const image = currentImages.find(
       (image) => image.isFlipped && (image.letter === letter)
@@ -94,6 +103,8 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
       (image) => image.isDropped && (image.letter === letter)
     );
     
+    // If the image was dropped, we display that image;
+    // Otherwise, we display the letter
     if (imageDropped) {
       return (
         <LetterBox key={letter}>
@@ -108,6 +119,8 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
   });
   
   const cards = currentImages.map((image, cardIndex) => {
+    // If the image has not been dropped, we display it;
+    // Otherwise, we render nothing
     if (!image.isDropped) {
       return (
         <CardContainer key={image.letter}>
