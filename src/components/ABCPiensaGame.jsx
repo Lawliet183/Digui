@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 
 // Images
@@ -23,7 +23,10 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
   // The current ticking timer
   const [currentTimer, setCurrentTimer] = useState(startingTimer);
   
+  // The current images and their updated properties
   const [currentImages, setCurrentImages] = useState(initialImages);
+  
+  const [currentLetters, setCurrentLetters] = useState(null);
   
   
   const initialLetters = [
@@ -35,6 +38,10 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
     'Y', 'Z'
   ];
   
+  
+  function handleContainerClick() {
+    
+  }
   
   // Whenever we select a card, change its isFlipped property to true
   function handleCardClick(cardIndex) {
@@ -120,6 +127,18 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
     }
   });
   
+  
+  function randomizeLetters() {
+    let randomizedLetters = [];
+    for (let i = 0; i < initialLetters.length; i++) {
+      const index = Math.floor((Math.random() * 100) % (initialLetters.length - i));
+      randomizedLetters.push(letters[index]);
+      letters.splice(index, 1);
+    }
+    
+    setCurrentLetters(randomizedLetters);
+  }
+  
   const cards = currentImages.map((image, cardIndex) => {
     // If the image has not been dropped, we display it;
     // Otherwise, we render nothing
@@ -135,14 +154,25 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
     }
   });
   
+  // if (!isFirstRender && currentTimer > 0) {
+  //   setTimeout(() => {
+  //     setCurrentTimer(currentTimer - 1);
+  //   }, 1000);
+  // } else {
+  //   isFirstRender = false;
+  // }
+
   // Make the timer tick down to 0
-  if (!isFirstRender && currentTimer > 0) {
-    setTimeout(() => {
-      setCurrentTimer(currentTimer - 1);
-    }, 1000);
-  } else {
-    isFirstRender = false;
-  }
+  useEffect(() => {
+    if (!isFirstRender && currentTimer > 0) {
+      setTimeout(() => {
+        setCurrentTimer(currentTimer - 1);
+      }, 1000);
+    } else {
+      isFirstRender = false;
+      randomizeLetters();
+    }
+  }, [isFirstRender, currentTimer]);
   
   // Calculating the currently displayed timer and formatting it
   const minutes = Math.floor(currentTimer / 60);
@@ -154,14 +184,14 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
   
   
   return (
-    <GameContainer>
+    <GameContainer onClick={handleContainerClick}>
       <BackButton onClick={onGoBack}>&lt;-</BackButton>
       
       <Timer>{formattedTimer} --- {currentTimer}</Timer>
       
       
       <LettersGrid>
-        {letters}
+        {currentLetters}
       </LettersGrid>
       
       <ImagesContainer>
