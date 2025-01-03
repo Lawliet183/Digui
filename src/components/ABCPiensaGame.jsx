@@ -37,14 +37,16 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
   
   
   // Whenever we select a card, change its isFlipped property to true
-  let isCardSelected;
   function handleCardClick(cardIndex) {
+    const isImageFlipped = currentImages.find(
+      (image) => image.isFlipped
+    );
+    
     // If a card has already been selected, we do nothing
-    if (isCardSelected) {
+    if (isImageFlipped) {
       return;
     }
     
-    isCardSelected = true;
     
     const newImages = currentImages.map((value, imageIndex) => {
       if (cardIndex === imageIndex) {
