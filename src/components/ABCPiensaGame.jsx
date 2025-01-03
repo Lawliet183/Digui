@@ -36,7 +36,10 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
   ];
   
   
+  let isCardSelected;
   function handleCardClick(cardIndex) {
+    isCardSelected = true;
+    
     const newImages = currentImages.map((value, imageIndex) => {
       if (cardIndex === imageIndex) {
         return (
@@ -57,22 +60,64 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
     setCurrentImages(newImages);
   }
   
-  
-  const letters = initialLetters.map((value) => {
-    return (
-      <LetterBox key={value}>{value}</LetterBox>
+  function handleLetterClick(letter) {
+    const image = currentImages.find(
+      (image) => image.isFlipped && (image.letter === letter)
     );
+    
+    if (image) {
+      const newImages = currentImages.map((value) => {
+        if (value.letter === image.letter) {
+          return (
+            {
+              ...value,
+              isFlipped: false,
+              isDropped: true
+            }
+          )
+        } else {
+          return (
+            {
+              ...value
+            }
+          )
+        }
+      });
+      
+      setCurrentImages(newImages);
+    }
+  }
+  
+  
+  const letters = initialLetters.map((letter) => {
+    const imageDropped = currentImages.find(
+      (image) => image.isDropped && (image.letter === letter)
+    );
+    
+    if (imageDropped) {
+      return (
+        <LetterBox key={letter}>
+          <DroppedImage src={imageDropped.src} />
+        </LetterBox>
+      )
+    } else {
+      return (
+        <LetterBox key={letter} onClick={() => handleLetterClick(letter)}>{letter}</LetterBox>
+      );
+    }
   });
   
-  const cards = currentImages.map((value, cardIndex) => {
-    return (
-      <CardContainer key={value.letter}>
-        <FlipCard isFlipped={value.isFlipped}>
-          <CardFront onClick={() => handleCardClick(cardIndex)} />
-          <CardBack src={value.src} />
-        </FlipCard>
-      </CardContainer>
-    );
+  const cards = currentImages.map((image, cardIndex) => {
+    if (!image.isDropped) {
+      return (
+        <CardContainer key={image.letter}>
+          <FlipCard isFlipped={image.isFlipped}>
+            <CardFront onClick={() => handleCardClick(cardIndex)} />
+            <CardBack src={image.src} />
+          </FlipCard>
+        </CardContainer>
+      );
+    }
   });
   
   // Make the timer tick down to 0
@@ -279,8 +324,10 @@ const LetterBox = styled.div`
 // Definición de DroppedImage
 // Whenever you drop an image on the correct card?
 const DroppedImage = styled.img`
-  width: 40px;
-  height: 40px;
+  /* Changed from 40px to 80% */
+  width: 80%;
+  height: 80%;
+  
   position: absolute;
   top: 5px;
   left: 5px;
