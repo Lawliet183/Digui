@@ -54,7 +54,7 @@ function randomizeArray(originalArray) {
 
 
 // ABCPiensaGame component
-function ABCPiensaGame({ onGoBack, onRetry, startingTimer }) {
+function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
   // The current ticking timer
   const [currentTimer, setCurrentTimer] = useState(startingTimer);
   
@@ -100,7 +100,7 @@ function ABCPiensaGame({ onGoBack, onRetry, startingTimer }) {
   }
   
   function handleConfirmExit() {
-    onGoBack();
+    onExitToMenu();
   }
   
   function handleCancelExit() {
@@ -227,7 +227,7 @@ function ABCPiensaGame({ onGoBack, onRetry, startingTimer }) {
     return (
       <ABCPiensaWinnerScreen
         onRetry={handleGameOver}
-        onGoBack={onGoBack}
+        onExitToMenu={onExitToMenu}
         finishTimer={currentTimer}
       />
     );

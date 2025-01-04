@@ -5,7 +5,7 @@ import backArrow from './../assets/images/ABCPiensaDifficultyMenu/back-arrow.svg
 
 
 // ABCPiensaDifficultyMenu component
-function ABCPiensaDifficultyMenu({ onGoBack, onDifficultySelected }) {
+function ABCPiensaDifficultyMenu({ onExitToMenu, onDifficultySelected }) {
   let difficultySeconds;
   
   // When the user chooses a difficulty, let the parent component know the
@@ -55,7 +55,7 @@ function ABCPiensaDifficultyMenu({ onGoBack, onDifficultySelected }) {
         duration={7}
       />
       
-      <BackButton onClick={onGoBack}>
+      <BackButton onClick={onExitToMenu}>
         <img src={backArrow} />
       </BackButton>
       

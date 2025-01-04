@@ -53,7 +53,7 @@ function App() {
     setCurrentScreen(desiredGame);
   }
   
-  function handleGoBack() {
+  function handleExitToMenu() {
     setCurrentScreen('main-menu');
   }
   
@@ -88,7 +88,7 @@ function App() {
     case 'abc-piensa-difficulty-menu': {
       content =
         <ABCPiensaDifficultyMenu
-          onGoBack={handleGoBack}
+          onExitToMenu={handleExitToMenu}
           onDifficultySelected={handleDifficultySelected}
         />
         
@@ -97,7 +97,7 @@ function App() {
     case 'abc-piensa-game': {
       content = 
         <ABCPiensaGame
-          onGoBack={handleGoBack}
+          onExitToMenu={handleExitToMenu}
           onRetry={handleGameSelected}
           startingTimer={ABCPiensaSeconds}
         />
