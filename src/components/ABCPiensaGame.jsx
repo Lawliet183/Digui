@@ -5,7 +5,8 @@ import styled, { css, keyframes } from 'styled-components';
 import imageDatabase from './ABCPiensaImageDatabase.jsx';
 
 
-const initialImages = imageDatabase.map((value) => {
+// Constant, unchangeable instances of the letters and images
+const originalImages = imageDatabase.map((value) => {
   return (
     {
       ...value,
@@ -15,32 +16,36 @@ const initialImages = imageDatabase.map((value) => {
   );
 });
 
-const initialLetters = randomizeLetters();
+const originalLetters = [
+  'A', 'B', 'C', 'D', 'E',
+  'F', 'G', 'H', 'I', 'J',
+  'K', 'L', 'M', 'N', 'Ñ',
+  'O', 'P', 'Q', 'R', 'S',
+  'T', 'U', 'V', 'W', 'X',
+  'Y', 'Z'
+];
 
 
-// Randomize the letters around
-function randomizeLetters() {
-  const originalLetters = [
-    'A', 'B', 'C', 'D', 'E',
-    'F', 'G', 'H', 'I', 'J',
-    'K', 'L', 'M', 'N', 'Ñ',
-    'O', 'P', 'Q', 'R', 'S',
-    'T', 'U', 'V', 'W', 'X',
-    'Y', 'Z'
-  ];
+// Letters and images, but randomized once
+const initialImages = randomizeArray(originalImages);
+
+const initialLetters = randomizeArray(originalLetters);
+
+
+// Randomize an array (used for both letters and images/cards)
+function randomizeArray(originalArray) {
+  const arrayLength = originalArray.length;
+  const copyArray = originalArray.slice();
   
-  const arrayLength = originalLetters.length;
-  const copyLetters = originalLetters.slice();
-  
-  let randomizedLetters = [];
+  let randomizedArray = [];
   for (let i = 0; i < arrayLength; i++) {
     const index = Math.floor((Math.random() * 100) % (arrayLength - i));
-    randomizedLetters.push(copyLetters[index]);
-    copyLetters.splice(index, 1);
+    randomizedArray.push(copyArray[index]);
+    copyArray.splice(index, 1);
   }
 
-  console.log(randomizedLetters);
-  return randomizedLetters;
+  console.log(randomizedArray);
+  return randomizedArray;
 }
 
 
@@ -68,7 +73,7 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
   
   // Whenever we click, randomize the letters
   function handleContainerClick() {
-    const newLetters = randomizeLetters();
+    const newLetters = randomizeArray(originalLetters);
     setCurrentLetters(newLetters);
   }
   
