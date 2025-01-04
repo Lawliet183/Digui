@@ -90,6 +90,10 @@ function ABCPiensaGame({ onGoBack, onRetry, startingTimer }) {
     onRetry('abc-piensa-difficulty-menu');
   }
   
+  function handleAnimationEnd() {
+    setIsAnimationOver(true);
+  }
+  
   // Confirm if the user wants to exit the game, and take appropiate action
   function handleConfirmationDialog() {
     setShowExitDialog(true);
@@ -221,7 +225,11 @@ function ABCPiensaGame({ onGoBack, onRetry, startingTimer }) {
   // If none of this is true, we keep playing the game
   if (!foundDroppedCard) {
     return (
-      <ABCPiensaWinnerScreen onRetry={handleGameOver} onGoBack={onGoBack} finishTimer={currentTimer} />
+      <ABCPiensaWinnerScreen
+        onRetry={handleGameOver}
+        onGoBack={onGoBack}
+        finishTimer={currentTimer}
+      />
     );
   } else if (currentTimer <= 0) {
     return (
@@ -229,7 +237,7 @@ function ABCPiensaGame({ onGoBack, onRetry, startingTimer }) {
     );
   } else {
     return (
-      <GameContainer onAnimationEnd={() => setIsAnimationOver(true)} onClick={handleContainerClick}>
+      <GameContainer onAnimationEnd={handleAnimationEnd} onClick={handleContainerClick}>
         <BackButton onClick={handleConfirmationDialog}>&lt;-</BackButton>
 
         {showExitDialog &&
