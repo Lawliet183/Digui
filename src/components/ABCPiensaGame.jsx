@@ -4,6 +4,9 @@ import styled, { css, keyframes } from 'styled-components';
 // Images
 import imageDatabase from './ABCPiensaImageDatabase.jsx';
 
+// Components
+import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
+
 
 // Constant, unchangeable instances of the letters and images
 const originalImages = imageDatabase.map((value) => {
@@ -60,6 +63,9 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
   // The current letters (randomized whenever starting the game or clicking anywhere)
   const [currentLetters, setCurrentLetters] = useState(initialLetters);
   
+  // Whether the exit confirmation dialog should be shown or not
+  const [showExitDialog, setShowExitDialog] = useState(false);
+  
   
   // Make the timer tick down to 0
   useEffect(() => {
@@ -70,6 +76,19 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
     }
   }, [currentTimer]);
   
+  
+  // Confirm if the user wants to exit the game, and take appropiate action
+  function handleConfirmationDialog() {
+    setShowExitDialog(true);
+  }
+  
+  function handleConfirmExit() {
+    onGoBack();
+  }
+  
+  function handleCancelExit() {
+    setShowExitDialog(false);
+  }
   
   // Whenever we click, randomize the letters
   function handleContainerClick() {
@@ -186,7 +205,14 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
   
   return (
     <GameContainer onClick={handleContainerClick}>
-      <BackButton onClick={onGoBack}>&lt;-</BackButton>
+      <BackButton onClick={handleConfirmationDialog}>&lt;-</BackButton>
+      
+      {showExitDialog && 
+        <ExitConfirmationDialog
+          onConfirmExit={handleConfirmExit}
+          onCancelExit={handleCancelExit}
+        />
+      }
       
       <Timer>{formattedTimer} --- {currentTimer}</Timer>
       
