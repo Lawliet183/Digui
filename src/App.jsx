@@ -91,10 +91,17 @@ function App() {
           onGoBack={handleGoBack}
           onDifficultySelected={handleDifficultySelected}
         />
+        
       break;
     }
     case 'abc-piensa-game': {
-      content = <ABCPiensaGame onGoBack={handleGoBack} startingTimer={ABCPiensaSeconds} />
+      content = 
+        <ABCPiensaGame
+          onGoBack={handleGoBack}
+          onRetry={handleGameSelected}
+          startingTimer={ABCPiensaSeconds}
+        />
+        
       break;
     }
     default: {

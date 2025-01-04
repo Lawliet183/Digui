@@ -14,7 +14,7 @@ function ExitConfirmationDialog({ onConfirmExit, onCancelExit }) {
         </ButtonContainer>
       </ModalContainer>
     </Overlay>
-  )
+  );
 }
 
 

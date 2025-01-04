@@ -1,9 +1,76 @@
 import styled, { keyframes } from 'styled-components';
 
+// Images
+import emptyStar from './../assets/images/ABCPiensaWinnerScreen/EmptyStar.svg';
+import fullStar from './../assets/images/ABCPiensaWinnerScreen/FullStar.svg';
+
 
 // ABCPiensaWinnerScreen component
-function ABCPiensaWinnerScreen() {
+function ABCPiensaWinnerScreen({ onRetry, onGoBack, finishTimer }) {
+  const confettiColors = ['#ff5252', '#ffb74d', '#4caf50', '#40c4ff', '#ab47bc', '#ffd700'];
   
+  
+  const score = Math.floor((finishTimer / 60) * 100);
+  
+  function getStars() {
+    if (score >= 80) {
+      return 3;
+    } else if (score >= 50) {
+      return 2;
+    } else {
+      return 1;
+    }
+  }
+  
+  const stars = getStars();
+  
+  // Generate all of the confetti squares
+  let confetti = [];
+  for (let i = 0; i < 150; i++) {
+    const index = Math.floor((Math.random() * 100) % confettiColors.length);
+    
+    confetti.push(
+      <Confetti key={i} 
+        x={Math.random() * 100}
+        y={Math.random() * 100}
+        color={confettiColors[index]}
+      />
+    );
+  }
+  
+  return (
+    <WinnerContainer>
+      <Shape shape="circle" size={150} top={10} left={10} duration={6} />
+      <Shape shape="square" size={100} top={50} left={80} duration={8} />
+      <Shape shape="circle" size={200} top={30} left={30} duration={10} />
+      <Shape shape="square" size={120} top={70} left={20} duration={5} />
+      
+      <MotivationalBox>
+        <p>¡Eres increíble!</p>
+        <p>No te rindas, sigue esforzándote cada día.</p>
+        <p>¡Cada intento te acerca más a la meta!</p>
+        <p>¡La práctica te hará un maestro!</p>
+      </MotivationalBox>
+      
+      <ContentBox>
+        <Title>¡Ganaste!</Title>
+        <Score>Puntos: {score}</Score>
+        
+        <StarsContainer>
+          <Star src={fullStar} delay={1.0} />
+          <Star src={stars >= 2 ? fullStar : emptyStar} delay={1.8} />
+          <Star src={stars >= 3 ? fullStar : emptyStar} delay={2.6} />
+        </StarsContainer>
+        
+        <Button onClick={onRetry}>Jugar de nuevo</Button>
+        <Button onClick={onGoBack}>Salir al menú</Button>
+      </ContentBox>
+      
+      <ConfettiContainer>
+        {confetti}
+      </ConfettiContainer>
+    </WinnerContainer>
+  );
 }
 
 

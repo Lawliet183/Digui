@@ -2,8 +2,19 @@ import styled, { keyframes } from 'styled-components';
 
 
 // ABCPiensaLoserScreen component
-function ABCPiensaLoserScreen() {
-  
+function ABCPiensaLoserScreen({ onRetry }) {
+  return (
+    <GameOverContainer>
+      <FloatingShape size="150px" color="#ff6b6b" top="10%" left="20%" duration={4} />
+      <FloatingShape size="120px" color="#ffb86c" top="80%" left="10%" duration={5} />
+      <FloatingShape size="100px" color="#ff9f43" top="40%" left="70%" duration={6} />
+      <FloatingShape size="180px" color="#ff6b81" top="30%" left="80%" duration={3} />
+      
+      <GameOverTitle>Game Over</GameOverTitle>
+      <GameOverText>¡Se acabó el tiempo! Intenta de nuevo.</GameOverText>
+      <RetryButton onClick={onRetry}>Intentar de nuevo</RetryButton>
+    </GameOverContainer>
+  );
 }
 
 

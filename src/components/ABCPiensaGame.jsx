@@ -6,6 +6,8 @@ import imageDatabase from './ABCPiensaImageDatabase.jsx';
 
 // Components
 import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
+import ABCPiensaLoserScreen from './ABCPiensaLoserScreen.jsx';
+import ABCPiensaWinnerScreen from './ABCPiensaWinnerScreen.jsx';
 
 
 // Constant, unchangeable instances of the letters and images
@@ -47,13 +49,12 @@ function randomizeArray(originalArray) {
     copyArray.splice(index, 1);
   }
 
-  console.log(randomizedArray);
   return randomizedArray;
 }
 
 
 // ABCPiensaGame component
-function ABCPiensaGame({ onGoBack, startingTimer }) {
+function ABCPiensaGame({ onGoBack, onRetry, startingTimer }) {
   // The current ticking timer
   const [currentTimer, setCurrentTimer] = useState(startingTimer);
   
@@ -66,16 +67,28 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
   // Whether the exit confirmation dialog should be shown or not
   const [showExitDialog, setShowExitDialog] = useState(false);
   
+  // Whether the starting animation is over or not
+  const [isAnimationOver, setIsAnimationOver] = useState(false);
   
+  
+  const foundDroppedCard = currentImages.find((value) => value.isDropped === false);
+
   // Make the timer tick down to 0
   useEffect(() => {
-    if (currentTimer > 0) {
-      setTimeout(() => {
+    if (isAnimationOver && currentTimer > 0 && foundDroppedCard) {
+      const intervalID = setInterval(() => {
         setCurrentTimer(currentTimer - 1);
       }, 1000);
+
+      return () => clearInterval(intervalID);
     }
-  }, [currentTimer]);
+  }, [currentTimer, foundDroppedCard, isAnimationOver]);
   
+  
+  // When the game ends (losing, or retrying)
+  function handleGameOver() {
+    onRetry('abc-piensa-difficulty-menu');
+  }
   
   // Confirm if the user wants to exit the game, and take appropiate action
   function handleConfirmationDialog() {
@@ -203,31 +216,42 @@ function ABCPiensaGame({ onGoBack, startingTimer }) {
   const formattedTimer = minutes + ':' + seconds;
   
   
-  return (
-    <GameContainer onClick={handleContainerClick}>
-      <BackButton onClick={handleConfirmationDialog}>&lt;-</BackButton>
-      
-      {showExitDialog && 
-        <ExitConfirmationDialog
-          onConfirmExit={handleConfirmExit}
-          onCancelExit={handleCancelExit}
-        />
-      }
-      
-      <Timer>{formattedTimer} --- {currentTimer}</Timer>
-      
-      
-      <LettersGrid>
-        {letters}
-      </LettersGrid>
-      
-      <ImagesContainer>
-        {cards}
-      </ImagesContainer>
-      
-      {currentTimer <= 0 && <img src='L:/Images/Memes/Zazu cat stare.jpg'></img>}
-    </GameContainer>
-  );
+  // If we don't have any more cards to drop, we won the game;
+  // If the time runs out, we lose the game;
+  // If none of this is true, we keep playing the game
+  if (!foundDroppedCard) {
+    return (
+      <ABCPiensaWinnerScreen onRetry={handleGameOver} onGoBack={onGoBack} finishTimer={currentTimer} />
+    );
+  } else if (currentTimer <= 0) {
+    return (
+      <ABCPiensaLoserScreen onRetry={handleGameOver} />
+    );
+  } else {
+    return (
+      <GameContainer onAnimationEnd={() => setIsAnimationOver(true)} onClick={handleContainerClick}>
+        <BackButton onClick={handleConfirmationDialog}>&lt;-</BackButton>
+
+        {showExitDialog &&
+          <ExitConfirmationDialog
+            onConfirmExit={handleConfirmExit}
+            onCancelExit={handleCancelExit}
+          />
+        }
+
+        <Timer>{formattedTimer} --- {currentTimer}</Timer>
+
+
+        <LettersGrid>
+          {letters}
+        </LettersGrid>
+
+        <ImagesContainer>
+          {cards}
+        </ImagesContainer>
+      </GameContainer>
+    );
+  }
 }
 
 
