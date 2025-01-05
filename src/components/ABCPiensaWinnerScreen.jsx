@@ -6,7 +6,7 @@ import fullStar from './../assets/images/ABCPiensaWinnerScreen/FullStar.svg';
 
 
 // ABCPiensaWinnerScreen component
-function ABCPiensaWinnerScreen({ onRetry, onGoBack, finishTimer }) {
+function ABCPiensaWinnerScreen({ onRetry, onExitToMenu, finishTimer }) {
   const confettiColors = ['#ff5252', '#ffb74d', '#4caf50', '#40c4ff', '#ab47bc', '#ffd700'];
   
   
@@ -27,10 +27,11 @@ function ABCPiensaWinnerScreen({ onRetry, onGoBack, finishTimer }) {
   // Generate all of the confetti squares
   let confetti = [];
   for (let i = 0; i < 150; i++) {
-    const index = Math.floor((Math.random() * 100) % confettiColors.length);
+    const index = Math.floor(Math.random() * confettiColors.length);
     
     confetti.push(
-      <Confetti key={i} 
+      <Confetti
+        key={i}
         x={Math.random() * 100}
         y={Math.random() * 100}
         color={confettiColors[index]}
@@ -63,7 +64,7 @@ function ABCPiensaWinnerScreen({ onRetry, onGoBack, finishTimer }) {
         </StarsContainer>
         
         <Button onClick={onRetry}>Jugar de nuevo</Button>
-        <Button onClick={onGoBack}>Salir al menú</Button>
+        <Button onClick={onExitToMenu}>Salir al menú</Button>
       </ContentBox>
       
       <ConfettiContainer>

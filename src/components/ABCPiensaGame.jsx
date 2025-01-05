@@ -22,11 +22,11 @@ const originalImages = imageDatabase.map((value) => {
 });
 
 const originalLetters = [
-  'A', 'B', 'C', 'D', 'E',
-  'F', 'G', 'H', 'I', 'J',
-  'K', 'L', 'M', 'N', 'Ñ',
-  'O', 'P', 'Q', 'R', 'S',
-  'T', 'U', 'V', 'W', 'X',
+  // 'A', 'B', 'C', 'D', 'E',
+  // 'F', 'G', 'H', 'I', 'J',
+  // 'K', 'L', 'M', 'N', 'Ñ',
+  // 'O', 'P', 'Q', 'R', 'S',
+  // 'T', 'U', 'V', 'W', 'X',
   'Y', 'Z'
 ];
 
@@ -72,17 +72,19 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
   
   
   const foundDroppedCard = currentImages.find((value) => value.isDropped === false);
+  
+  const isGameWon = foundDroppedCard ? false : true;
 
   // Make the timer tick down to 0
   useEffect(() => {
-    if (isAnimationOver && currentTimer > 0 && foundDroppedCard) {
+    if (isAnimationOver && currentTimer > 0 && !isGameWon) {
       const intervalID = setInterval(() => {
         setCurrentTimer(currentTimer - 1);
       }, 1000);
 
       return () => clearInterval(intervalID);
     }
-  }, [currentTimer, foundDroppedCard, isAnimationOver]);
+  }, [currentTimer, isGameWon, isAnimationOver]);
   
   
   // When the game ends (losing, or retrying)
@@ -90,6 +92,7 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
     onRetry('abc-piensa-difficulty-menu');
   }
   
+  // When the starting animation ends, indicate it
   function handleAnimationEnd() {
     setIsAnimationOver(true);
   }
@@ -119,11 +122,49 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
       (image) => image.isFlipped
     );
     
-    // If a card has already been selected, we do nothing
+    // If a card has already been selected, we update the images to set the 
+    // error property on the card that the user attempted to select
     if (isImageFlipped) {
+      setCurrentImages((prevImages) => prevImages.map((value, imageIndex) => {
+        if (cardIndex === imageIndex) {
+          return (
+            {
+              ...value,
+              error: true
+            }
+          )
+        } else {
+          return (
+            {
+              ...value
+            }
+          )
+        }
+      }))
+      
+      setTimeout(() => {
+        setCurrentImages((prevImages) => prevImages.map((value, imageIndex) => {
+          if (cardIndex === imageIndex) {
+            return (
+              {
+                ...value,
+                error: false
+              }
+            )
+          } else {
+            return (
+              {
+                ...value
+              }
+            )
+          }
+        }))
+      }, 500)
+      
       return;
     }
     
+    // Otherwise, we just switch the isFlipped property of the currently selected card
     const newImages = currentImages.map((value, imageIndex) => {
       if (cardIndex === imageIndex) {
         return (
@@ -185,7 +226,7 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
     // Otherwise, we display the letter
     if (imageDropped) {
       return (
-        <LetterBox key={letter}>
+        <LetterBox key={letter} correct={true}>
           <DroppedImage src={imageDropped.src} />
         </LetterBox>
       )
@@ -202,7 +243,7 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
     if (!image.isDropped) {
       return (
         <CardContainer key={image.letter}>
-          <FlipCard isFlipped={image.isFlipped}>
+          <FlipCard isFlipped={image.isFlipped} error={image.error}>
             <CardFront onClick={() => handleCardClick(cardIndex)} />
             <CardBack src={image.src} />
           </FlipCard>
@@ -223,7 +264,7 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
   // If we don't have any more cards to drop, we won the game;
   // If the time runs out, we lose the game;
   // If none of this is true, we keep playing the game
-  if (!foundDroppedCard) {
+  if (isGameWon) {
     return (
       <ABCPiensaWinnerScreen
         onRetry={handleGameOver}
