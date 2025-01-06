@@ -8,6 +8,7 @@ import LoginSuccessfulScreen from './components/LoginSuccessfulScreen.jsx';
 import MainMenuScreen from './components/MainMenuScreen.jsx';
 import ABCPiensaDifficultyMenu from './components/ABCPiensaDifficultyMenu.jsx';
 import ABCPiensaGame from './components/ABCPiensaGame.jsx';
+import DominoGame from './components/DominoGame.jsx';
 
 
 // Did the app initialize already?
@@ -102,6 +103,10 @@ function App() {
           startingTimer={ABCPiensaSeconds}
         />
         
+      break;
+    }
+    case 'domino-game': {
+      content = <DominoGame />
       break;
     }
     default: {

@@ -16,6 +16,11 @@ function GamesScreen({ onGameSelected }) {
     onGameSelected(desiredGame)
   }
   
+  function handleDominoSelected() {
+    desiredGame = 'domino-game';
+    onGameSelected(desiredGame);
+  }
+  
   return (
     <GameContent>
       <GameGrid>
@@ -24,7 +29,7 @@ function GamesScreen({ onGameSelected }) {
           <GameTitle>ABC Piensa!</GameTitle>
         </GameCard>
 
-        <GameCard>
+        <GameCard onClick={handleDominoSelected}>
           <GameImage src={DominoIcon} />
           <GameTitle>Dominó</GameTitle>
         </GameCard>
