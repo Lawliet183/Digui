@@ -106,7 +106,7 @@ function App() {
       break;
     }
     case 'domino-game': {
-      content = <DominoGame />
+      content = <DominoGame onExitToMenu={handleExitToMenu} />
       break;
     }
     default: {

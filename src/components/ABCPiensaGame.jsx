@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 
 // Images
-import imageDatabase from './ABCPiensaImageDatabase.jsx';
+import ABCPiensaImageDatabase from './ABCPiensaImageDatabase.jsx';
 
 // Components
 import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
@@ -11,7 +11,7 @@ import ABCPiensaWinnerScreen from './ABCPiensaWinnerScreen.jsx';
 
 
 // Constant, unchangeable instances of the letters and images
-const originalImages = imageDatabase.map((value) => {
+const originalImages = ABCPiensaImageDatabase.map((value) => {
   return (
     {
       ...value,
@@ -22,11 +22,11 @@ const originalImages = imageDatabase.map((value) => {
 });
 
 const originalLetters = [
-  // 'A', 'B', 'C', 'D', 'E',
-  // 'F', 'G', 'H', 'I', 'J',
-  // 'K', 'L', 'M', 'N', 'Ñ',
-  // 'O', 'P', 'Q', 'R', 'S',
-  // 'T', 'U', 'V', 'W', 'X',
+  'A', 'B', 'C', 'D', 'E',
+  'F', 'G', 'H', 'I', 'J',
+  'K', 'L', 'M', 'N', 'Ñ',
+  'O', 'P', 'Q', 'R', 'S',
+  'T', 'U', 'V', 'W', 'X',
   'Y', 'Z'
 ];
 
@@ -132,15 +132,15 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
               ...value,
               error: true
             }
-          )
+          );
         } else {
           return (
             {
               ...value
             }
-          )
+          );
         }
-      }))
+      }));
       
       setTimeout(() => {
         setCurrentImages((prevImages) => prevImages.map((value, imageIndex) => {
@@ -150,16 +150,16 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
                 ...value,
                 error: false
               }
-            )
+            );
           } else {
             return (
               {
                 ...value
               }
-            )
+            );
           }
-        }))
-      }, 500)
+        }));
+      }, 500);
       
       return;
     }
@@ -172,13 +172,13 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
             ...value,
             isFlipped: true
           }
-        )
+        );
       } else {
         return (
           {
             ...value
           }
-        )
+        );
       }
     });
     
@@ -202,13 +202,13 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
               isFlipped: false,
               isDropped: true
             }
-          )
+          );
         } else {
           return (
             {
               ...value
             }
-          )
+          );
         }
       });
       
@@ -229,7 +229,7 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
         <LetterBox key={letter} correct={true}>
           <DroppedImage src={imageDropped.src} />
         </LetterBox>
-      )
+      );
     } else {
       return (
         <LetterBox key={letter} onClick={() => handleLetterClick(letter)}>{letter}</LetterBox>
@@ -288,7 +288,7 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
           />
         }
 
-        <Timer>{formattedTimer} --- {currentTimer}</Timer>
+        <Timer>{formattedTimer}</Timer>
 
 
         <LettersGrid>

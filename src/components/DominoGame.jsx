@@ -1,8 +1,61 @@
+import { useState, useEffect } from 'react';
 import styled, { createGlobalStyle, keyframes, css } from 'styled-components';
+
+// Components
+import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
+import DominoImageDatabase from './DominoImageDatabase.jsx';
+import DominoTile from './DominoTile.jsx';
+
+
+const startingTimer = 60;
 
 
 // DominoGame component
-function DominoGame() {
+function DominoGame({ onExitToMenu }) {
+  // Whether the exit confirmation dialog should be shown or not
+  const [showExitDialog, setShowExitDialog] = useState(false);
+  
+  // The current ticking timer
+  const [currentTimer, setCurrentTimer] = useState(startingTimer);
+  
+  
+  const isGameWon = false;
+  
+  // Make the timer tick down to 0
+  useEffect(() => {
+    if (currentTimer > 0 && !isGameWon) {
+      const intervalID = setInterval(() => {
+        setCurrentTimer(currentTimer - 1);
+      }, 1000);
+
+      return () => clearInterval(intervalID);
+    }
+  }, [currentTimer, isGameWon]);
+  
+  
+  // Confirm if the user wants to exit the game, and take appropiate action
+  function handleConfirmationDialog() {
+    setShowExitDialog(true);
+  }
+
+  function handleConfirmExit() {
+    onExitToMenu();
+  }
+
+  function handleCancelExit() {
+    setShowExitDialog(false);
+  }
+  
+  
+  // Calculating the currently displayed timer and formatting it
+  const minutes = Math.floor(currentTimer / 60);
+
+  const moduloTimer = currentTimer % 60;
+  const seconds = (moduloTimer > 9) ? moduloTimer : '0' + moduloTimer;
+
+  const formattedTimer = minutes + ':' + seconds;
+  
+  
   return (
     <>
       <GlobalStyle />
@@ -21,10 +74,17 @@ function DominoGame() {
       
       <Container>
         <Header>
-          <ExitButton>&lt;-</ExitButton>
+          <ExitButton onClick={handleConfirmationDialog}>&lt;-</ExitButton>
           
-          <Timer>Sexo</Timer>
+          <Timer>{formattedTimer}</Timer>
         </Header>
+        
+        {showExitDialog &&
+          <ExitConfirmationDialog
+            onConfirmExit={handleConfirmExit}
+            onCancelExit={handleCancelExit}
+          />
+        }
         
         <StyledBoard>
           
@@ -36,20 +96,20 @@ function DominoGame() {
           <PlayerRow>
             <Title>Jugador 1</Title>
             <PlayerTiles>
-              
+              <DominoTile tile={DominoImageDatabase[0].src} />
             </PlayerTiles>
           </PlayerRow>
           
           <PlayerRow>
             <Title>Jugador 2</Title>
             <PlayerTiles>
-
+              <DominoTile tile={DominoImageDatabase[1].src} />
             </PlayerTiles>
           </PlayerRow>
         </PlayerArea>
       </Container>
     </>
-  )
+  );
 }
 
 

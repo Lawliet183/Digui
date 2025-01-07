@@ -28,36 +28,36 @@ import zapato   from './../assets/images/ABCPiensaGame/zapato.svg';
 
 
 // Poner las imágenes en un arreglo de objetos con su respectiva letra
-const imageDatabase = [
-  // { src: arbol,     letter: 'A' },
-  // { src: billete,   letter: 'B' },
-  // { src: casa,      letter: 'C' },
-  // { src: dedo,      letter: 'D' },
-  // { src: estrella,  letter: 'E' },
-  // { src: flor,      letter: 'F' },
-  // { src: galleta,   letter: 'G' },
-  // { src: hoja,      letter: 'H' },
-  // { src: iman,      letter: 'I' },
-  // { src: jarron,    letter: 'J' },
-  // { src: kilo,      letter: 'K' },
-  // { src: luna,      letter: 'L' },
-  // { src: mochila,   letter: 'M' },
-  // { src: nube,      letter: 'N' },
-  // { src: ñame,      letter: 'Ñ' },
-  // { src: ojo,       letter: 'O' },
-  // { src: pera,      letter: 'P' },
-  // { src: queso,     letter: 'Q' },
-  // { src: reloj,     letter: 'R' },
-  // { src: sopa,      letter: 'S' },
-  // { src: tuerca,    letter: 'T' },
-  // { src: uva,       letter: 'U' },
-  // { src: vaso,      letter: 'V' },
-  // { src: wifi,      letter: 'W' },
-  // { src: xilofono,  letter: 'X' },
+const ABCPiensaImageDatabase = [
+  { src: arbol,     letter: 'A' },
+  { src: billete,   letter: 'B' },
+  { src: casa,      letter: 'C' },
+  { src: dedo,      letter: 'D' },
+  { src: estrella,  letter: 'E' },
+  { src: flor,      letter: 'F' },
+  { src: galleta,   letter: 'G' },
+  { src: hoja,      letter: 'H' },
+  { src: iman,      letter: 'I' },
+  { src: jarron,    letter: 'J' },
+  { src: kilo,      letter: 'K' },
+  { src: luna,      letter: 'L' },
+  { src: mochila,   letter: 'M' },
+  { src: nube,      letter: 'N' },
+  { src: ñame,      letter: 'Ñ' },
+  { src: ojo,       letter: 'O' },
+  { src: pera,      letter: 'P' },
+  { src: queso,     letter: 'Q' },
+  { src: reloj,     letter: 'R' },
+  { src: sopa,      letter: 'S' },
+  { src: tuerca,    letter: 'T' },
+  { src: uva,       letter: 'U' },
+  { src: vaso,      letter: 'V' },
+  { src: wifi,      letter: 'W' },
+  { src: xilofono,  letter: 'X' },
   { src: yoyo,      letter: 'Y' },
   { src: zapato,    letter: 'Z' }
 ];
 
 
 // Exportar la base de datos de imágenes
-export default imageDatabase;
+export default ABCPiensaImageDatabase;
