@@ -9,6 +9,59 @@ import DominoTile from './DominoTile.jsx';
 
 const startingTimer = 60;
 
+  // const test = [
+  //   [
+  //     {
+        
+  //     },
+  //     {
+        
+  //     }
+  //   ],
+    
+  //   [
+  //     {
+        
+  //     },
+  //     {
+        
+  //     }
+  //   ]
+  // ]
+
+const originalTiles = DominoImageDatabase.slice();
+
+const initialTiles = randomizeArray(originalTiles);
+
+const initialPlayer1Tiles = initializePlayerTiles();
+
+const initialPlayer2Tiles = initializePlayerTiles();
+
+
+function initializePlayerTiles() {
+  let playerTiles = [];
+  for (let i = 0; i < 7; i++) {
+    playerTiles.push(initialTiles[i]);
+  }
+
+  initialTiles.splice(0, 7);
+  return playerTiles;
+}
+
+function randomizeArray(originalArray) {
+  const arrayLength = originalArray.length;
+  const copyArray = originalArray.slice();
+
+  let randomizedArray = [];
+  for (let i = 0; i < arrayLength; i++) {
+    const index = Math.floor((Math.random() * 100) % (arrayLength - i));
+    randomizedArray.push(copyArray[index]);
+    copyArray.splice(index, 1);
+  }
+
+  return randomizedArray;
+}
+
 
 // DominoGame component
 function DominoGame({ onExitToMenu }) {
@@ -17,6 +70,12 @@ function DominoGame({ onExitToMenu }) {
   
   // The current ticking timer
   const [currentTimer, setCurrentTimer] = useState(startingTimer);
+  
+  // The current tiles in the tile bank
+  const [currentTiles, setCurrentTiles] = useState(initialTiles);
+  
+  const [player1CurrentTiles, setPlayer1CurrentTiles] = useState(initialPlayer1Tiles);
+  const [player2CurrentTiles, setPlayer2CurrentTiles] = useState(initialPlayer2Tiles);
   
   
   const isGameWon = false;
@@ -55,6 +114,12 @@ function DominoGame({ onExitToMenu }) {
 
   const formattedTimer = minutes + ':' + seconds;
   
+  const player1Tiles = player1CurrentTiles.map((value, index) => {
+    return (
+      <DominoTile key={index} tile={value.src} />
+    )
+  });
+  
   
   return (
     <>
@@ -76,7 +141,7 @@ function DominoGame({ onExitToMenu }) {
         <Header>
           <ExitButton onClick={handleConfirmationDialog}>&lt;-</ExitButton>
           
-          <Timer>{formattedTimer}</Timer>
+          <Timer>Tiempo restante: {formattedTimer}</Timer>
         </Header>
         
         {showExitDialog &&
@@ -96,14 +161,14 @@ function DominoGame({ onExitToMenu }) {
           <PlayerRow>
             <Title>Jugador 1</Title>
             <PlayerTiles>
-              <DominoTile tile={DominoImageDatabase[0].src} />
+              {player1Tiles}
             </PlayerTiles>
           </PlayerRow>
           
           <PlayerRow>
             <Title>Jugador 2</Title>
             <PlayerTiles>
-              <DominoTile tile={DominoImageDatabase[1].src} />
+              {/* {player2CurrentTiles} */}
             </PlayerTiles>
           </PlayerRow>
         </PlayerArea>
