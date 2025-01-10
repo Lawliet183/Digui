@@ -7,6 +7,7 @@ import DominoImageDatabase from './DominoImageDatabase.jsx';
 import DominoTile from './DominoTile.jsx';
 
 
+// Starting timer in seconds
 const startingTimer = 60;
 
   // const test = [

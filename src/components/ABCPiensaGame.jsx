@@ -31,12 +31,6 @@ const originalLetters = [
 ];
 
 
-// Letters and images, but randomized once
-const initialImages = randomizeArray(originalImages);
-
-const initialLetters = randomizeArray(originalLetters);
-
-
 // Randomize an array (used for both letters and images/cards)
 function randomizeArray(originalArray) {
   const arrayLength = originalArray.length;
@@ -58,11 +52,11 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
   // The current ticking timer
   const [currentTimer, setCurrentTimer] = useState(startingTimer);
   
-  // The current images and their updated properties
-  const [currentImages, setCurrentImages] = useState(initialImages);
+  // The current images and their updated properties, randomized once at the beginning
+  const [currentImages, setCurrentImages] = useState(randomizeArray(originalImages));
   
   // The current letters (randomized whenever starting the game or clicking anywhere)
-  const [currentLetters, setCurrentLetters] = useState(initialLetters);
+  const [currentLetters, setCurrentLetters] = useState(randomizeArray(originalLetters));
   
   // Whether the exit confirmation dialog should be shown or not
   const [showExitDialog, setShowExitDialog] = useState(false);
