@@ -71,6 +71,7 @@ function DominoGame({ onExitToMenu }) {
   // The current tiles in the tile bank
   const [currentTiles, setCurrentTiles] = useState(randomizeArray(originalTiles));
   
+  // The current tiles that each player currently holds
   const [player1CurrentTiles, setPlayer1CurrentTiles] = useState([]);
   const [player2CurrentTiles, setPlayer2CurrentTiles] = useState([]);
   
@@ -88,10 +89,10 @@ function DominoGame({ onExitToMenu }) {
     }
   }, [currentTimer, isGameWon]);
   
-  const newTiles = currentTiles.slice();
-  
   // Give the players their corresponding tiles
   useEffect(() => {
+    const newTiles = currentTiles.slice();
+    
     // If the tile bank is full, we distribute 7 tiles to each player
     if (newTiles.length >= 28) {
       setPlayer1CurrentTiles(initializePlayerTiles(newTiles));
