@@ -32,17 +32,13 @@ const startingTimer = 60;
 
 const originalTiles = DominoImageDatabase.slice();
 
-const initialTiles = randomizeArray(originalTiles);
 
-const initialPlayer1Tiles = initializePlayerTiles();
-
-const initialPlayer2Tiles = initializePlayerTiles();
-
-
-function initializePlayerTiles() {
+function initializePlayerTiles(initialTiles) {
+  const copyArray = initialTiles.slice();
+  
   let playerTiles = [];
   for (let i = 0; i < 7; i++) {
-    playerTiles.push(initialTiles[i]);
+    playerTiles.push(copyArray[i]);
   }
 
   initialTiles.splice(0, 7);
@@ -73,10 +69,10 @@ function DominoGame({ onExitToMenu }) {
   const [currentTimer, setCurrentTimer] = useState(startingTimer);
   
   // The current tiles in the tile bank
-  const [currentTiles, setCurrentTiles] = useState(initialTiles);
+  const [currentTiles, setCurrentTiles] = useState(randomizeArray(originalTiles));
   
-  const [player1CurrentTiles, setPlayer1CurrentTiles] = useState(initialPlayer1Tiles);
-  const [player2CurrentTiles, setPlayer2CurrentTiles] = useState(initialPlayer2Tiles);
+  const [player1CurrentTiles, setPlayer1CurrentTiles] = useState([]);
+  const [player2CurrentTiles, setPlayer2CurrentTiles] = useState([]);
   
   
   const isGameWon = false;
@@ -91,6 +87,19 @@ function DominoGame({ onExitToMenu }) {
       return () => clearInterval(intervalID);
     }
   }, [currentTimer, isGameWon]);
+  
+  const newTiles = currentTiles.slice();
+  
+  // Give the players their corresponding tiles
+  useEffect(() => {
+    // If the tile bank is full, we distribute 7 tiles to each player
+    if (newTiles.length >= 28) {
+      setPlayer1CurrentTiles(initializePlayerTiles(newTiles));
+      setPlayer2CurrentTiles(initializePlayerTiles(newTiles));
+
+      setCurrentTiles(newTiles);
+    }
+  }, []);
   
   
   // Confirm if the user wants to exit the game, and take appropiate action
@@ -115,11 +124,25 @@ function DominoGame({ onExitToMenu }) {
 
   const formattedTimer = minutes + ':' + seconds;
   
+  
   const player1Tiles = player1CurrentTiles.map((value, index) => {
     return (
       <DominoTile key={index} tile={value.src} />
     )
   });
+  
+  const player2Tiles = player2CurrentTiles.map((value, index) => {
+    return (
+      <DominoTile key={index} tile={value.src} />
+    )
+  });
+  
+  const DEBUG_TILES = currentTiles.map((value, index) => {
+    return (
+      <DominoTile key={index} tile={value.src} />
+    )
+  });
+  
   
   
   return (
@@ -169,7 +192,7 @@ function DominoGame({ onExitToMenu }) {
           <PlayerRow>
             <Title>Jugador 2</Title>
             <PlayerTiles>
-              {/* {player2CurrentTiles} */}
+              {player2Tiles}
             </PlayerTiles>
           </PlayerRow>
         </PlayerArea>
