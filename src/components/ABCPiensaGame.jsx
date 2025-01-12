@@ -81,8 +81,8 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
   }, [currentTimer, isGameWon, isAnimationOver]);
   
   
-  // When the game ends (losing, or retrying)
-  function handleGameOver() {
+  // When the user wants to play again
+  function handleRetryGame() {
     onRetry('abc-piensa-difficulty-menu');
   }
   
@@ -261,14 +261,14 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
   if (isGameWon) {
     return (
       <ABCPiensaWinnerScreen
-        onRetry={handleGameOver}
+        onRetry={handleRetryGame}
         onExitToMenu={onExitToMenu}
         finishTimer={currentTimer}
       />
     );
   } else if (currentTimer <= 0) {
     return (
-      <ABCPiensaLoserScreen onRetry={handleGameOver} />
+      <ABCPiensaLoserScreen onRetry={handleRetryGame} />
     );
   } else {
     return (

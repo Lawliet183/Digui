@@ -5,31 +5,13 @@ import styled, { createGlobalStyle, keyframes, css } from 'styled-components';
 import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
 import DominoImageDatabase from './DominoImageDatabase.jsx';
 import DominoTile from './DominoTile.jsx';
+import DominoGameOverDialog from './DominoGameOverDialog.jsx';
 
 
 // Starting timer in seconds
 const startingTimer = 60;
 
-  // const test = [
-  //   [
-  //     {
-        
-  //     },
-  //     {
-        
-  //     }
-  //   ],
-    
-  //   [
-  //     {
-        
-  //     },
-  //     {
-        
-  //     }
-  //   ]
-  // ]
-
+// A copy of all of the tiles
 const originalTiles = DominoImageDatabase.slice();
 
 
@@ -76,18 +58,21 @@ function DominoGame({ onExitToMenu }) {
   const [player2CurrentTiles, setPlayer2CurrentTiles] = useState([]);
   
   
-  const isGameWon = false;
+  const player1HasTiles = (player1CurrentTiles.length > 0) ? true : false;
+  const player2HasTiles = (player2CurrentTiles.length > 0) ? true : false;
+  const isGameOver = !player1HasTiles || !player2HasTiles || currentTimer <= 0;
   
   // Make the timer tick down to 0
   useEffect(() => {
-    if (currentTimer > 0 && !isGameWon) {
+    if (currentTimer > 0 && !isGameOver) {
       const intervalID = setInterval(() => {
         setCurrentTimer(currentTimer - 1);
+        player2CurrentTiles.splice(0, 7);
       }, 1000);
 
       return () => clearInterval(intervalID);
     }
-  }, [currentTimer, isGameWon]);
+  }, [currentTimer, isGameOver]);
   
   // Give the players their corresponding tiles
   useEffect(() => {
@@ -103,6 +88,19 @@ function DominoGame({ onExitToMenu }) {
   }, []);
   
   
+  // Initialize the game whenever the user wants to play again
+  function initializeGame() {
+    setShowExitDialog(false);
+    setCurrentTimer(startingTimer);
+    
+    const newTiles = randomizeArray(originalTiles).slice();
+    
+    setPlayer1CurrentTiles(initializePlayerTiles(newTiles));
+    setPlayer2CurrentTiles(initializePlayerTiles(newTiles));
+    setCurrentTiles(newTiles);
+  }
+  
+  
   // Confirm if the user wants to exit the game, and take appropiate action
   function handleConfirmationDialog() {
     setShowExitDialog(true);
@@ -114,6 +112,11 @@ function DominoGame({ onExitToMenu }) {
 
   function handleCancelExit() {
     setShowExitDialog(false);
+  }
+  
+  // When the user wants to play again
+  function handleRetryGame() {
+    initializeGame();
   }
   
   
@@ -138,13 +141,55 @@ function DominoGame({ onExitToMenu }) {
     )
   });
   
-  const DEBUG_TILES = currentTiles.map((value, index) => {
-    return (
-      <DominoTile key={index} tile={value.src} />
-    )
-  });
+  // const DEBUG_TILES = currentTiles.map((value, index) => {
+  //   return (
+  //     <DominoTile key={index} tile={value.src} />
+  //   )
+  // });
   
+  let winner;
+  if (!player1HasTiles) {
+    winner = 1;
+  } else if (!player2HasTiles) {
+    winner = 2;
+  } else {
+    winner = null;
+  }
   
+  let content;
+  if (isGameOver) {
+    content = 
+      <DominoGameOverDialog
+        winner={winner}
+        onConfirmationDialog={handleConfirmationDialog}
+        onRetry={handleRetryGame}
+      />
+  } else {
+    content =
+      <>
+        <StyledBoard>
+
+        </StyledBoard>
+
+        <StyledButton>Robar ficha</StyledButton>
+
+        <PlayerArea>
+          <PlayerRow>
+            <Title>Jugador 1</Title>
+            <PlayerTiles>
+              {player1Tiles}
+            </PlayerTiles>
+          </PlayerRow>
+
+          <PlayerRow>
+            <Title>Jugador 2</Title>
+            <PlayerTiles>
+              {player2Tiles}
+            </PlayerTiles>
+          </PlayerRow>
+        </PlayerArea>
+      </>
+  }
   
   return (
     <>
@@ -176,27 +221,7 @@ function DominoGame({ onExitToMenu }) {
           />
         }
         
-        <StyledBoard>
-          
-        </StyledBoard>
-        
-        <StyledButton>Robar ficha</StyledButton>
-        
-        <PlayerArea>
-          <PlayerRow>
-            <Title>Jugador 1</Title>
-            <PlayerTiles>
-              {player1Tiles}
-            </PlayerTiles>
-          </PlayerRow>
-          
-          <PlayerRow>
-            <Title>Jugador 2</Title>
-            <PlayerTiles>
-              {player2Tiles}
-            </PlayerTiles>
-          </PlayerRow>
-        </PlayerArea>
+        {content}
       </Container>
     </>
   );
