@@ -60,6 +60,7 @@ function DominoGame({ onExitToMenu }) {
   
   const player1HasTiles = (player1CurrentTiles.length > 0) ? true : false;
   const player2HasTiles = (player2CurrentTiles.length > 0) ? true : false;
+  
   const isGameOver = !player1HasTiles || !player2HasTiles || currentTimer <= 0;
   
   // Make the timer tick down to 0
@@ -67,7 +68,6 @@ function DominoGame({ onExitToMenu }) {
     if (currentTimer > 0 && !isGameOver) {
       const intervalID = setInterval(() => {
         setCurrentTimer(currentTimer - 1);
-        player2CurrentTiles.splice(0, 7);
       }, 1000);
 
       return () => clearInterval(intervalID);
