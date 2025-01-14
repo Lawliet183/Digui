@@ -478,12 +478,6 @@ const Timer = styled.div`
   `}
 `;
 
-const HighlightedSide = styled.div`
-  border: 2px solid #ff6f61;
-  border-radius: 6px;
-  animation: ${pulse} 2s infinite;
-`;
-
 const Title = styled.h2`
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
@@ -589,17 +583,23 @@ const StyledButton = styled.button`
   margin-bottom: 10px;
 `;
 
-const RotateScreenMessage = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  font-family: 'Poppins', sans-serif;
-  color: #6b21a8;
-  height: 100vh;
-  width: 100vw;
-  text-align: center;
-`;
+// const RotateScreenMessage = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   font-size: 24px;
+//   font-family: 'Poppins', sans-serif;
+//   color: #6b21a8;
+//   height: 100vh;
+//   width: 100vw;
+//   text-align: center;
+// `;
+
+// const HighlightedSide = styled.div`
+//   border: 2px solid #ff6f61;
+//   border-radius: 6px;
+//   animation: ${pulse} 2s infinite;
+// `;
 
 
 export default DominoGame
