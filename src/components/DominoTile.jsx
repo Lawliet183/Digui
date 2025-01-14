@@ -2,10 +2,17 @@ import styled from 'styled-components';
 
 
 // DominoTile component
-function DominoTile({ tile }) {
+function DominoTile({ tile, onSelected, isFlipped }) {
+  let actualTile;
+  if (isFlipped) {
+    actualTile = <FlippedTile>?</FlippedTile>
+  } else {
+    actualTile = <TileImage src={tile} />
+  }
+  
   return (
-    <TileContainer>
-      <TileImage src={tile} />
+    <TileContainer onClick={onSelected}>
+      {actualTile}
     </TileContainer>
   );
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import styled, { createGlobalStyle, keyframes, css } from 'styled-components';
+import styled, { createGlobalStyle, css, keyframes } from 'styled-components';
 
 // Components
 import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
@@ -57,10 +57,17 @@ function DominoGame({ onExitToMenu }) {
   const [player1CurrentTiles, setPlayer1CurrentTiles] = useState([]);
   const [player2CurrentTiles, setPlayer2CurrentTiles] = useState([]);
   
+  // The player that's currently playing
+  const [currentPlayer, setCurrentPlayer] = useState(1);
+  
+  // The tiles that are currently placed in the board
+  const [currentBoard, setCurrentBoard] = useState([]);
+  
   
   const player1HasTiles = (player1CurrentTiles.length > 0) ? true : false;
   const player2HasTiles = (player2CurrentTiles.length > 0) ? true : false;
   
+  // The game ends if one of the player has no tiles, or if the time ran out
   const isGameOver = !player1HasTiles || !player2HasTiles || currentTimer <= 0;
   
   // Make the timer tick down to 0
@@ -98,6 +105,71 @@ function DominoGame({ onExitToMenu }) {
     setPlayer1CurrentTiles(initializePlayerTiles(newTiles));
     setPlayer2CurrentTiles(initializePlayerTiles(newTiles));
     setCurrentTiles(newTiles);
+    setCurrentPlayer(1);
+    setCurrentBoard([]);
+  }
+  
+  // Check if the tile that the player wants to place is a valid move
+  function isMoveValid(tile) {
+    // If the board is empty, we can place a tile
+    if (currentBoard.length <= 0) {
+      return true;
+    }
+    
+    const leftEnd = currentBoard[0];
+    const rightEnd = currentBoard[currentBoard.length - 1];
+
+    return (
+      // Check the left end of the tile for a match
+      tile.leftNumber === leftEnd.leftNumber ||
+      tile.leftNumber === rightEnd.rightNumber ||
+      tile.leftShape === leftEnd.leftShape ||
+      tile.leftShape === rightEnd.rightShape ||
+      tile.leftColor === leftEnd.leftColor ||
+      tile.leftColor === rightEnd.rightColor ||
+      
+      // Check the right end of the tile for a match
+      tile.rightNumber === leftEnd.leftNumber ||
+      tile.rightNumber === rightEnd.rightNumber ||
+      tile.rightShape === leftEnd.leftShape ||
+      tile.rightShape === rightEnd.rightShape ||
+      tile.rightColor === leftEnd.leftColor ||
+      tile.rightColor === rightEnd.rightColor
+    );
+  }
+  
+  function placeTileOnBoard(tile) {
+    // If the board is empty, we just place the tile
+    if (currentBoard.length <= 0) {
+      setCurrentBoard([tile]);
+    } else {
+      const leftEnd = currentBoard[0];
+      const rightEnd = currentBoard[currentBoard.length - 1];
+      
+      const leftEndMatch =
+        tile.leftNumber === leftEnd.leftNumber ||
+        tile.leftShape === leftEnd.leftShape ||
+        tile.leftColor === leftEnd.leftColor ||
+        tile.rightNumber === leftEnd.leftNumber ||
+        tile.rightShape === leftEnd.leftShape ||
+        tile.rightColor === leftEnd.leftColor;
+      
+      const rightEndMatch =
+        tile.leftNumber === rightEnd.rightNumber ||
+        tile.leftShape === rightEnd.rightShape ||
+        tile.leftColor === rightEnd.rightColor ||
+        tile.rightNumber === rightEnd.rightNumber ||
+        tile.rightShape === rightEnd.rightShape ||
+        tile.rightColor === rightEnd.rightColor;
+      
+      // If there's a match on the left end, we prepend the tile;
+      // Otherwise, if the match is on the right end, we append the tile
+      if (leftEndMatch) {
+        setCurrentBoard([tile, ...currentBoard]);
+      } else if (rightEndMatch) {
+        setCurrentBoard([...currentBoard, tile]);
+      }
+    }
   }
   
   
@@ -119,6 +191,26 @@ function DominoGame({ onExitToMenu }) {
     initializeGame();
   }
   
+  // When the user clicks on a tile, check if its a valid tile and place it in the board
+  function handleTileClick(tile, playerNumber) {
+    if (currentPlayer === playerNumber && isMoveValid(tile)) {
+      placeTileOnBoard(tile);
+      
+      // Remove the tile that was selected from the player's hand
+      if (currentPlayer === 1) {
+        const newPlayerTiles = player1CurrentTiles.filter((prevTile) => prevTile !== tile);
+        setPlayer1CurrentTiles(newPlayerTiles);
+      } else {
+        const newPlayerTiles = player2CurrentTiles.filter((prevTile) => prevTile !== tile);
+        setPlayer2CurrentTiles(newPlayerTiles);
+      }
+      
+      // Pass the turn to the next player
+      const nextPlayer = (currentPlayer === 1) ? 2 : 1;
+      setCurrentPlayer(nextPlayer);
+    }
+  }
+  
   
   // Calculating the currently displayed timer and formatting it
   const minutes = Math.floor(currentTimer / 60);
@@ -129,15 +221,33 @@ function DominoGame({ onExitToMenu }) {
   const formattedTimer = minutes + ':' + seconds;
   
   
-  const player1Tiles = player1CurrentTiles.map((value, index) => {
+  // The player tiles converted to domino tiles
+  const player1Tiles = player1CurrentTiles.map((tile, index) => {
     return (
-      <DominoTile key={index} tile={value.src} />
+      <DominoTile
+        key={index}
+        tile={tile.src}
+        onSelected={() => handleTileClick(tile, 1)}
+        isFlipped={currentPlayer !== 1}
+      />
     )
   });
   
-  const player2Tiles = player2CurrentTiles.map((value, index) => {
+  const player2Tiles = player2CurrentTiles.map((tile, index) => {
     return (
-      <DominoTile key={index} tile={value.src} />
+      <DominoTile
+        key={index}
+        tile={tile.src}
+        onSelected={() => handleTileClick(tile, 2)}
+        isFlipped={currentPlayer !== 2}
+      />
+    )
+  });
+  
+  // The board converted to domino tiles
+  const board = currentBoard.map((tile, index) => {
+    return (
+      <DominoTile key={index} tile={tile.src} />
     )
   });
   
@@ -147,6 +257,10 @@ function DominoGame({ onExitToMenu }) {
   //   )
   // });
   
+  // Make the timer blink if the players are running out of time
+  const isTimerBlinking = (currentTimer <= 15) ? true : false;
+  
+  // The player who has 0 tiles is the winner
   let winner;
   if (!player1HasTiles) {
     winner = 1;
@@ -168,20 +282,20 @@ function DominoGame({ onExitToMenu }) {
     content =
       <>
         <StyledBoard>
-
+          {board}
         </StyledBoard>
 
         <StyledButton>Robar ficha</StyledButton>
 
         <PlayerArea>
-          <PlayerRow>
+          <PlayerRow active={currentPlayer === 1}>
             <Title>Jugador 1</Title>
             <PlayerTiles>
               {player1Tiles}
             </PlayerTiles>
           </PlayerRow>
 
-          <PlayerRow>
+          <PlayerRow active={currentPlayer === 2}>
             <Title>Jugador 2</Title>
             <PlayerTiles>
               {player2Tiles}
@@ -211,7 +325,7 @@ function DominoGame({ onExitToMenu }) {
         <Header>
           <ExitButton onClick={handleConfirmationDialog}>&lt;-</ExitButton>
           
-          <Timer>Tiempo restante: {formattedTimer}</Timer>
+          <Timer isBlinking={isTimerBlinking}>Tiempo restante: {formattedTimer}</Timer>
         </Header>
         
         {showExitDialog &&
@@ -325,12 +439,10 @@ const Triangle = styled.div`
 const Timer = styled.div`
   font-size: 14px;
   font-weight: bold;
-  ${({ isBlinking }) =>
-    isBlinking &&
-    css`
-      animation: ${pulse} 1s infinite;
-      color: red;
-    `}
+  ${({ isBlinking }) => isBlinking && css`
+    animation: ${pulse} 1s infinite;
+    color: red;
+  `}
 `;
 
 const HighlightedSide = styled.div`
