@@ -109,6 +109,22 @@ function DominoGame({ onExitToMenu }) {
     setCurrentBoard([]);
   }
   
+  function isBoardLeftEndMatch(leftEnd, tile) {
+    return (
+      leftEnd.leftNumber === tile.rightNumber ||
+      leftEnd.leftShape === tile.rightShape ||
+      leftEnd.leftColor === tile.rightColor
+    );
+  }
+  
+  function isBoardRightEndMatch(rightEnd, tile) {
+    return (
+      rightEnd.rightNumber === tile.leftNumber ||
+      rightEnd.rightShape === tile.leftShape ||
+      rightEnd.rightColor === tile.leftColor
+    );
+  }
+  
   // Check if the tile that the player wants to place is a valid move
   function isMoveValid(tile) {
     // If the board is empty, we can place a tile
@@ -118,23 +134,10 @@ function DominoGame({ onExitToMenu }) {
     
     const leftEnd = currentBoard[0];
     const rightEnd = currentBoard[currentBoard.length - 1];
-
+    
     return (
-      // Check the left end of the tile for a match
-      tile.leftNumber === leftEnd.leftNumber ||
-      tile.leftNumber === rightEnd.rightNumber ||
-      tile.leftShape === leftEnd.leftShape ||
-      tile.leftShape === rightEnd.rightShape ||
-      tile.leftColor === leftEnd.leftColor ||
-      tile.leftColor === rightEnd.rightColor ||
-      
-      // Check the right end of the tile for a match
-      tile.rightNumber === leftEnd.leftNumber ||
-      tile.rightNumber === rightEnd.rightNumber ||
-      tile.rightShape === leftEnd.leftShape ||
-      tile.rightShape === rightEnd.rightShape ||
-      tile.rightColor === leftEnd.leftColor ||
-      tile.rightColor === rightEnd.rightColor
+      isBoardLeftEndMatch(leftEnd, tile) ||
+      isBoardRightEndMatch(rightEnd, tile)
     );
   }
   
@@ -147,21 +150,9 @@ function DominoGame({ onExitToMenu }) {
       const leftEnd = currentBoard[0];
       const rightEnd = currentBoard[currentBoard.length - 1];
       
-      const leftEndMatch =
-        tile.leftNumber === leftEnd.leftNumber ||
-        tile.leftShape === leftEnd.leftShape ||
-        tile.leftColor === leftEnd.leftColor ||
-        tile.rightNumber === leftEnd.leftNumber ||
-        tile.rightShape === leftEnd.leftShape ||
-        tile.rightColor === leftEnd.leftColor;
+      const leftEndMatch = isBoardLeftEndMatch(leftEnd, tile);
       
-      const rightEndMatch =
-        tile.leftNumber === rightEnd.rightNumber ||
-        tile.leftShape === rightEnd.rightShape ||
-        tile.leftColor === rightEnd.rightColor ||
-        tile.rightNumber === rightEnd.rightNumber ||
-        tile.rightShape === rightEnd.rightShape ||
-        tile.rightColor === rightEnd.rightColor;
+      const rightEndMatch = isBoardRightEndMatch(rightEnd, tile);
       
       // If there's a match on the left end, we prepend the tile;
       // Otherwise, if the match is on the right end, we append the tile
@@ -180,9 +171,10 @@ function DominoGame({ onExitToMenu }) {
       return null;
     }
     
-    const tile = currentTiles[0];
+    const newTile = currentTiles[0];
     const remainingTiles = currentTiles.slice(1);
     
+    // Place the drawn tile in the player's hand
     if (currentPlayer === 1) {
       setPlayer1CurrentTiles([...player1CurrentTiles, newTile]);
     } else {
@@ -191,7 +183,7 @@ function DominoGame({ onExitToMenu }) {
     
     setCurrentTiles(remainingTiles);
     
-    return tile;
+    return newTile;
   }
   
   
@@ -242,10 +234,14 @@ function DominoGame({ onExitToMenu }) {
       currentPlayerTiles = player2CurrentTiles;
     }
     
+    // Check if the current player's tiles could be placed
     const hasValidMove = currentPlayerTiles.some(isMoveValid);
     
+    // If the player can't place any tile, we draw a new tile
     if (!hasValidMove) {
       const newTile = drawTile();
+      
+      // If the tile bank is empty, or if the newly drawn tile cannot be placed, pass the turn
       if (!newTile || !isMoveValid(newTile)) {
         const nextPlayer = (currentPlayer === 1) ? 2 : 1;
         setCurrentPlayer(nextPlayer);
@@ -293,12 +289,6 @@ function DominoGame({ onExitToMenu }) {
     )
   });
   
-  // const DEBUG_TILES = currentTiles.map((value, index) => {
-  //   return (
-  //     <DominoTile key={index} tile={value.src} />
-  //   )
-  // });
-  
   // Make the timer blink if the players are running out of time
   const isTimerBlinking = (currentTimer <= 15) ? true : false;
   
@@ -311,6 +301,7 @@ function DominoGame({ onExitToMenu }) {
   } else {
     winner = null;
   }
+  
   
   let content;
   if (isGameOver) {
