@@ -9,7 +9,7 @@ import DominoGameOverDialog from './DominoGameOverDialog.jsx';
 
 
 // Starting timer in seconds
-const startingTimer = 60;
+const startingTimer = 6000;
 
 // A copy of all of the tiles
 const originalTiles = DominoImageDatabase.slice();
@@ -138,6 +138,7 @@ function DominoGame({ onExitToMenu }) {
     );
   }
   
+  // Place a tile on the board
   function placeTileOnBoard(tile) {
     // If the board is empty, we just place the tile
     if (currentBoard.length <= 0) {
@@ -170,6 +171,27 @@ function DominoGame({ onExitToMenu }) {
         setCurrentBoard([...currentBoard, tile]);
       }
     }
+  }
+  
+  // Draw a tile from the tile bank
+  function drawTile() {
+    // If the tile bank is empty, return nothing (null)
+    if (currentTiles.length <= 0) {
+      return null;
+    }
+    
+    const tile = currentTiles[0];
+    const remainingTiles = currentTiles.slice(1);
+    
+    if (currentPlayer === 1) {
+      setPlayer1CurrentTiles([...player1CurrentTiles, newTile]);
+    } else {
+      setPlayer2CurrentTiles([...player2CurrentTiles, newTile]);
+    }
+    
+    setCurrentTiles(remainingTiles);
+    
+    return tile;
   }
   
   
@@ -208,6 +230,26 @@ function DominoGame({ onExitToMenu }) {
       // Pass the turn to the next player
       const nextPlayer = (currentPlayer === 1) ? 2 : 1;
       setCurrentPlayer(nextPlayer);
+    }
+  }
+  
+  // Cuando el jugador roba ficha o pasa el turno
+  function handleEndTurn() {
+    let currentPlayerTiles;
+    if (currentPlayer === 1) {
+      currentPlayerTiles = player1CurrentTiles;
+    } else {
+      currentPlayerTiles = player2CurrentTiles;
+    }
+    
+    const hasValidMove = currentPlayerTiles.some(isMoveValid);
+    
+    if (!hasValidMove) {
+      const newTile = drawTile();
+      if (!newTile || !isMoveValid(newTile)) {
+        const nextPlayer = (currentPlayer === 1) ? 2 : 1;
+        setCurrentPlayer(nextPlayer);
+      }
     }
   }
   
@@ -285,18 +327,18 @@ function DominoGame({ onExitToMenu }) {
           {board}
         </StyledBoard>
 
-        <StyledButton>Robar ficha</StyledButton>
+        <StyledButton onClick={handleEndTurn}>Robar ficha / Pasar Turno</StyledButton>
 
         <PlayerArea>
           <PlayerRow active={currentPlayer === 1}>
-            <Title>Jugador 1</Title>
+            <Title active={currentPlayer === 1}>Jugador 1</Title>
             <PlayerTiles>
               {player1Tiles}
             </PlayerTiles>
           </PlayerRow>
 
           <PlayerRow active={currentPlayer === 2}>
-            <Title>Jugador 2</Title>
+            <Title active={currentPlayer === 2}>Jugador 2</Title>
             <PlayerTiles>
               {player2Tiles}
             </PlayerTiles>
