@@ -22,6 +22,11 @@ function GamesScreen({ onGameSelected }) {
     onGameSelected(desiredGame);
   }
   
+  function handleRuletaSelected() {
+    desiredGame = 'ruleta-game';
+    onGameSelected(desiredGame);
+  }
+  
   return (
     <GameContent>
       <GameGrid>
@@ -40,7 +45,7 @@ function GamesScreen({ onGameSelected }) {
           <GameTitle>¡Lanza y Diviértete!</GameTitle>
         </GameCard>
 
-        <GameCard>
+        <GameCard onClick={handleRuletaSelected}>
           <GameImage src={RuletaIcon} />
           <GameTitle>Ruleta de la Suerte</GameTitle>
         </GameCard>

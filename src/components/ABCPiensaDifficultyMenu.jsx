@@ -21,7 +21,7 @@ function ABCPiensaDifficultyMenu({ onExitToMenu, onDifficultySelected }) {
   }
   
   function handleHardDifficulty() {
-    difficultySeconds = 1; // Temporary, just so we have a quick way to lose
+    difficultySeconds = 60;
     onDifficultySelected(difficultySeconds);
   }
   

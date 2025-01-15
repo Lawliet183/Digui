@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import styled, { createGlobalStyle, css, keyframes } from 'styled-components';
 
+// Images
+import DominoImageDatabase from './DominoImageDatabase.jsx';
+
 // Components
 import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
-import DominoImageDatabase from './DominoImageDatabase.jsx';
 import DominoTile from './DominoTile.jsx';
 import DominoGameOverDialog from './DominoGameOverDialog.jsx';
 
 
 // Starting timer in seconds
-const startingTimer = 6000;
+const startingTimer = 60;
 
 // A copy of all of the tiles
 const originalTiles = DominoImageDatabase.slice();
