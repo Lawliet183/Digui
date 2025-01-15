@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import ABCPiensaIcon from './../assets/images/MainMenuScreen/ABCPiensaIcon.svg';
 import DominoIcon from './../assets/images/MainMenuScreen/DominoIcon.png';
 import LanzaIcon from './../assets/images/MainMenuScreen/LanzaIcon.png';
+import RuletaIcon from './../assets/images/MainMenuScreen/RuletaIcon.png';
 import WordDecoderIcon from './../assets/images/MainMenuScreen/WordDecoderIcon.png';
 
 
@@ -40,7 +41,7 @@ function GamesScreen({ onGameSelected }) {
         </GameCard>
 
         <GameCard>
-          <GameImage src={ABCPiensaIcon} />
+          <GameImage src={RuletaIcon} />
           <GameTitle>Ruleta de la Suerte</GameTitle>
         </GameCard>
 
