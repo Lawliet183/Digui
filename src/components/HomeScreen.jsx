@@ -110,16 +110,6 @@ const parallaxScroll = keyframes`
   }
 `;
 
-// Contenedor principal para la pantalla de inicio
-/*
-const HomeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: #f3e5f5;
-`;
-*/
-
 // Contenedor del contenido entre TopBar y BottomNavBar, centrado y desplazable
 const ScrollableContent = styled.div`
   flex: 1;

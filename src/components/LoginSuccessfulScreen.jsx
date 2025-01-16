@@ -20,6 +20,7 @@ function LoginSuccessfulScreen({ onSuccessScreenFinish }) {
   const [currentScreen, setCurrentScreen] = useState('text');
   
   
+  // When the text animation ends
   let animationCount = 0;
   function handleAnimationEnd() {
     animationCount++;

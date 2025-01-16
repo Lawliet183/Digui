@@ -44,6 +44,7 @@ const Message = styled.h1`
   margin-bottom: 40px;
   font-family: 'Baloo 2', cursive;
   font-size: 2.5rem; /* Ajuste del tamaño del texto */
+  
   @media (max-width: 768px) {
     font-size: 2rem; /* Tamaño más pequeño para pantallas móviles */
     margin-bottom: 20px; /* Reduce el margen para pantallas móviles */

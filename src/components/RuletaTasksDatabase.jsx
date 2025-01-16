@@ -26,4 +26,5 @@ const tasks = [
   'Mueve tu mandibula de derecha a izquierda',
 ];
 
+
 export default tasks;

@@ -57,7 +57,7 @@ function InfoScreen({ onFinish }) {
     dots.push(
       <Dot
         key={i}
-        active={isActive} 
+        isActive={isActive} 
         onClick={handleDotClick} 
         whileHover={{ scale: 1.2 }}
       />
@@ -122,6 +122,17 @@ function InfoScreen({ onFinish }) {
   );
 }
 
+
+// Animaciones para imágenes y textos
+const imageVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: "easeOut" } },
+};
+
+const textVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: 0.5 } },
+};
 
 // Estilos generales con fuentes aplicadas
 const Container = styled.div`
@@ -216,7 +227,7 @@ const Dot = styled(motion.div)`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: ${props => (props.active ? "#6b21a8" : "#ccc")}; /* Cambiar el color del punto activo */
+  background-color: ${props => (props.isActive ? "#6b21a8" : "#ccc")}; /* Cambiar el color del punto activo */
   margin: 0 8px;
   cursor: pointer;
 `;
@@ -235,17 +246,6 @@ const NextButton = styled.button`
     background-color: #5a189a;
   }
 `;
-
-// Animaciones para imágenes y textos
-const imageVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: "easeOut" } },
-};
-
-const textVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: 0.5 } },
-};
 
 
 export default InfoScreen;

@@ -81,7 +81,6 @@ const slideIn = keyframes`
   }
 `;
 
-
 // Contenedor principal
 const MainContainer = styled.div`
   display: flex;

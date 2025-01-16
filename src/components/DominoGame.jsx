@@ -416,9 +416,18 @@ const float = keyframes`
 `;
 
 const pulse = keyframes`
-  0% { transform: scale(1); box-shadow: 0 0 6px rgba(255, 0, 0, 0.5); }
-  50% { transform: scale(1.05); box-shadow: 0 0 12px rgba(255, 0, 0, 1); }
-  100% { transform: scale(1); box-shadow: 0 0 6px rgba(255, 0, 0, 0.5); }
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.5);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(255, 0, 0, 1);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.5);
+  }
 `;
 
 const DecorativeSide = styled.div`
@@ -595,12 +604,6 @@ const StyledButton = styled.button`
 //   height: 100vh;
 //   width: 100vw;
 //   text-align: center;
-// `;
-
-// const HighlightedSide = styled.div`
-//   border: 2px solid #ff6f61;
-//   border-radius: 6px;
-//   animation: ${pulse} 2s infinite;
 // `;
 
 

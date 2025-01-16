@@ -8,15 +8,15 @@ import profilePicture from './../assets/images/ProfileScreen/profile-picture.png
 function ProfileScreen() {
   return (
     <SettingsContainer>
-        <AvatarContainer>
-          <img
-            src={profilePicture}
-            alt="Avatar"
-            style={{ width: '100%', borderRadius: '50%' }}
-          />
-        </AvatarContainer>
-        
-        <Username>Liam</Username>
+      <AvatarContainer>
+        <img
+          src={profilePicture}
+          alt="Avatar"
+          style={{ width: '100%', borderRadius: '50%' }}
+        />
+      </AvatarContainer>
+      
+      <Username>Liam</Username>
         
       <SettingsList>
         <SettingsItem>
