@@ -82,7 +82,6 @@ const slideIn = keyframes`
 `;
 
 
-
 // Contenedor principal
 const MainContainer = styled.div`
   display: flex;
@@ -95,24 +94,6 @@ const MainContainer = styled.div`
   animation: ${slideIn} 1s ease-in-out;
   font-family: 'Quicksand', sans-serif; 
 `;
-
-// Aseguramos que TopBar esté siempre visible con position fixed
-const FixedTopBar = styled(TopBar)`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 10; 
-`;
-
-// Aseguramos que BottomNavBar esté siempre visible con position fixed
-const FixedBottomNavBar = styled(BottomNavBar)`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  z-index: 10; 
-`;
-
-
 
 
 export default MainMenuScreen;
