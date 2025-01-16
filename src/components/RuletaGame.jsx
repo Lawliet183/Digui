@@ -9,13 +9,25 @@ import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
 
 
 // Definimos los nombres de los participantes
-const participants = ['Participante 1', 'Participante 2', 'Participante 3'];
+const participantsList = ['Participante 1', 'Participante 2', 'Participante 3'];
 
 
 // RuletaGame component
 function RuletaGame({ onExitToMenu }) {
   // Whether the exit confirmation dialog should be shown or not
   const [showExitDialog, setShowExitDialog] = useState(false);
+  
+  // What participant is currently being highlighted
+  const [participantActiveIndex, setParticipantActiveIndex] = useState(null);
+  
+  // Whether the card should be flipped and reveal the task to be done
+  const [isCardFlipped, setIsCardFlipped] = useState(false);
+  
+  // Whether the roulette is currently spinning
+  const [isRouletteSpinning, setIsRouletteSpinning] = useState(false);
+  
+  // What is the currently selected task
+  const [selectedTask, setSelectedTask] = useState('');
   
   
   // Confirm if the user wants to exit the game, and take appropiate action
@@ -31,11 +43,37 @@ function RuletaGame({ onExitToMenu }) {
     setShowExitDialog(false);
   }
   
-  function test() {
-    const taskIndex = (Math.random() * 100) % tasks.length;
+  // When the user wants to spin the roulette
+  function handleRouletteSpin() {
+    setIsCardFlipped(false);
+    setIsRouletteSpinning(true);
     
-    const totalIterations = 15 + Math.floor(Math.random() * participants.length);
+    const totalIterations = 15 + Math.floor(Math.random() * participantsList.length);
+    
+    for (let i = 1; i <= totalIterations; i++) {
+      setTimeout(() => {
+        const currentActiveIndex = (i - 1) % participantsList.length
+        setParticipantActiveIndex(currentActiveIndex);
+        
+        if (i >= totalIterations) {
+          const taskIndex = Math.floor((Math.random() * 100) % tasks.length);
+          setSelectedTask(tasks[taskIndex]);
+          
+          setTimeout(() => {
+            setIsCardFlipped(true);
+            setIsRouletteSpinning(false);
+          }, 500);
+        }
+      }, i * 200);
+    }
   }
+  
+  
+  const participants = participantsList.map((name, index) => {
+    return (
+      <Participant key={index} isActive={index === participantActiveIndex}>{name}</Participant>
+    );
+  });
   
   
   return (
@@ -43,32 +81,28 @@ function RuletaGame({ onExitToMenu }) {
       <HeaderText>Ruleta de la Suerte</HeaderText>
       
       <ParticipantsContainer>
-        <Participant>
-          
-        </Participant>
-        
-        <Participant>
-          
-        </Participant>
-        
-        <Participant>
-          
-        </Participant>
+        {participants}
       </ParticipantsContainer>
       
       <DeckContainer>
-        <Card isFlipped={false}>
+        <Card isFlipped={isCardFlipped}>
           <CardFront>
             <TextWrapper>Ruleta</TextWrapper>
           </CardFront>
           
           <CardBack>
-            <TextWrapper>XD</TextWrapper>
+            <TextWrapper>{selectedTask}</TextWrapper>
           </CardBack>
         </Card>
       </DeckContainer>
       
-      <SpinButton style={{ marginTop: '20px' }}>Girar la ruleta</SpinButton>
+      <SpinButton
+        onClick={handleRouletteSpin}
+        style={{ marginTop: '20px' }}
+        disabled={isRouletteSpinning}
+      >
+        {isRouletteSpinning ? 'Girando...' : 'Girar la ruleta'}
+      </SpinButton>
       
       <SpinButton onClick={handleConfirmationDialog} style={{ marginTop: '10px' }}>
         Volver al menú principal
@@ -84,12 +118,6 @@ function RuletaGame({ onExitToMenu }) {
   );
 }
 
-
-// Animación para resaltar un participante
-const highlight = keyframes`
-  0% { background-color: #fff; }
-  100% { background-color: #ffe39f; }
-`;
 
 // Contenedor principal con un nuevo fondo de gradiente suave
 const RuletaContainer = styled.div`
