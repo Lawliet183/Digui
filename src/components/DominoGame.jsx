@@ -294,6 +294,7 @@ function DominoGame({ onExitToMenu }) {
   // Make the timer blink if the players are running out of time
   const isTimerBlinking = (currentTimer <= 15) ? true : false;
   
+  
   // The player who has 0 tiles is the winner
   let winner;
   if (!player1HasTiles) {
@@ -339,6 +340,7 @@ function DominoGame({ onExitToMenu }) {
         </PlayerArea>
       </>
   }
+  
   
   return (
     <>
@@ -536,15 +538,20 @@ const ExitButton = styled.button`
 `;
 
 const StyledBoard = styled.div`
+  /* Removing flex-wrap since it makes the tiles go weirdly */
+  /* flex-wrap: wrap; */
+  
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   background-color: #36276b;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 70%;
+  
+  /* Changed width from 70% to 100% */
+  width: 100%;
+  
   flex-grow: 1;
   max-height: 40%;
   margin: 15px 0;

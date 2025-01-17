@@ -1,9 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
+
+// List of words to be used
+import wordList from './WordDecoderWordsListDatabase.jsx';
 
 // Components
 import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
 
+
+// Starting timer in seconds
+const startingTimer = 60;
 
 // Mapa de símbolos y sus letras correspondientes
 const symbolToLetterMap = {
@@ -14,14 +20,6 @@ const symbolToLetterMap = {
   '💙': 'T', '🔽': 'U', '🟢🔼': 'V', '⏫': 'W', '⬆': 'X',
   '❇️': 'Y', '🔳': 'Z',
 };
-
-// Lista de palabras codificadas
-const wordList = [
-  ['💚', '🟦', '★', '★', '🔴'], // "SILLA"
-  ['🟥', '🔴', '💙', '⏺'], // "GATO"
-  ['⏹️', '🔽', '🟦', '🔻', '❤', '⏺'], // "QUIERO"
-  ['🔴', '❤', '🟢⏺', '⏺', '🔶'], // "ARPON"
-];
 
 // Tabla de símbolos con letras para referencia
 const symbolTable = [
@@ -39,6 +37,21 @@ function WordDecoderGame({ onExitToMenu }) {
   // Whether the exit confirmation dialog should be shown or not
   const [showExitDialog, setShowExitDialog] = useState(false);
   
+  // The current ticking timer
+  const [currentTimer, setCurrentTimer] = useState(startingTimer);
+  
+  
+  // Make the timer tick down to 0
+  useEffect(() => {
+    if (currentTimer > 0) {
+      const intervalID = setInterval(() => {
+        setCurrentTimer(currentTimer - 1);
+      }, 1000);
+
+      return () => clearInterval(intervalID);
+    }
+  }, [currentTimer]);
+  
   
   // Confirm if the user wants to exit the game, and take appropiate action
   function handleConfirmationDialog() {
@@ -54,16 +67,35 @@ function WordDecoderGame({ onExitToMenu }) {
   }
   
   
+  const symbols = symbolTable.map(([letter, symbol], index) => {
+    
+    return (
+      <SymbolCell key={index}>
+        <div>{letter}</div>
+        <div>{symbol}</div>
+      </SymbolCell>
+    );
+  });
+  
+  // Calculating the currently displayed timer and formatting it
+  const minutes = Math.floor(currentTimer / 60);
+
+  const moduloTimer = currentTimer % 60;
+  const seconds = (moduloTimer > 9) ? moduloTimer : '0' + moduloTimer;
+
+  const formattedTimer = minutes + ':' + seconds;
+  
+  
   return (
     <GameContainer>
       <ExitButton onClick={handleConfirmationDialog}>&lt;-</ExitButton>
       
-      <TimerContainer>420:69</TimerContainer>
+      <TimerContainer>{formattedTimer}</TimerContainer>
       
       <Title>Decodifica la Palabra</Title>
       
       <SymbolTableContainer>
-        <SymbolCell></SymbolCell>
+        {symbols}
       </SymbolTableContainer>
       
       <EncryptedWordContainer>

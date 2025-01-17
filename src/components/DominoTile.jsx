@@ -22,19 +22,21 @@ function DominoTile({ tile, onSelected, isFlipped }) {
 const TileContainer = styled.div`
   /* Removing margin, gaps are too big otherwise */
   /* margin: 10px; */
+  
+  /* Changed width from 90 to 86 for more accurate 1:1 representation of the original  */
+  /* vector dimensions, also moved them from the children to the parent div (this one) */
+  width: 86px;
+  height: 40px;
+  
   cursor: pointer;
 `;
 
 const TileImage = styled.img`
-  width: 90px;
-  height: 40px;
   border-radius: 10px;
 `;
 
 const FlippedTile = styled.div`
   display: flex;
-  width: 90px;
-  height: 40px;
   background-color: #894192;
   border-radius: 10px;
   justify-content: center;
