@@ -32,6 +32,13 @@ const symbolTable = [
 ];
 
 
+// Select a new word randomly from the words list
+function selectNewWord() {
+  const index = Math.floor((Math.random() * 100) % wordList.length);
+  return wordList[index];
+}
+
+
 // WordDecoderGame component
 function WordDecoderGame({ onExitToMenu }) {
   // Whether the exit confirmation dialog should be shown or not
@@ -39,6 +46,9 @@ function WordDecoderGame({ onExitToMenu }) {
   
   // The current ticking timer
   const [currentTimer, setCurrentTimer] = useState(startingTimer);
+  
+  // The currently selected word
+  const [currentlyEncryptedWord, setCurrentlyEncryptedWord] = useState(selectNewWord());
   
   
   // Make the timer tick down to 0
@@ -68,12 +78,17 @@ function WordDecoderGame({ onExitToMenu }) {
   
   
   const symbols = symbolTable.map(([letter, symbol], index) => {
-    
     return (
       <SymbolCell key={index}>
         <div>{letter}</div>
         <div>{symbol}</div>
       </SymbolCell>
+    );
+  });
+  
+  const encryptedLetters = currentlyEncryptedWord.map((symbol) => {
+    return (
+      <EncryptedLetter key={symbol}>{symbol}</EncryptedLetter>
     );
   });
   
@@ -99,12 +114,14 @@ function WordDecoderGame({ onExitToMenu }) {
       </SymbolTableContainer>
       
       <EncryptedWordContainer>
-        <EncryptedLetter></EncryptedLetter>
+        {encryptedLetters}
       </EncryptedWordContainer>
       
       <AnswerBox>
-        <InputLetter></InputLetter>
+        <input style={{ textTransform: 'uppercase', textAlign: 'center' }} />
       </AnswerBox>
+      
+      <Button>Verificar</Button>
       
       {showExitDialog &&
         <ExitConfirmationDialog

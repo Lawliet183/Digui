@@ -65,7 +65,7 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
   const [isAnimationOver, setIsAnimationOver] = useState(false);
   
   
-  const foundUndroppedCard = currentImages.find((value) => value.isDropped === false);
+  const foundUndroppedCard = currentImages.find((image) => image.isDropped === false);
   
   const isGameWon = foundUndroppedCard ? false : true;
 
