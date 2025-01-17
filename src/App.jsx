@@ -10,6 +10,7 @@ import ABCPiensaDifficultyMenu from './components/ABCPiensaDifficultyMenu.jsx';
 import ABCPiensaGame from './components/ABCPiensaGame.jsx';
 import DominoGame from './components/DominoGame.jsx';
 import RuletaGame from './components/RuletaGame.jsx';
+import WordDecoderGame from './components/WordDecoderGame.jsx';
 
 
 // Did the app initialize already?
@@ -113,6 +114,10 @@ function App() {
     }
     case 'ruleta-game': {
       content = <RuletaGame onExitToMenu={handleExitToMenu} />
+      break;
+    }
+    case 'word-decoder-game': {
+      content = <WordDecoderGame onExitToMenu={handleExitToMenu} />
       break;
     }
     default: {

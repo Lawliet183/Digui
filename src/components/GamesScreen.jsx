@@ -27,6 +27,11 @@ function GamesScreen({ onGameSelected }) {
     onGameSelected(desiredGame);
   }
   
+  function handleWordDecoderSelected() {
+    desiredGame = 'word-decoder-game';
+    onGameSelected(desiredGame);
+  }
+  
   return (
     <GameContent>
       <GameGrid>
@@ -50,7 +55,7 @@ function GamesScreen({ onGameSelected }) {
           <GameTitle>Ruleta de la Suerte</GameTitle>
         </GameCard>
 
-        <GameCard>
+        <GameCard onClick={handleWordDecoderSelected}>
           <GameImage src={WordDecoderIcon} />
           <GameTitle>Decodificador de Palabras</GameTitle>
         </GameCard>
