@@ -90,7 +90,7 @@ function WordDecoderGame({ onExitToMenu }) {
     <GameContainer>
       <ExitButton onClick={handleConfirmationDialog}>&lt;-</ExitButton>
       
-      <TimerContainer>{formattedTimer}</TimerContainer>
+      <TimerContainer>Tiempo restante: {formattedTimer}</TimerContainer>
       
       <Title>Decodifica la Palabra</Title>
       
