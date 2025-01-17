@@ -282,7 +282,7 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
           />
         }
 
-        <Timer>{formattedTimer}</Timer>
+        <Timer>Tiempo restante: {formattedTimer}</Timer>
 
 
         <LettersGrid>
