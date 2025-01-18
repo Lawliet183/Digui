@@ -9,7 +9,7 @@ import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
 
 
 // Starting timer in seconds
-const startingTimer = 60;
+const startingTimer = 6;
 
 // Mapa de símbolos y sus letras correspondientes
 const symbolToLetterMap = {
@@ -50,9 +50,14 @@ function WordDecoderGame({ onExitToMenu }) {
   // The currently selected word
   const [currentlyEncryptedWord, setCurrentlyEncryptedWord] = useState(selectNewWord());
   
-  // The answer the user has typed in for the current encrypted word
+  // The answer the user has typed in for the currently encrypted word
   const [userAnswer, setUserAnswer] = useState('');
   
+  // The current score the user has
+  const [userScore, setUserScore] = useState(0);
+  
+  
+  const isGameOver = (currentTimer <= 0) ? true : false;
   
   // Make the timer tick down to 0
   useEffect(() => {
@@ -64,6 +69,15 @@ function WordDecoderGame({ onExitToMenu }) {
       return () => clearInterval(intervalID);
     }
   }, [currentTimer]);
+  
+  // If the game is over (because the time ran out), then inform the user about it
+  // and exit to the main menu
+  useEffect(() => {
+    if (isGameOver) {
+      alert('¡Se acabó el tiempo!');
+      onExitToMenu();
+    }
+  }, [isGameOver]);
   
   
   // Confirm if the user wants to exit the game, and take appropiate action
@@ -79,15 +93,36 @@ function WordDecoderGame({ onExitToMenu }) {
     setShowExitDialog(false);
   }
   
-  // Whenever the user enters
+  // Whenever the user changes the text in the input box
   function handleTextChanged(event) {
     const inputText = event.target.value;
     setUserAnswer(inputText.toUpperCase());
   }
   
-  //
+  // When the user submits the answer to the currently encrypted word
   function handleVerifyAnswer() {
+    // Decode the word into an array of individual letters...
+    const decodedWordArray = currentlyEncryptedWord.map((symbol) => {
+      return (
+        symbolToLetterMap[symbol]
+      );
+    });
     
+    // ...And join them into a single word
+    const decodedWord = decodedWordArray.join('');
+    
+    // If the answer is correct, we give the user 90 points, select a new encrypted word,
+    // and clear the user's answer;
+    // Otherwise, tell the user to try again
+    if (userAnswer === decodedWord) {
+      alert('¡Correcto! Has ganado 90 puntos.');
+      
+      setUserScore(userScore + 90);
+      setCurrentlyEncryptedWord(selectNewWord());
+      setUserAnswer('');
+    } else {
+      alert('Intenta de nuevo.');
+    }
   }
   
   
@@ -100,9 +135,9 @@ function WordDecoderGame({ onExitToMenu }) {
     );
   });
   
-  const encryptedLetters = currentlyEncryptedWord.map((symbol) => {
+  const encryptedLetters = currentlyEncryptedWord.map((symbol, index) => {
     return (
-      <EncryptedLetter key={symbol}>{symbol}</EncryptedLetter>
+      <EncryptedLetter key={index}>{symbol}</EncryptedLetter>
     );
   });
   
@@ -133,12 +168,15 @@ function WordDecoderGame({ onExitToMenu }) {
       
       <AnswerBox>
         <input
+          key={userScore}
           onChange={handleTextChanged}
           style={{ textTransform: 'uppercase', textAlign: 'center' }}
         />
       </AnswerBox>
-      <p>{userAnswer}</p>
-      <Button onClick={handleVerifyAnswer}>Verificar</Button>
+      
+      <AnswerButton onClick={handleVerifyAnswer}>Verificar</AnswerButton>
+      
+      <ScoreContainer>Puntos: {userScore}</ScoreContainer>
       
       {showExitDialog &&
         <ExitConfirmationDialog
@@ -341,7 +379,8 @@ const InputLetter = styled.input`
 `;
 
 // Botón para verificar la respuesta
-const Button = styled.button`
+// Changed from Button to AnswerButton
+const AnswerButton = styled.button`
   padding: 8px 16px;
   font-size: 16px;
   background-color: #d8b4fe;
@@ -360,6 +399,18 @@ const Button = styled.button`
   @media (max-width: 768px) {
     font-size: 14px;
     padding: 6px 12px;
+  }
+`;
+
+const ScoreContainer = styled.div`
+  margin-top: 15px;
+  font-size: 18px;
+  color: white;
+  font-family: 'Baloo 2', sans-serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 768px) {
+    font-size: 16px;
   }
 `;
 
