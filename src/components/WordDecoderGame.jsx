@@ -9,7 +9,7 @@ import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
 
 
 // Starting timer in seconds
-const startingTimer = 6;
+const startingTimer = 60;
 
 // Mapa de símbolos y sus letras correspondientes
 const symbolToLetterMap = {
@@ -167,11 +167,7 @@ function WordDecoderGame({ onExitToMenu }) {
       </EncryptedWordContainer>
       
       <AnswerBox>
-        <input
-          key={userScore}
-          onChange={handleTextChanged}
-          style={{ textTransform: 'uppercase', textAlign: 'center' }}
-        />
+        <InputBox key={userScore} onChange={handleTextChanged} />
       </AnswerBox>
       
       <AnswerButton onClick={handleVerifyAnswer}>Verificar</AnswerButton>
@@ -217,7 +213,6 @@ const GameContainer = styled.div`
 
   @media (max-width: 768px) {
     padding: 10px;
-    height: auto;
   }
 `;
 
@@ -344,20 +339,24 @@ const EncryptedLetter = styled.div`
 // Caja de texto donde el jugador coloca la palabra decodificada
 const AnswerBox = styled.div`
   display: flex;
-  gap: 8px;
   margin-bottom: 15px;
-
-  @media (max-width: 768px) {
-    gap: 6px;
-  }
+  
+  /* Removing gap, it's unnecessary now */
+  
+  /* gap: 8px; */
+  /* @media (max-width: 768px) { */
+  /*   gap: 6px; */
+  /* } */
 `;
 
 // Input para ingresar la letra decodificada (palabra sin codificar)
-const InputLetter = styled.input`
-  width: 40px;
+// Changed from InputLetter to InputBox
+const InputBox = styled.input`
+  width: 100%;
   height: 40px;
   font-size: 24px;
   text-align: center;
+  text-transform: uppercase;
   border: 2px solid #6b21a8;
   border-radius: 8px;
   background-color: white;
@@ -372,7 +371,6 @@ const InputLetter = styled.input`
   }
 
   @media (max-width: 768px) {
-    width: 35px;
     height: 35px;
     font-size: 20px;
   }
