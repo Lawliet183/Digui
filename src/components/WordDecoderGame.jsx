@@ -50,6 +50,9 @@ function WordDecoderGame({ onExitToMenu }) {
   // The currently selected word
   const [currentlyEncryptedWord, setCurrentlyEncryptedWord] = useState(selectNewWord());
   
+  // The answer the user has typed in for the current encrypted word
+  const [userAnswer, setUserAnswer] = useState('');
+  
   
   // Make the timer tick down to 0
   useEffect(() => {
@@ -74,6 +77,17 @@ function WordDecoderGame({ onExitToMenu }) {
 
   function handleCancelExit() {
     setShowExitDialog(false);
+  }
+  
+  // Whenever the user enters
+  function handleTextChanged(event) {
+    const inputText = event.target.value;
+    setUserAnswer(inputText.toUpperCase());
+  }
+  
+  //
+  function handleVerifyAnswer() {
+    
   }
   
   
@@ -118,10 +132,13 @@ function WordDecoderGame({ onExitToMenu }) {
       </EncryptedWordContainer>
       
       <AnswerBox>
-        <input style={{ textTransform: 'uppercase', textAlign: 'center' }} />
+        <input
+          onChange={handleTextChanged}
+          style={{ textTransform: 'uppercase', textAlign: 'center' }}
+        />
       </AnswerBox>
-      
-      <Button>Verificar</Button>
+      <p>{userAnswer}</p>
+      <Button onClick={handleVerifyAnswer}>Verificar</Button>
       
       {showExitDialog &&
         <ExitConfirmationDialog
