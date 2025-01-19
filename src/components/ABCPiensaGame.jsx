@@ -350,6 +350,7 @@ const GameContainer = styled.div`
   position: relative;
   overflow: hidden;
   animation: ${fadeInGeneral} 1s ease forwards;
+  box-sizing: border-box;
 
   @media (orientation: portrait) {
     padding: 5px;
@@ -395,21 +396,28 @@ const LettersGrid = styled.div`
   ${(props) => props.initialRender && css`
     animation: ${fadeIn} 0.5s ease;
   `}
+  
+  @media (max-height: 650px) {
+    grid-template-columns: repeat(6, 70px);
+  }
+  
+  /* Changed the columns size to 50px and have it in 5 columns for smaller screens */
+  /* Also changed the max widths at which we start changing how the letters look */
 
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(4, 60px);
+  @media (max-width: 960px) {
+    grid-template-columns: repeat(6, 60px);
     grid-gap: 10px;
     padding: 15px;
   }
 
   @media (max-width: 480px) {
-    grid-template-columns: repeat(3, 50px);
+    grid-template-columns: repeat(5, 50px);
     grid-gap: 8px;
     padding: 10px;
   }
 
   @media (orientation: portrait) {
-    grid-template-columns: repeat(3, 50px);
+    grid-template-columns: repeat(5, 50px);
     grid-gap: 8px;
     padding: 10px;
     margin-bottom: 15px;
@@ -504,7 +512,7 @@ const CardBack = styled.img`
 // Contenedor de las imágenes ajustado para 5 columnas
 const ImagesContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 columnas distribuidas equitativamente */
+  grid-template-columns: repeat(9, 1fr); /* 9 columnas distribuidas equitativamente */
   grid-auto-rows: min-content; /* Ajuste de altura automática según el contenido */
   gap: 20px;
   width: 100%;
@@ -521,10 +529,12 @@ const ImagesContainer = styled.div`
   }
 
   @media (max-width: 480px) {
+    grid-template-columns: repeat(7, 1fr);
     width: 100%;
   }
 
   @media (orientation: portrait) {
+    grid-template-columns: repeat(5, 1fr);
     width: 95%;
     padding: 5px;
     margin-top: 10px;
