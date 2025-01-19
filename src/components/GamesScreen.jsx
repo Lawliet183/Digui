@@ -115,8 +115,11 @@ const GameCard = styled.div`
   background-color: #fff;
   border-radius: 20px; /* Aumentamos el border-radius */
   padding: 20px; /* Ajustamos el padding */
-  width: 250px; /* Ajustamos el ancho */
-  height: 250px; /* Hacemos la tarjeta cuadrada */
+  
+  /* Changed width and height from 250px to 235px */
+  width: 235px; /* Ajustamos el ancho */
+  height: 235px; /* Hacemos la tarjeta cuadrada */
+  
   text-align: center;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
   transition: transform 0.3s, box-shadow 0.3s;
