@@ -1,5 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
+import Cookies from 'js-cookie';
+
+// Sounds
+import welcomeAudio from './../assets/audios/MainMenuScreen/Welcome.mp3';
 
 // Components
 import TopBar from './TopBar.jsx';
@@ -13,8 +17,22 @@ import ProfileScreen from './ProfileScreen.jsx';
 
 // MainMenuScreen component
 function MainMenuScreen({ onGameSelected }) {
+  /* State variables */
   // What section should be displayed?
   const [currentSection, setCurrentSection] = useState('games');
+  
+  
+  // When the main menu loads, play the welcome audio if the corresponding cookie hasn't expired
+  useEffect(() => {
+    const hasPlayedWelcomeAudio = Cookies.get('hasPlayedWelcomeAudio');
+    
+    if (!hasPlayedWelcomeAudio) {
+      const audio = new Audio(welcomeAudio);
+      audio.play();
+      
+      Cookies.set('hasPlayedWelcomeAudio', 'true', { expires: 1, sameSite: 'Strict' });
+    }
+  }, []);
   
   
   function handleSectionChange(desiredSection) {
