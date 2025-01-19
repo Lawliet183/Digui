@@ -1,8 +1,15 @@
 import { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
+import useSound from 'use-sound';
 
 // Images
 import ABCPiensaImageDatabase from './ABCPiensaImageDatabase.jsx';
+
+// Sounds
+import selectSound from './../assets/audios/ABCPiensaGame/select.mp3';
+import correctSound from './../assets/audios/ABCPiensaGame/correct.mp3';
+import errorSound from './../assets/audios/ABCPiensaGame/error.mp3';
+import confettiSound from './../assets/audios/ABCPiensaGame/confetti.mp3';
 
 // Components
 import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
@@ -49,6 +56,7 @@ function randomizeArray(originalArray) {
 
 // ABCPiensaGame component
 function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
+  /* State variables */
   // The current ticking timer
   const [currentTimer, setCurrentTimer] = useState(startingTimer);
   
@@ -63,6 +71,20 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
   
   // Whether the starting animation is over or not
   const [isAnimationOver, setIsAnimationOver] = useState(false);
+  
+  
+  /* Sounds functions */
+  // When the user selects a card
+  const [playSelectSound] = useSound(selectSound);
+  
+  // When the user places a matching card with their letter
+  const [playCorrectSound] = useSound(correctSound);
+  
+  // When the user selects more than one card, or the card doesn't match the letter
+  const [playErrorSound] = useSound(errorSound);
+  
+  // When the user wins and the confetti is displayed
+  const [playConfettiSound] = useSound(confettiSound);
   
   
   const foundUndroppedCard = currentImages.find((image) => image.isDropped === false);
@@ -111,13 +133,14 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
   }
   
   // Whenever we select a card, change its isFlipped property to true
-  function handleCardClick(cardIndex) {
+  function handleCardSelected(cardIndex) {
     const isImageFlipped = currentImages.find(
       (image) => image.isFlipped
     );
     
     // If a card has already been selected, we update the images to set the 
-    // error property on the card that the user attempted to select
+    // error property on the card that the user attempted to select,
+    // and we play an error sound
     if (isImageFlipped) {
       setCurrentImages((prevImages) => prevImages.map((value, imageIndex) => {
         if (cardIndex === imageIndex) {
@@ -155,10 +178,13 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
         }));
       }, 500);
       
+      playErrorSound();
+      
       return;
     }
     
-    // Otherwise, we just switch the isFlipped property of the currently selected card
+    // Otherwise, we just switch the isFlipped property of the currently selected card,
+    // playing the corresponding select sound
     const newImages = currentImages.map((value, imageIndex) => {
       if (cardIndex === imageIndex) {
         return (
@@ -176,12 +202,15 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
       }
     });
     
+    playSelectSound();
+    
     setCurrentImages(newImages);
   }
   
   // Whenever we click on a letter, check if the selected image matches the letter.
   // If it does, we change flip the isFlipped and isDropped properties (the card has
-  // now been dropped, and therefore should not be flipped)
+  // now been dropped, and therefore should not be flipped);
+  // Otherwise, indicate an error by playing a sound
   function handleLetterClick(letter) {
     const image = currentImages.find(
       (image) => image.isFlipped && (image.letter === letter)
@@ -206,7 +235,11 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
         }
       });
       
+      playCorrectSound();
+      
       setCurrentImages(newImages);
+    } else {
+      playErrorSound();
     }
   }
   
@@ -238,7 +271,7 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
       return (
         <CardContainer key={image.letter}>
           <FlipCard isFlipped={image.isFlipped} error={image.error}>
-            <CardFront onClick={() => handleCardClick(cardIndex)} />
+            <CardFront onClick={() => handleCardSelected(cardIndex)} />
             <CardBack src={image.src} />
           </FlipCard>
         </CardContainer>
@@ -259,6 +292,8 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
   // If the time runs out, we lose the game;
   // If none of this is true, we keep playing the game
   if (isGameWon) {
+    playConfettiSound();
+    
     return (
       <ABCPiensaWinnerScreen
         onRetry={handleRetryGame}

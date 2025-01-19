@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
+import useSound from 'use-sound';
 
 // Images
 import emptyStar from './../assets/images/ABCPiensaWinnerScreen/EmptyStar.svg';
