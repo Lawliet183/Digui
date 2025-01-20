@@ -1,9 +1,31 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FaHome, FaBook, FaGamepad, FaBell, FaCog } from 'react-icons/fa';
 
 
 // BottomNavBar component
 function BottomNavBar({ onSectionChange }) {
+  // Whether if the screen is too small for correctly displaying the content
+  const [isScreenSmall, setIsScreenSmall] = useState(false);
+  
+  
+  // When the user resizes the window, check if it's too small to properly display the text
+  useEffect(() => {
+    function handleResize() {
+      // A window's too small if it's less than 500px wide
+      if (window.innerWidth <= 500) {
+        setIsScreenSmall(true);
+      } else {
+        setIsScreenSmall(false);
+      }
+    }
+    
+    window.addEventListener('resize', handleResize);
+    
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  
+  
   const buttonSize = 24;
   
   let desiredSection;
@@ -55,7 +77,7 @@ function BottomNavBar({ onSectionChange }) {
       
       <NavButton onClick={handleNotificationsSelected}>
         <FaBell size={buttonSize} />
-        <ButtonLabel>Notificaciones</ButtonLabel>
+        <ButtonLabel>{isScreenSmall ? 'Notif.' : 'Notificaciones'}</ButtonLabel>
       </NavButton>
       
       <NavButton onClick={handleProfileSelected}>
@@ -84,6 +106,9 @@ const NavButton = styled.div`
   color: #ffffff;
   cursor: pointer;
   transition: transform 0.2s;
+  
+  /* Added width with a percent value for proper centering */
+  width: 16%;
 
   &:hover {
     transform: scale(1.1);
