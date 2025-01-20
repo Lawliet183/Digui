@@ -99,7 +99,10 @@ const GameContent = styled.div`
 // Estilos para GameGrid, GameCard, etc.
 const GameGrid = styled.div`
   display: flex; /* Ahora será un contenedor flexible horizontal */
-  gap: 30px; /* Espacio entre tarjetas mayor en pantallas grandes */
+  
+  /* Changed from 30px to 2vw */
+  gap: 2vw; /* Espacio entre tarjetas mayor en pantallas grandes */
+  
   justify-items: center;
   align-items: center;
   scroll-snap-align: start; /* Cada tarjeta se ajusta al inicio del scroll */
@@ -116,9 +119,13 @@ const GameCard = styled.div`
   border-radius: 20px; /* Aumentamos el border-radius */
   padding: 20px; /* Ajustamos el padding */
   
+  /* Changed width from 235px to 16%, and height from 235px to 32vh */
+  width: 16%;
+  height: 32vh;
+  
   /* Changed width and height from 250px to 235px */
-  width: 235px; /* Ajustamos el ancho */
-  height: 235px; /* Hacemos la tarjeta cuadrada */
+  /* width: 235px; */ /* Ajustamos el ancho */
+  /* height: 235px; */ /* Hacemos la tarjeta cuadrada */
   
   text-align: center;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
