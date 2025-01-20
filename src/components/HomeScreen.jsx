@@ -134,7 +134,10 @@ const ScrollableContent = styled.div`
 const ImportantNews = styled.div`
   width: 100%;
   max-width: 800px;
-  padding: 20px;
+  
+  /* Changed from 20px to 20px 0px (20px for top & bottom, 0px for left & right) */
+  padding: 20px 0px;
+  
   margin-bottom: 30px;
   background-color: ${props => props.bgColor};
   border-radius: 10px;
