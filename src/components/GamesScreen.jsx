@@ -142,7 +142,9 @@ const GameCard = styled.div`
     transform: scale(0.98);
   }
 
+  /* Added width equal to 235px */
   @media (max-width: 768px) and (orientation: portrait) {
+    width: 235px;
     max-width: 100%; /* En pantallas verticales, ocupará todo el ancho */
     height: auto; /* Permitimos que el contenido ajuste la altura */
   }

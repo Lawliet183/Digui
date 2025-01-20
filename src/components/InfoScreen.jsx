@@ -188,6 +188,10 @@ const ImageContainer = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1; /* Asegura que la imagen esté sobre las formas */
+  
+  @media (orientation: portrait) and (max-height: 720px) {
+    height: 30vh;
+  }
 `;
 
 const Image = styled(motion.img)`
