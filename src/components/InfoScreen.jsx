@@ -145,6 +145,7 @@ const Container = styled.div`
   background: linear-gradient(135deg, #e0f7fa, #f3e5f5); /* Gradiente más suave */
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 
   /* Añadimos formas geométricas como estrellas, triángulos y círculos */
   &::before, &::after {
