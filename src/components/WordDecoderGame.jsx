@@ -9,7 +9,7 @@ import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
 
 
 // Starting timer in seconds
-const startingTimer = 60;
+const startingTimer = 6000;
 
 // Mapa de símbolos y sus letras correspondientes
 const symbolToLetterMap = {
@@ -278,9 +278,18 @@ const SymbolTableContainer = styled.div`
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(4, 1fr);
+  
+  @media (max-height: 610px) {
+    grid-template-columns: repeat(7, 1fr);
+  }
+    
+  @media (max-height: 540px) {
+    grid-template-columns: repeat(9, 1fr);
+  }
+  
+  /* Changed the media condition to trigger on portrait, not max width */
+  @media (orientation: portrait) {
+    grid-template-columns: repeat(5, 1fr);
     gap: 3px;
     padding: 8px;
   }
