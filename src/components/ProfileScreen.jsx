@@ -65,6 +65,10 @@ const SettingsContainer = styled.div`
   padding-top: 10px; /* Aumentar el espacio para la barra superior */
   padding-bottom: 30px; /* Aumentar el espacio para la barra inferior */
   
+  /* Added padding to the left and right for portrait screens */
+  padding-left: 20px;
+  padding-right: 20px;
+  
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow-y: auto; /* Hacer scroll si el contenido es demasiado grande */
 `;
