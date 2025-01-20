@@ -58,9 +58,17 @@ function ABCPiensaWinnerScreen({ onRetry, onExitToMenu, finishTimer }) {
         <Score>Puntos: {score}</Score>
         
         <StarsContainer>
-          <Star src={fullStar} delay={1.0} />
-          <Star src={stars >= 2 ? fullStar : emptyStar} delay={1.8} />
-          <Star src={stars >= 3 ? fullStar : emptyStar} delay={2.6} />
+          <Star src={fullStar} delay={1.0} alt='Estrella llena' />
+          <Star
+            src={(stars >= 2) ? fullStar : emptyStar}
+            delay={1.8}
+            alt={(stars >= 2) ? 'Estrella llena' : 'Estrella vacía'}
+          />
+          <Star
+            src={(stars >= 3) ? fullStar : emptyStar}
+            delay={2.6}
+            alt={(stars >= 3) ? 'Estrella llena' : 'Estrella vacía'}
+          />
         </StarsContainer>
         
         <Button onClick={onRetry}>Jugar de nuevo</Button>

@@ -272,7 +272,7 @@ function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
         <CardContainer key={image.letter}>
           <FlipCard isFlipped={image.isFlipped} error={image.error}>
             <CardFront onClick={() => handleCardSelected(cardIndex)} />
-            <CardBack src={image.src} />
+            <CardBack src={image.src} alt={image.alt} />
           </FlipCard>
         </CardContainer>
       );

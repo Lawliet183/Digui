@@ -36,27 +36,27 @@ function GamesScreen({ onGameSelected }) {
     <GameContent>
       <GameGrid>
         <GameCard onClick={handleABCPiensaSelected}>
-          <GameImage src={ABCPiensaIcon} />
+          <GameImage src={ABCPiensaIcon} alt='Icono de ABC Piensa' />
           <GameTitle>ABC Piensa!</GameTitle>
         </GameCard>
 
         <GameCard onClick={handleDominoSelected}>
-          <GameImage src={DominoIcon} />
+          <GameImage src={DominoIcon} alt='Icono de Domino' />
           <GameTitle>Dominó</GameTitle>
         </GameCard>
 
         <GameCard>
-          <GameImage src={LanzaIcon} />
+          <GameImage src={LanzaIcon} alt='Icono de Lanza y Diviértete' />
           <GameTitle>¡Lanza y Diviértete!</GameTitle>
         </GameCard>
 
         <GameCard onClick={handleRuletaSelected}>
-          <GameImage src={RuletaIcon} />
+          <GameImage src={RuletaIcon} alt='Icono de Ruleta de la Suerte' />
           <GameTitle>Ruleta de la Suerte</GameTitle>
         </GameCard>
 
         <GameCard onClick={handleWordDecoderSelected}>
-          <GameImage src={WordDecoderIcon} />
+          <GameImage src={WordDecoderIcon} alt='Icono de Decodificador de Palabras' />
           <GameTitle>Decodificador de Palabras</GameTitle>
         </GameCard>
       </GameGrid>

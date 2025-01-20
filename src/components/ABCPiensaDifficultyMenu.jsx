@@ -56,7 +56,7 @@ function ABCPiensaDifficultyMenu({ onExitToMenu, onDifficultySelected }) {
       />
       
       <BackButton onClick={onExitToMenu}>
-        <img src={backArrow} />
+        <img src={backArrow} alt='Regresar al menu principal' />
       </BackButton>
       
       <TitleContainer>

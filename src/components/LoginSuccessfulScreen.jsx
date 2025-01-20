@@ -37,7 +37,7 @@ function LoginSuccessfulScreen({ onSuccessScreenFinish }) {
     case 'text': {
       content =
         <SuccessContainer>
-          <CheckIcon src={checkIcon} />
+          <CheckIcon src={checkIcon} alt='Icono de exito' />
           <SuccessText 
             onAnimationEnd={handleAnimationEnd}
           >
@@ -49,13 +49,13 @@ function LoginSuccessfulScreen({ onSuccessScreenFinish }) {
     case 'logo': {
       content =
         <LogoContainer>
-          <CircleLogo src={logoCircle} />
+          <CircleLogo src={logoCircle} alt='Anillo del logo de Digui' />
           <LettersContainer>
-            <Letter src={letterD} delay={3} />
-            <Letter src={letterI} delay={3.5} />
-            <Letter src={letterG} delay={4} />
-            <Letter src={letterU} delay={4.5} />
-            <Letter src={letterI_2} delay={5} onAnimationEnd={onSuccessScreenFinish} />
+            <Letter src={letterD} delay={3} alt='D' />
+            <Letter src={letterI} delay={3.5} alt='I' />
+            <Letter src={letterG} delay={4} alt='G' />
+            <Letter src={letterU} delay={4.5} alt='U' />
+            <Letter src={letterI_2} delay={5} onAnimationEnd={onSuccessScreenFinish} alt='I' />
           </LettersContainer>
         </LogoContainer>
       break;
@@ -69,7 +69,7 @@ function LoginSuccessfulScreen({ onSuccessScreenFinish }) {
     <Background>
       <FloatingImage
         src={triangle}
-        alt="Triangle"
+        alt="Triangulo"
         size="120px"
         top="10%"
         left="15%"
@@ -78,7 +78,7 @@ function LoginSuccessfulScreen({ onSuccessScreenFinish }) {
       
       <FloatingImage
         src={circle}
-        alt="Circle"
+        alt="Circulo"
         size="100px"
         top="70%"
         right="10%"
@@ -87,7 +87,7 @@ function LoginSuccessfulScreen({ onSuccessScreenFinish }) {
       
       <FloatingImage
         src={star}
-        alt="Star"
+        alt="Estrella"
         size="80px"
         bottom="20%"
         left="20%"

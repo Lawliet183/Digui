@@ -7,7 +7,7 @@ function DominoTile({ tile, onSelected, isFlipped }) {
   if (isFlipped) {
     actualTile = <FlippedTile>?</FlippedTile>
   } else {
-    actualTile = <TileImage src={tile} />
+    actualTile = <TileImage src={tile} alt='Ficha de Domino' />
   }
   
   return (
