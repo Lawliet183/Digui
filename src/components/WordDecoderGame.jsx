@@ -9,7 +9,7 @@ import ExitConfirmationDialog from './ExitConfirmationDialog.jsx';
 
 
 // Starting timer in seconds
-const startingTimer = 6000;
+const startingTimer = 60;
 
 // Mapa de símbolos y sus letras correspondientes
 const symbolToLetterMap = {

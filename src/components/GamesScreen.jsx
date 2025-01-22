@@ -22,6 +22,11 @@ function GamesScreen({ onGameSelected }) {
     onGameSelected(desiredGame);
   }
   
+  function handleLanzaSelected() {
+    desiredGame = 'lanza-game';
+    onGameSelected(desiredGame);
+  }
+  
   function handleRuletaSelected() {
     desiredGame = 'ruleta-game';
     onGameSelected(desiredGame);
@@ -45,7 +50,7 @@ function GamesScreen({ onGameSelected }) {
           <GameTitle>Dominó</GameTitle>
         </GameCard>
 
-        <GameCard>
+        <GameCard onClick={handleLanzaSelected}>
           <GameImage src={LanzaIcon} alt='Icono de Lanza y Diviértete' />
           <GameTitle>¡Lanza y Diviértete!</GameTitle>
         </GameCard>

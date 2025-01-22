@@ -112,6 +112,10 @@ function App() {
       content = <DominoGame onExitToMenu={handleExitToMenu} />
       break;
     }
+    case 'lanza-game': {
+      
+      break;
+    }
     case 'ruleta-game': {
       content = <RuletaGame onExitToMenu={handleExitToMenu} />
       break;
