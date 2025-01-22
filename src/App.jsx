@@ -9,6 +9,7 @@ import MainMenuScreen from './components/MainMenuScreen.jsx';
 import ABCPiensaDifficultyMenu from './components/ABCPiensaDifficultyMenu.jsx';
 import ABCPiensaGame from './components/ABCPiensaGame.jsx';
 import DominoGame from './components/DominoGame.jsx';
+import LanzaGame from './components/LanzaGame.jsx';
 import RuletaGame from './components/RuletaGame.jsx';
 import WordDecoderGame from './components/WordDecoderGame.jsx';
 
@@ -113,7 +114,7 @@ function App() {
       break;
     }
     case 'lanza-game': {
-      
+      content = <LanzaGame onExitToMenu={handleExitToMenu} />
       break;
     }
     case 'ruleta-game': {
