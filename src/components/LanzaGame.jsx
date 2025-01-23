@@ -15,6 +15,8 @@ const originalLetters = [
   'C', 'J', 'P', 'Z', 'S', '❤️', 'W',
 ];
 
+const categoriesList = Object.keys(categories);
+
 
 // LanzaGame component
 function LanzaGame({ onExitToMenu }) {
@@ -25,10 +27,13 @@ function LanzaGame({ onExitToMenu }) {
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   
   // The currently selected prompt to be answered
-  const [selectedPrompt, setSelectedPrompt] = useState('');
+  // const [selectedPrompt, setSelectedPrompt] = useState('');
   
   // The answer the user has typed in for the currently selected prompt
   const [userAnswer, setUserAnswer] = useState('');
+  
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedLetter, setSelectedLetter] = useState('');
   
   
   // Confirm if the user wants to exit the game, and take appropiate action
@@ -46,14 +51,11 @@ function LanzaGame({ onExitToMenu }) {
   
   // When the user "lanza", or otherwise selects a new prompt for play
   function handleLanzarClick() {
-    const categoriesList = Object.keys(categories);
     const categoryIndex = Math.floor((Math.random() * 100) % categoriesList.length);
     const letterIndex = Math.floor((Math.random() * 100) % originalLetters.length);
     
-    const prompt =
-      `${categoriesList[categoryIndex]} que empiece con la letra ${originalLetters[letterIndex]}`;
-    
-    setSelectedPrompt();
+    setSelectedCategory(categoriesList[categoryIndex]);
+    setSelectedLetter(originalLetters[letterIndex]);
     setIsCardFlipped(true);
   }
   
@@ -65,11 +67,16 @@ function LanzaGame({ onExitToMenu }) {
   
   // When the user submits the answer to the currently selected prompt
   function handleVerifyAnswer() {
-    if (userAnswer === selectedPrompt) {
+    const doesLetterMatch = (userAnswer[0] === selectedLetter.toLowerCase());
+    
+    const wordsArray = categories[selectedCategory];
+    const isAnswerValid = (wordsArray.find((word) => word === userAnswer)) ? true : false;
+    if (doesLetterMatch && isAnswerValid) {
       alert('Correcto!');
       
       setIsCardFlipped(false);
-      setSelectedPrompt('');
+      setSelectedCategory('');
+      setSelectedLetter('');
       setUserAnswer('');
     } else {
       alert('Incorrecto!');
@@ -79,9 +86,13 @@ function LanzaGame({ onExitToMenu }) {
   
   const letters = originalLetters.map((letter, index) => {
     return (
-      <LetterCell key={index}>{letter}</LetterCell>
+      <LetterCell key={index} isActive={letter === selectedLetter}>{letter}</LetterCell>
     );
   });
+  
+  
+  
+  const prompt = `${selectedCategory} que empiece con la letra ${selectedLetter}`;
   
   
   return (
@@ -95,7 +106,7 @@ function LanzaGame({ onExitToMenu }) {
           </CardFront>
 
           <CardBack>
-            <TextWrapper>{}</TextWrapper>
+            <TextWrapper>{prompt}</TextWrapper>
           </CardBack>
         </Card>
       </DeckContainer>
@@ -114,7 +125,12 @@ function LanzaGame({ onExitToMenu }) {
         />
       </AnswerBox>
       
-      <AnswerButton onClick={handleVerifyAnswer}>Verificar respuesta</AnswerButton>
+      <AnswerButton
+        disabled={!isCardFlipped}
+        onClick={handleVerifyAnswer}
+      >
+        Verificar respuesta
+      </AnswerButton>
       
       {showExitDialog &&
         <ExitConfirmationDialog
@@ -339,6 +355,7 @@ const LanzarButton = styled.button`
 // For answering to the selected prompt
 const AnswerBox = styled.div`
   display: flex;
+  margin-top: 15px;
   margin-bottom: 15px;
 `;
 
