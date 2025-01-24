@@ -18,22 +18,22 @@ function GamesScreen({ onGameSelected }) {
   }
   
   function handleDominoSelected() {
-    desiredGame = 'domino-game';
+    desiredGame = 'domino';
     onGameSelected(desiredGame);
   }
   
   function handleLanzaSelected() {
-    desiredGame = 'lanza-game';
+    desiredGame = 'lanza-y-diviertete';
     onGameSelected(desiredGame);
   }
   
   function handleRuletaSelected() {
-    desiredGame = 'ruleta-game';
+    desiredGame = 'ruleta';
     onGameSelected(desiredGame);
   }
   
   function handleWordDecoderSelected() {
-    desiredGame = 'word-decoder-game';
+    desiredGame = 'word-decoder';
     onGameSelected(desiredGame);
   }
   
