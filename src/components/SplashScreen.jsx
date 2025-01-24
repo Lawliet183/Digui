@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -6,7 +7,16 @@ import logoDigui from './../assets/images/SplashScreen/Logo DIGUI 2.1.svg';
 
 
 // SplashScreen component
-function SplashScreen() {
+function SplashScreen({ onSplashEnd }) {
+  // If the splash screen is just being shown, we give it 3 seconds
+  // and then we move on to the next screen (info)
+  useEffect(() => {
+    setTimeout(() => {
+      onSplashEnd();
+    }, 3000);
+  }, []);
+  
+  
   return (
     <Container>
       <WelcomeText

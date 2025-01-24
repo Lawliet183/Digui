@@ -57,8 +57,8 @@ function randomizeArray(originalArray) {
 // ABCPiensaGame component
 function ABCPiensaGame({ onExitToMenu, onRetry, startingTimer }) {
   /* State variables */
-  // The current ticking timer
-  const [currentTimer, setCurrentTimer] = useState(startingTimer);
+  // The current ticking timer, if it's 0 we give it a default value of 180 seconds (3 minutes)
+  const [currentTimer, setCurrentTimer] = useState((startingTimer <= 0) ? 180 : startingTimer);
   
   // The current images and their updated properties, randomized once at the beginning
   const [currentImages, setCurrentImages] = useState(randomizeArray(originalImages));
