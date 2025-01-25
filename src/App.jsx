@@ -28,7 +28,8 @@ function App() {
   
   // Used for checking if the Auth0 sdk has loaded or not
   const { isLoading } = useAuth0();
-
+  
+  // If the Auth0 sdk hasn't loaded, we present a loading screen instead
   if (isLoading) {
     return (
       <LoadingScreen />
@@ -42,16 +43,20 @@ function App() {
     navigate('/Digui/info');
   }
   
-  function handleInfoScreenFinish() {
-    navigate('/Digui/join');
+  function handleSuccessScreenFinish() {
+    navigate('/Digui/main-menu');
   }
   
+  // This one is "unnecessary" since it's handled by Auth0 now,
+  // but it's still good for dev purposes
   function handleLoginSuccess() {
     navigate('/Digui/login-success');
   }
   
-  function handleSuccessScreenFinish() {
-    navigate('/Digui/main-menu');
+  // These 3 functions could be removed if we rewrite the respective buttons
+  // that trigger them to use <Link />
+  function handleInfoScreenFinish() {
+    navigate('/Digui/join');
   }
   
   function handleGameSelected(desiredGame) {
@@ -62,6 +67,7 @@ function App() {
     navigate('/Digui/main-menu');
   }
   
+  // This one could also be removed if we used <Link />, but I'm not 100% sure
   function handleDifficultySelected(difficultySeconds) {
     setABCPiensaSeconds(difficultySeconds);
     navigate('/Digui/abc-piensa');
