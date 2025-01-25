@@ -95,7 +95,7 @@ function App() {
         <Route path='word-decoder' element={<WordDecoderGame onExitToMenu={handleExitToMenu} />} />
         
         <Route
-          path='callback'
+          path='login-success'
           element={
             <LoginSuccessfulScreen onSuccessScreenFinish={handleSuccessScreenFinish} />
           }
