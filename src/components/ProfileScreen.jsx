@@ -12,12 +12,8 @@ function ProfileScreen() {
   
   
   // When the user logs out, return to the root page (/Digui)
-  async function handleLogout() {
-    logout({
-      logoutParams: {
-        returnTo: window.location.origin,
-      },
-    });
+  function handleLogout() {
+    logout();
   };
   
   
