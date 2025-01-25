@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import styled, { keyframes } from 'styled-components';
 
 // Images
@@ -6,6 +7,18 @@ import profilePicture from './../assets/images/ProfileScreen/profile-picture.png
 
 // ProfileScreen component
 function ProfileScreen() {
+  const { logout } = useAuth0();
+  
+  
+  async function handleLogout() {
+    logout({
+      logoutParams: {
+        returnTo: window.location.origin,
+      },
+    });
+  };
+  
+  
   return (
     <SettingsContainer>
       <AvatarContainer>
@@ -36,7 +49,7 @@ function ProfileScreen() {
       </SettingsList>
       
       <ChangeChildButton>Cambiar niño</ChangeChildButton>
-      <LogoutButton>Cerrar sesión</LogoutButton>
+      <LogoutButton onClick={handleLogout}>Cerrar sesión</LogoutButton>
     </SettingsContainer>
   );
 }

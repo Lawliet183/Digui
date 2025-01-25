@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import styled, { keyframes } from 'styled-components';
 
 // Images
@@ -6,6 +7,21 @@ import logo from './../assets/images/JoinScreen/logo digui.svg';
 
 // JoinScreen component
 function JoinScreen({ onLogin }) {
+  const { loginWithRedirect } = useAuth0();
+  
+  
+  async function handleLogin() {
+    await loginWithRedirect({
+      appState: {
+        returnTo: "/login-success",
+      },
+      authorizationParams: {
+        screen_hint: "signup",
+      },
+    });
+  };
+  
+  
   return (
     <Background>
       <GeometricShape shape="circle" color="#B3E5FC" size="150px" top="10%" left="5%" />
@@ -22,7 +38,7 @@ function JoinScreen({ onLogin }) {
         
         <LoginBox>
           <Logo src={logo} alt='Logo de DIGUI' />
-          <Button onClick={onLogin}>¡Únete a nosotros!</Button>
+          <Button onClick={handleLogin}>¡Únete a nosotros!</Button>
         </LoginBox>
       </Container>
     </Background>

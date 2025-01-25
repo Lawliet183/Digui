@@ -13,10 +13,7 @@ import DominoGame from './components/DominoGame.jsx';
 import LanzaGame from './components/LanzaGame.jsx';
 import RuletaGame from './components/RuletaGame.jsx';
 import WordDecoderGame from './components/WordDecoderGame.jsx';
-
-
-// Did the app initialize already?
-let isInitialized = false;
+import LoadingScreen from './components/LoadingScreen.jsx';
 
 
 // App component
@@ -100,6 +97,8 @@ function App() {
             <LoginSuccessfulScreen onSuccessScreenFinish={handleSuccessScreenFinish} />
           }
         />
+        
+        <Route path='loading' element={<LoadingScreen />} />
       </Route>
     </Routes>
   );
