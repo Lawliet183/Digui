@@ -39,7 +39,7 @@ function LoadingScreen() {
       />
 
       <LogoContainer>
-        <CircleLogo src={logo} alt='Anillo del logo de Digui' />
+        <CircleLogo src={logo} alt='Logo de Digui' />
       </LogoContainer>
     </Background>
   );

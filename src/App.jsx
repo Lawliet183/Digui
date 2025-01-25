@@ -83,13 +83,16 @@ function App() {
         <Route path='join' element={<JoinScreen onLogin={handleLoginSuccess} />} />
         
         
-        {/* Protected, private paths */}
+        {/* Protected, private paths, we use a props property to pass down the props we need */}
         {/* Main menu */}
         <Route
           path='main-menu'
           element={
             <AuthenticationGuard
-              component={<MainMenuScreen onGameSelected={handleGameSelected} />} 
+              component={MainMenuScreen}
+              props={
+                { onGameSelected: handleGameSelected }
+              }
             />
           }
         />
@@ -99,11 +102,12 @@ function App() {
           path='abc-piensa-difficulty-menu'
           element={
             <AuthenticationGuard
-              component={
-                <ABCPiensaDifficultyMenu
-                  onExitToMenu={handleExitToMenu}
-                  onDifficultySelected={handleDifficultySelected}
-                />
+              component={ABCPiensaDifficultyMenu}
+              props={
+                {
+                  onExitToMenu: handleExitToMenu,
+                  onDifficultySelected: handleDifficultySelected
+                }
               }
             />
           }
@@ -114,12 +118,13 @@ function App() {
           path='abc-piensa'
           element={
             <AuthenticationGuard
-              component={
-                <ABCPiensaGame
-                  onExitToMenu={handleExitToMenu}
-                  onRetry={handleGameSelected}
-                  startingTimer={ABCPiensaSeconds}
-                />
+              component={ABCPiensaGame}
+              props={
+                {
+                  onExitToMenu: handleExitToMenu,
+                  onRetry: handleGameSelected,
+                  startingTimer: ABCPiensaSeconds
+                }
               }
             />
           }
@@ -130,7 +135,10 @@ function App() {
           path='domino'
           element={
             <AuthenticationGuard
-              component={<DominoGame onExitToMenu={handleExitToMenu} />}
+              component={DominoGame}
+              props={
+                { onExitToMenu: handleExitToMenu }
+              }
             /> 
           }
         />
@@ -140,7 +148,10 @@ function App() {
           path='lanza-y-diviertete'
           element={
             <AuthenticationGuard
-              component={<LanzaGame onExitToMenu={handleExitToMenu} />}
+              component={LanzaGame}
+              props={
+                { onExitToMenu: handleExitToMenu }
+              }
             />
           }
         />
@@ -150,7 +161,10 @@ function App() {
           path='ruleta'
           element={
             <AuthenticationGuard
-              component={<RuletaGame onExitToMenu={handleExitToMenu} />}
+              component={RuletaGame}
+              props={
+                { onExitToMenu: handleExitToMenu }
+              }
             />
           }
         />
@@ -160,7 +174,10 @@ function App() {
           path='word-decoder'
           element={
             <AuthenticationGuard
-              component={<WordDecoderGame onExitToMenu={handleExitToMenu} />}
+              component={WordDecoderGame}
+              props={
+                { onExitToMenu: handleExitToMenu }
+              }
             />
           }
         />
@@ -170,8 +187,9 @@ function App() {
           path='login-success'
           element={
             <AuthenticationGuard
-              component={
-                <LoginSuccessfulScreen onSuccessScreenFinish={handleSuccessScreenFinish} />
+              component={LoginSuccessfulScreen}
+              props={
+                { onSuccessScreenFinish: handleSuccessScreenFinish }
               }
             />
           }
@@ -182,7 +200,7 @@ function App() {
           path='loading'
           element={
             <AuthenticationGuard
-              component={<LoadingScreen />}
+              component={LoadingScreen}
             />
           }
         />

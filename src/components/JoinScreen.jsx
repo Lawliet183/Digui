@@ -15,7 +15,7 @@ function JoinScreen({ onLogin }) {
   async function handleLogin() {
     await loginWithRedirect({
       appState: {
-        returnTo: "/login-success",
+        returnTo: "/Digui/login-success",
       },
       authorizationParams: {
         screen_hint: "signup",
