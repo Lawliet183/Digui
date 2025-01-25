@@ -39,7 +39,7 @@ function App() {
   }
   
   function handleLoginSuccess() {
-    navigate('/Digui/callback');
+    navigate('/Digui/login-success');
   }
   
   function handleSuccessScreenFinish() {
