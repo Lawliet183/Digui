@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router';
 
 // Components
+import { AuthenticationGuard } from './components/AuthenticationGuard.jsx';
 import SplashScreen from './components/SplashScreen.jsx'
 import InfoScreen from './components/InfoScreen.jsx';
 import JoinScreen from './components/JoinScreen.jsx';
@@ -23,6 +25,15 @@ function App() {
   
   // Used to navigate programmatically through the app
   const navigate = useNavigate();
+  
+  // Used for checking if the Auth0 sdk has loaded or not
+  const { isLoading } = useAuth0();
+
+  if (isLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
   
   
   // Perhaps we can unify all of these events?
@@ -60,45 +71,115 @@ function App() {
   return (
     <Routes>
       <Route path='/Digui'>
+        {/* Unprotected, public paths */}
         <Route index element={<SplashScreen onSplashEnd={handleSplashEnd} />} />
         <Route path='info' element={<InfoScreen onFinish={handleInfoScreenFinish} />} />
         <Route path='join' element={<JoinScreen onLogin={handleLoginSuccess} />} />
-        <Route path='main-menu' element={<MainMenuScreen onGameSelected={handleGameSelected} />} />
         
+        
+        {/* Protected, private paths */}
+        {/* Main menu */}
+        <Route
+          path='main-menu'
+          element={
+            <AuthenticationGuard
+              component={<MainMenuScreen onGameSelected={handleGameSelected} />} 
+            />
+          }
+        />
+        
+        {/* ABC Piensa difficulty menu */}
         <Route
           path='abc-piensa-difficulty-menu'
           element={
-            <ABCPiensaDifficultyMenu
-              onExitToMenu={handleExitToMenu}
-              onDifficultySelected={handleDifficultySelected}
+            <AuthenticationGuard
+              component={
+                <ABCPiensaDifficultyMenu
+                  onExitToMenu={handleExitToMenu}
+                  onDifficultySelected={handleDifficultySelected}
+                />
+              }
             />
           }
         />
         
+        {/* ABC Piensa */}
         <Route
           path='abc-piensa'
           element={
-            <ABCPiensaGame
-              onExitToMenu={handleExitToMenu}
-              onRetry={handleGameSelected}
-              startingTimer={ABCPiensaSeconds}
+            <AuthenticationGuard
+              component={
+                <ABCPiensaGame
+                  onExitToMenu={handleExitToMenu}
+                  onRetry={handleGameSelected}
+                  startingTimer={ABCPiensaSeconds}
+                />
+              }
             />
           }
         />
         
-        <Route path='domino' element={<DominoGame onExitToMenu={handleExitToMenu} />} />
-        <Route path='lanza-y-diviertete' element={<LanzaGame onExitToMenu={handleExitToMenu} />} />
-        <Route path='ruleta' element={<RuletaGame onExitToMenu={handleExitToMenu} />} />
-        <Route path='word-decoder' element={<WordDecoderGame onExitToMenu={handleExitToMenu} />} />
-        
+        {/* Domino */}
         <Route
-          path='login-success'
+          path='domino'
           element={
-            <LoginSuccessfulScreen onSuccessScreenFinish={handleSuccessScreenFinish} />
+            <AuthenticationGuard
+              component={<DominoGame onExitToMenu={handleExitToMenu} />}
+            /> 
           }
         />
         
-        <Route path='loading' element={<LoadingScreen />} />
+        {/* Lanza y diviertete */}
+        <Route
+          path='lanza-y-diviertete'
+          element={
+            <AuthenticationGuard
+              component={<LanzaGame onExitToMenu={handleExitToMenu} />}
+            />
+          }
+        />
+        
+        {/* Ruleta */}
+        <Route
+          path='ruleta'
+          element={
+            <AuthenticationGuard
+              component={<RuletaGame onExitToMenu={handleExitToMenu} />}
+            />
+          }
+        />
+        
+        {/* Word Decoder */}
+        <Route
+          path='word-decoder'
+          element={
+            <AuthenticationGuard
+              component={<WordDecoderGame onExitToMenu={handleExitToMenu} />}
+            />
+          }
+        />
+        
+        {/* Login success screen */}
+        <Route
+          path='login-success'
+          element={
+            <AuthenticationGuard
+              component={
+                <LoginSuccessfulScreen onSuccessScreenFinish={handleSuccessScreenFinish} />
+              }
+            />
+          }
+        />
+        
+        {/* Loading screen */}
+        <Route
+          path='loading'
+          element={
+            <AuthenticationGuard
+              component={<LoadingScreen />}
+            />
+          }
+        />
       </Route>
     </Routes>
   );

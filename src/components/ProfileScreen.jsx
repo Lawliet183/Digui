@@ -7,9 +7,11 @@ import profilePicture from './../assets/images/ProfileScreen/profile-picture.png
 
 // ProfileScreen component
 function ProfileScreen() {
+  // Used for logging out the user
   const { logout } = useAuth0();
   
   
+  // When the user logs out, return to the root page (/Digui)
   async function handleLogout() {
     logout({
       logoutParams: {

@@ -7,9 +7,11 @@ import logo from './../assets/images/JoinScreen/logo digui.svg';
 
 // JoinScreen component
 function JoinScreen({ onLogin }) {
+  // Used for logging in
   const { loginWithRedirect } = useAuth0();
   
   
+  // When the user wants to join, we redirect them to a sign up screen
   async function handleLogin() {
     await loginWithRedirect({
       appState: {
