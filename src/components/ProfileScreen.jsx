@@ -13,7 +13,11 @@ function ProfileScreen() {
   
   // When the user logs out, return to the root page (/Digui)
   function handleLogout() {
-    logout();
+    logout({
+      logoutParams: {
+        returnTo: window.location.origin + '/Digui',
+      }
+    });
   };
   
   
