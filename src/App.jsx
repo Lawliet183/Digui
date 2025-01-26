@@ -27,7 +27,7 @@ function App() {
   const navigate = useNavigate();
   
   // Used for checking if the Auth0 sdk has loaded or not
-  const { isLoading } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
   
   // If the Auth0 sdk hasn't loaded, we present a loading screen instead
   if (isLoading) {
@@ -40,7 +40,11 @@ function App() {
   // Perhaps we can unify all of these events?
   // Is it even a good idea?
   function handleSplashEnd() {
-    navigate('/Digui/info');
+    if (isAuthenticated) {
+      navigate('/Digui/login-success');
+    } else {
+      navigate('/Digui/info');
+    }
   }
   
   function handleSuccessScreenFinish() {
