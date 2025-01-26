@@ -41,6 +41,7 @@ function selectNewWord() {
 
 // WordDecoderGame component
 function WordDecoderGame({ onExitToMenu }) {
+  /* State variables */
   // Whether the exit confirmation dialog should be shown or not
   const [showExitDialog, setShowExitDialog] = useState(false);
   

@@ -20,6 +20,7 @@ const categoriesList = Object.keys(categories);
 
 // LanzaGame component
 function LanzaGame({ onExitToMenu }) {
+  /* State variables */
   // Whether the exit confirmation dialog should be shown or not
   const [showExitDialog, setShowExitDialog] = useState(false);
   

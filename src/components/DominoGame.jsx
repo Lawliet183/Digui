@@ -46,6 +46,7 @@ function randomizeArray(originalArray) {
 
 // DominoGame component
 function DominoGame({ onExitToMenu }) {
+  /* State variables */
   // Whether the exit confirmation dialog should be shown or not
   const [showExitDialog, setShowExitDialog] = useState(false);
   

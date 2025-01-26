@@ -14,6 +14,7 @@ const participantsList = ['Participante 1', 'Participante 2', 'Participante 3'];
 
 // RuletaGame component
 function RuletaGame({ onExitToMenu }) {
+  /* State variables */
   // Whether the exit confirmation dialog should be shown or not
   const [showExitDialog, setShowExitDialog] = useState(false);
   

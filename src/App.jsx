@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router';
+import Cookies from 'js-cookie';
 
 // Components
 import { AuthenticationGuard } from './components/AuthenticationGuard.jsx';
@@ -27,7 +28,8 @@ function App() {
   const navigate = useNavigate();
   
   // Used for checking if the Auth0 sdk has loaded or not
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { isLoading } = useAuth0();
+  
   
   // If the Auth0 sdk hasn't loaded, we present a loading screen instead
   if (isLoading) {
@@ -40,7 +42,8 @@ function App() {
   // Perhaps we can unify all of these events?
   // Is it even a good idea?
   function handleSplashEnd() {
-    if (isAuthenticated) {
+    const isLoggedIn = Cookies.get('isLoggedIn');
+    if (isLoggedIn) {
       navigate('/Digui/login-success');
     } else {
       navigate('/Digui/info');

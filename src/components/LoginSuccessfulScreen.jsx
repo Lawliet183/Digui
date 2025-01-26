@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
+import Cookies from 'js-cookie';
 
 // Images
 import circle from './../assets/images/circle.svg';
@@ -16,8 +18,22 @@ import letterI_2 from './../assets/images/LoginSuccessfulScreen/letter-i2.svg';
 
 // LoginSuccessfulScreen component
 function LoginSuccessfulScreen({ onSuccessScreenFinish }) {
+  /* State variables */
   // Whether this is the text or logo part
   const [currentScreen, setCurrentScreen] = useState('text');
+  
+  const { isAuthenticated } = useAuth0();
+  
+  
+  // Log in the user if we reach this screen
+  // DISCLAIMER: This is by no means safe, but I really can't get Auth0 to work properly
+  useEffect(() => {
+    const isLoggedIn = Cookies.get('isLoggedIn');
+    
+    if (!isLoggedIn) {
+      Cookies.set('isLoggedIn', 'true', { expires: 1, sameSite: 'Strict' });
+    }
+  }, []);
   
   
   // When the text animation ends
