@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import styled, { keyframes } from 'styled-components';
+import Cookies from 'js-cookie';
 
 // Images
 import profilePicture from './../assets/images/ProfileScreen/profile-picture.png';
@@ -13,6 +14,8 @@ function ProfileScreen() {
   
   // When the user logs out, return to the root page (/Digui)
   function handleLogout() {
+    Cookies.remove('isLoggedIn', { expires: 1, sameSite: 'Strict' });
+    
     logout({
       logoutParams: {
         returnTo: window.location.origin + '/Digui',
