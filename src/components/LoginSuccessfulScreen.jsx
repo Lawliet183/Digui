@@ -30,7 +30,7 @@ function LoginSuccessfulScreen({ onSuccessScreenFinish }) {
   useEffect(() => {
     const isLoggedIn = Cookies.get('isLoggedIn');
     
-    if (!isLoggedIn) {
+    if (!isLoggedIn && isAuthenticated) {
       Cookies.set('isLoggedIn', 'true', { expires: 1, sameSite: 'Strict' });
     }
   }, []);
